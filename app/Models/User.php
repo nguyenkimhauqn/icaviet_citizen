@@ -41,4 +41,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function starredQuestions() {    
+        return $this->belongsToMany(Question::class,'starred_questions', 'user_id', 'question_id');
+    }
 }
