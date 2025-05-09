@@ -64,7 +64,8 @@
                     {{-- Các nút hành động --}}
                     <div class="wp-action justify-between items-center mt-4">
                         {{-- Previous --}}
-                        <a href="{{ route('writing.show', ['index' => ($index - 1 + $total) % $total]) }}" class="btn btn-primary">
+                        <a href="{{ route('writing.show', ['index' => ($index - 1 + $total) % $total]) }}"
+                            class="btn btn-primary">
                             ← Trước
                         </a>
                         {{-- Submit (Kiểm tra) --}}
@@ -96,14 +97,24 @@
 
             // === * 02. Xử lý nút phát audio * ===
             // Phát tự động câu hỏi khi vào trang
-            const autoPlayBtn = $('.play-audio-btn').first(); // 1 cau
-            if (autoPlayBtn.length) {
-                const audioSrc = autoPlayBtn.data('audio');
-                const autoAudio = new Audio(audioSrc);
-                autoAudio.play().catch(function(e) {
-                    console.warn('Autoplay bị chặn bởi trình duyệt:', e);
-                });
+            // Phát tự động audio CÂU HỎI nếu chưa từng phát
+            if (!sessionStorage.getItem('playedAudio')) {
+                const autoPlayBtn = $('.play-audio-btn').first();
+                if (autoPlayBtn.length) {
+                    const audioSrc = autoPlayBtn.data('audio');
+                    const autoAudio = new Audio(audioSrc);
+                    autoAudio.play().then(() => {
+                        sessionStorage.setItem('playedAudio', 'true');
+                    }).catch(function(e) {
+                        console.warn('Autoplay bị chặn bởi trình duyệt:', e);
+                    });
+                }
             }
+            // Khi bấm nút “Trước” hoặc “Tiếp”, reset lại trạng thái
+            $('.wp-action a').on('click', function() {
+                sessionStorage.removeItem('playedAudio');
+            });
+
             // Phát âm câu hỏi
             $('.play-audio-btn').on('click', function() {
                 let audioSrc = $(this).data('audio');

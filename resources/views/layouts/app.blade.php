@@ -37,7 +37,9 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <div class="container text-center">
+                        <img src="{{ asset('public/image/logo.png') }}" alt="Logo" width="120" />
+                    </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -90,13 +92,13 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4 wp-content">
             @yield('content')
         </main>
     </div>
-    
-@yield('script')
+
+    @yield('script')
 
 </body>
+
 </html>

@@ -21,7 +21,7 @@
             @endif
 
             <div class="d-flex justify-content-center gap-3 mt-4">
-                <a href="/" class="btn btn-primary btn-lg">Về trang chủ</a>
+                <a href="{{ url('/') }}" class="btn btn-primary btn-lg">Về trang chủ</a>
                 @php
                     $retryRoute = $mode === 'show' ? route('civics.show') : route('civics.starred');
                 @endphp

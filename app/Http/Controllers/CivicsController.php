@@ -17,7 +17,8 @@ class CivicsController extends Controller
 {
     // Hiển thị câu hỏi thứ N trong bài viết kiểm tra (Lấy từ model và render ra view)
     public function show(Request $request)
-    {
+    {   
+        $heading = "KIỂM TRA CÔNG DÂN";
         // ✨ Lấy vị trí bắt đầu từ last_question_index trong bảng users
         $user = Auth::user();
         $startIndex = $user->last_question_index ?? 0;
@@ -67,6 +68,7 @@ class CivicsController extends Controller
             'page' => $page,
             'isStarred' => $isStarred,
             'mode' => 'show',
+            'heading' => $heading,
         ]);
     }
 
@@ -182,6 +184,7 @@ class CivicsController extends Controller
     }
 
     public function showStarred(Request $request) {
+        $heading  = "KIỂM TRA GẮN DẤU SAO";
         $user = Auth::user();
         $starredQuestions = $user->starredQuestions()->with(['answers','answers.hints'])->get();
         // dd($starredQuestions);
@@ -214,6 +217,7 @@ class CivicsController extends Controller
             'page' => $page,
             'isStarred' => true,
             'mode' => 'showStarred',
+            'heading' => $heading,
         ]);
 
     }

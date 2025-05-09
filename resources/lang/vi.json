@@ -1,0 +1,24 @@
+{
+    "Login": "Đăng nhập",
+    "Register": "Đăng ký",
+    "Logout": "Đăng xuất",
+    "Email Address": "Địa chỉ email",
+    "Password": "Mật khẩu",
+    "Confirm Password": "Xác nhận mật khẩu",
+    "Remember Me": "Ghi nhớ đăng nhập",
+    "Forgot Your Password?": "Quên mật khẩu?",
+    "Reset Password": "Đặt lại mật khẩu",
+    "Send Password Reset Link": "Gửi liên kết đặt lại mật khẩu",
+    "Name": "Họ và tên",
+    "Already registered?": "Đã có tài khoản?",
+    "You are logged in!": "Bạn đã đăng nhập!",
+    "These credentials do not match our records.": "Thông tin đăng nhập không khớp.",
+    "The provided password is incorrect.": "Mật khẩu không đúng.",
+    "Too many login attempts. Please try again in :seconds seconds.": "Đăng nhập quá nhiều lần. Vui lòng thử lại sau :seconds giây.",
+    "Verify Your Email Address": "Xác minh địa chỉ email của bạn",
+    "A fresh verification link has been sent to your email address.": "Một liên kết xác minh mới đã được gửi đến email của bạn.",
+    "Before proceeding, please check your email for a verification link.": "Trước khi tiếp tục, hãy kiểm tra email để xác minh.",
+    "If you did not receive the email": "Nếu bạn không nhận được email",
+    "click here to request another": "bấm vào đây để gửi lại"
+  }
+  

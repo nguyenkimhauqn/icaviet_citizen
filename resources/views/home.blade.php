@@ -7,18 +7,8 @@
         <div class="row justify-content-center">
             <!-- Header -->
             <div class="container text-center mt-4">
-                <div class="section-title">CITIZEN NOW</div>
-                <div class="subtitle d-flex justify-content-center align-items-center mt-2">
-                    Mở khóa các tính năng cao cấp
-                    <button>CHI TIẾT</button>
-                </div>
+                <div class="section-title"> CITIZEN NOW </div>
             </div>
-
-            <!-- Logo -->
-            <div class="container text-center mt-3">
-                <img src="{{ asset('public/image/logo.png') }}" alt="Logo" width="120" />
-            </div>
-
             <!-- Grid chức năng -->
             <div class="container grid-container">
                 <div class="row g-3">
@@ -32,10 +22,12 @@
                         </a>
                     </div>
                     <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">✍️</div>
-                            KIỂM TRA VIẾT
-                        </div>
+                        <a href="{{ route('writing.show')}}">
+                            <div class="feature-card">
+                                <div class="feature-icon">✍️</div>
+                                KIỂM TRA VIẾT
+                            </div>
+                        </a>
                     </div>
                     <div class="col-4">
                         <div class="feature-card">

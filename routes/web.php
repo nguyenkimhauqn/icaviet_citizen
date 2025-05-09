@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CivicsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WritingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +16,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //  ===Auth===  
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // END Auth
 
@@ -47,3 +45,7 @@ Route::middleware(['auth'])->group(function () {
     // === * [END] - WRITING * ===
 
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

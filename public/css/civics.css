@@ -14,7 +14,7 @@
 }
 
 .answer-wrong {
-    background-color: #ff0015;
+    background-color: #dc3545;
     color: #721c24;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .answer-correct {
-    background-color: #00ff8c;
+    background-color: #006838;
     color: #0f5132;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .highlight-title {
-    color: #0f5132;
+    color: #000000;
     font-size: 20px;
     font-weight: bold;
 }
@@ -69,10 +69,14 @@
     border: none;
     width: 100%;
 }
-.icon-arrow {
-    width: 50px;
-    height: 24px;
-    object-fit: contain;
+.icon-arrow i {
+    color: #000000;
+    background-color: #f0f0f0;
+    font-size: 50px;
+    border: solid 1px #000000;
+}
+.icon-arrow i:hover {
+    background-color: #e2e8f0;
 }
 .answer-wrapper {
     display: flex;
@@ -86,4 +90,7 @@
     background-color: #e6f4ea;
     border-left: 4px solid #38a169;
     border-radius: 6px;
+}
+.left-answer {
+    text-align: left;
 }
