@@ -29,6 +29,7 @@ class CitizenshipQuestionsFullSeeder extends Seeder
             $question = Question::create([
                 'content' =>  $number . ". " . $data['question'],
                 'audio_path' => "civics-question-{$number}.mp3",
+                'topic_id' => 1,
             ]);
 
             $correctAnswer = Answer::create([

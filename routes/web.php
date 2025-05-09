@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CivicsController;
+use App\Http\Controllers\WritingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -38,4 +39,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/civics/star/{question}',[CivicsController::class, 'toggleStar'])->name('civics.toggleStar');
     Route::get('/civics/starred', [CivicsController::class, 'showStarred'])->name('civics.starred');
     // === * [END] - CIVICS * ===
+
+    // === * WRITING * ===
+    Route::get('/writing/{index?}', [WritingController::class,'show'])->name('writing.show');
+    Route::post('/writing/check', [WritingController::class, 'check'])->name('writing.check');
+
+    // === * [END] - WRITING * ===
+
 });

@@ -24,6 +24,7 @@ class CivicsController extends Controller
 
         // ✨ Lấy 10 câu hỏi tiếp theo dựa trên vị trí
         $questions = Question::with(['answers', 'answers.hints'])
+            ->where('topic_id', 1)
             ->orderBy('id')
             ->skip($startIndex)
             ->take(10)
