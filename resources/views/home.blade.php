@@ -84,10 +84,12 @@
 
                     <!-- 4 -->
                     <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">📊</div>
-                            KẾT QUẢ
-                        </div>
+                        <a href=" {{ route('civics.results.index')}} ">
+                            <div class="feature-card">
+                                <div class="feature-icon">📊</div>
+                                KẾT QUẢ
+                            </div>
+                        </a>
                     </div>
                     <div class="col-4">
                         <div class="feature-card">
