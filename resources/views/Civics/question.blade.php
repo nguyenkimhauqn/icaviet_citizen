@@ -5,9 +5,19 @@
 
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
-        <div class="flex justify-between items-center mb-4 header-civics">
-            <h1 class="text-2xl font-bold text-gray-800"> {{ $heading ?? "" }} </h1>
+        <div class="wp-header d-flex align-items-end mb-4">
+            <div class="btn-home mr-2">
+                <a href="{{ route('home') }}"
+                    class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+                    title="Quay về trang chủ" style="width: 48px; height: 48px;">
+                    <i class="bi bi-arrow-left-circle-fill fs-3"></i>
+                </a>
+            </div>
+            <div class="flex justify-between items-center header-civics">
+                <h3 class="text-2xl font-bold text-gray-800"> {{ $heading ?? '' }} </h3>
+            </div>
         </div>
+
         {{-- Tiến độ --}}
         <div class="sp-bt">
             <div class="mb-2 text-base">
@@ -49,12 +59,16 @@
         @endforeach
         {{-- Nút Next căn giữa --}}
         <div class="flex justify-center mt-8 box-btn next-btn">
-            <a href="{{ $nextPageUrl }}" type="button"
+            {{-- <a href="{{ $nextPageUrl }}" type="button"
                 class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 text-2xl">
                 <div class="icon-arrow">
                     <i class="bi bi-arrow-right-short"></i>
                 </div>
-                {{-- <img class="img-fluid icon-arrow" src="{{ asset('/public/icon/arrow-right.png') }}" alt="icon_arrow_right"> --}}
+            </a> --}}
+            {{-- Câu hỏi tiếp theo trong chuyên mục --}}
+            <a href="{{ $nextPageUrl }}"
+                class="btn btn-primary btn-lg shadow-sm">
+                <i class="bi bi-chevron-right"></i>
             </a>
         </div>
     </div>

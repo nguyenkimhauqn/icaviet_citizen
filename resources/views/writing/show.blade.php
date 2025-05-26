@@ -5,8 +5,17 @@
 
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
-        <div class="flex justify-between items-center mb-4 header-civics">
-            <h1 class="text-2xl font-bold text-gray-800">KIỂM TRA VIẾT</h1>
+        <div class="wp-header d-flex align-items-end mb-4">
+            <div class="btn-home mr-2">
+                <a href="{{ route('home') }}"
+                    class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+                    title="Quay về trang chủ" style="width: 48px; height: 48px;">
+                    <i class="bi bi-arrow-left-circle-fill fs-3"></i>
+                </a>
+            </div>
+            <div class="flex justify-between items-center header-civics">
+                <h3 class="text-2xl font-bold text-gray-800"> KIỂM TRA VIẾT </h3>
+            </div>
         </div>
 
         {{-- Tiến độ --}}
