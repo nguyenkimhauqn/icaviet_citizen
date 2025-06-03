@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <!-- Nhúng file CSS -->
     <link rel="stylesheet" href="{{ asset('public/css/home.css') }}">
     <div class="container">
@@ -68,10 +77,12 @@
                         </div>
                     </div> --}}
                     <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">🎥</div>
-                            VIDEO HỌC TẬP
-                        </div>
+                        <a href="https://www.youtube.com/@citizennowmedia" target="_blank">
+                            <div class="feature-card">
+                                <div class="feature-icon">🎥</div>
+                                VIDEO HỌC TẬP
+                            </div>
+                        </a>
                     </div>
                     <div class="col-4">
                         <a href=" {{ route('n400.categories.index') }} ">
@@ -84,7 +95,7 @@
 
                     <!-- 4 -->
                     <div class="col-4">
-                        <a href=" {{ route('civics.results.index')}} ">
+                        <a href=" {{ route('civics.results.index') }} ">
                             <div class="feature-card">
                                 <div class="feature-icon">📊</div>
                                 KẾT QUẢ
@@ -92,16 +103,20 @@
                         </a>
                     </div>
                     <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">🧑‍💼</div>
-                            ĐẠI DIỆN CỦA BẠN
-                        </div>
+                        <a href=" {{ route('representative.form') }} ">
+                            <div class="feature-card">
+                                <div class="feature-icon">🧑‍💼</div>
+                                ĐẠI DIỆN CỦA BẠN
+                            </div>
+                        </a>
                     </div>
                     <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">❓</div>
-                            CÂU HỎI THƯỜNG GẶP
-                        </div>
+                        <a href="{{ url('faq') }}">
+                            <div class="feature-card">
+                                <div class="feature-icon">❓</div>
+                                CÂU HỎI THƯỜNG GẶP
+                            </div>
+                        </a>
                     </div>
 
                     <!-- 5 -->

@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'cicero' => [
+        'key' => env('CICERO_API_KEY'),
+    ],
+
+    'metadapi' => [
+        'key' => env('METADAPI_KEY'),
+    ],
+
 ];

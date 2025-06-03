@@ -158,10 +158,11 @@ class CivicsController extends Controller
         ]);
     }
 
+    // Wrong here
     public function showResult(Quiz $quiz, Request $request)
     {   
         $mode = $request->query('mode','show');
-        return view('civics.result', compact('quiz','mode'));
+        return view('Civics.result', compact('quiz','mode'));
     }
 
     public function toggleStar(Request $request, Question $question)

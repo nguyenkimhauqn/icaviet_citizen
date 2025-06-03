@@ -158,25 +158,26 @@
                         });
 
                         // Hiển thị đáp án đúng khác
-                        if (res.is_correct && res.hints.length > 0) {
-                            // console.log(res.hints);
-                            res.hints.forEach(function(hint) {
-                                console.log(hint);
+                        // tạm off
+                        // if (res.is_correct && res.hints.length > 0) {
+                        //     // console.log(res.hints);
+                        //     res.hints.forEach(function(hint) {
+                        //         console.log(hint);
 
-                            });
+                        //     });
 
-                            let hinHtml =
-                                '<div class=" p-2 rounded bg-green-50 text-sm text-gray-800">';
-                            hinHtml +=
-                                '<p class="font-semibold mb-2 text-green-700">Các cách trả lời đúng khác:</p>';
-                            res.hints.forEach(function(hint) {
-                                hinHtml += `<div class="pl-2">✅ ${hint}</div>`;
-                            });
-                            hinHtml += `</div>`;
-                            // Gắn hint vào câu trả lời đúng
-                            $(`[value='${res.correct_answer_id}']`).after(hinHtml);
+                        //     let hinHtml =
+                        //         '<div class=" p-2 rounded bg-green-50 text-sm text-gray-800">';
+                        //     hinHtml +=
+                        //         '<p class="font-semibold mb-2 text-green-700">Các cách trả lời đúng khác:</p>';
+                        //     res.hints.forEach(function(hint) {
+                        //         hinHtml += `<div class="pl-2">✅ ${hint}</div>`;
+                        //     });
+                        //     hinHtml += `</div>`;
+                        //     // Gắn hint vào câu trả lời đúng
+                        //     $(`[value='${res.correct_answer_id}']`).after(hinHtml);
 
-                        }
+                        // }
 
                     },
                     error: function() {

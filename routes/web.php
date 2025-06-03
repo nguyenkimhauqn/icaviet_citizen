@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReadingController;
 use App\Http\Controllers\WritingController;
 use App\Http\Controllers\CivicsResultController;
+use App\Http\Controllers\RepresentativeController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -71,9 +72,21 @@ Route::middleware(['auth'])->group(function () {
         // Trang chi tiết bài kiểm tra theo quiz_id
         Route::get('/results/{quiz}', [CivicsResultController::class, 'show'])->name('civics.results.show');
     });
-
     // [END] === * Kết quả * ===
 
+    // === * FAQ * ===
+    Route::get('/faq', function () {
+        return view('faq');
+    });
+    // [END] === * FAQ  * ===
+
+
+    // === * Representaive * ===
+    Route::get('/testapi', [RepresentativeController::class, 'getRepresentative'])->name('representative.test');
+    Route::get('/testapi2', [RepresentativeController::class, 'getRepresentative2'])->name('representative.test2');
+    Route::get('/testapi3', [RepresentativeController::class, 'getRepresentative3'])->name('representative.test3');
+    Route::get('/representative', [RepresentativeController::class, 'form'])->name('representative.form');
+    Route::post('/representative', [RepresentativeController::class, 'getRepresentative'])->name('getRepresentative');
 });
 
 Auth::routes();
