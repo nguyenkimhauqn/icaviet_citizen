@@ -38,4 +38,11 @@ return [
         'key' => env('METADAPI_KEY'),
     ],
 
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+    ],
+
+    'assemblyai' => [
+        'key' => env('ASSEMBLYAI_API_KEY'),
+    ],
 ];

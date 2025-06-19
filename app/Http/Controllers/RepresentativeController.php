@@ -52,12 +52,10 @@ class RepresentativeController extends Controller
             'format' => 'json',
             'key' => config('services.cicero.key'),
         ]);
-
         $repOfficials = collect($repResponse->json()['response']['results']['officials'] ?? []);
         $representative = $repOfficials->first(function ($official) {
             return $official['office']['district']['district_type'] === 'NATIONAL_LOWER';
         });
-
         // 3. Lấy 2 thượng nghị sĩ (NATIONAL_UPPER)
         $senateResponse = Http::get('https://app.cicerodata.com/v3.1/official', [
             'lat' => $lat,
