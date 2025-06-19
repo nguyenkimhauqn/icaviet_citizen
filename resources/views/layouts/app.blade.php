@@ -35,6 +35,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script src="{{url('public/js/recorder.js')}}"></script>
+
+
 </head>
 
 <body>
@@ -97,7 +100,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4 wp-content">
+        <main class="wp-content">
             @yield('content')
         </main>
     </div>

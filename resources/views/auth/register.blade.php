@@ -1,77 +1,86 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="container py-5">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+        <div class="login-wrapper text-center" style="min-height: 100vh;">
+            <div class="login-card text-start">
+                <h3 class="fw-bold text-start mb-4">Đăng ký</h3>
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="form-body">
+                        {{-- Họ và tên --}}
+                        <div class="mb-3">
+                            <input type="text" name="name" placeholder="Họ và tên" id="name"
+                                class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
+                                required autofocus>
+                            @error('name')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        {{-- Email --}}
+                        <div class="mb-3">
+                            <input type="email" name="email" placeholder="Nhập email" id="email"
+                                class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}"
+                                required>
+                            @error('email')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        {{-- Mật khẩu --}}
+                        <div class="mb-3">
+                            <input type="password" name="password" placeholder="Nhập mật khẩu" id="password"
+                                class="form-control @error('password') is-invalid @enderror" required>
+                            @error('password')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                        {{-- Xác nhận mật khẩu --}}
+                        <div class="mb-4">
+                            <input type="password" name="password_confirmation" placeholder="Xác nhận mật khẩu"
+                                id="password-confirm" class="form-control" required>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
+                    </div>
+                    <div class="form-footer">
+                        {{-- Nút đăng ký --}}
+                        <div class="mb-3 text-center">
+                            <button type="submit" class="btn btn-primary">Đăng ký</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+    <style>
+        .form-control {
+            background-color: #F8F7FB !important;
+            height: 50px !important;
+            border: none !important;
+        }
+
+        .btn-primary {
+            color: #fff;
+            padding: 10px 30px 10px 30px;
+            background-color: #1247BB;
+            border-color: #1247BB;
+            font-size: 20px;
+        }
+
+        .login-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+        .form-body {
+            flex: 1 1 auto;
+        }
+        .form-footer {
+            margin-top: auto;
+        }
+    </style>
 @endsection

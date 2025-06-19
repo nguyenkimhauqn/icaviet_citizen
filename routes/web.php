@@ -7,6 +7,11 @@ use App\Http\Controllers\ReadingController;
 use App\Http\Controllers\WritingController;
 use App\Http\Controllers\CivicsResultController;
 use App\Http\Controllers\RepresentativeController;
+use App\Http\Controllers\WhisperController;
+use App\Http\Controllers\GoogleSpeechController;
+
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -87,6 +92,40 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/testapi3', [RepresentativeController::class, 'getRepresentative3'])->name('representative.test3');
     Route::get('/representative', [RepresentativeController::class, 'form'])->name('representative.form');
     Route::post('/representative', [RepresentativeController::class, 'getRepresentative'])->name('getRepresentative');
+
+    // TEST READING
+    Route::get('/recorder', [ReadingController::class, 'index'])->name('recorder.index');
+    Route::post('/recorder/upload', [ReadingController::class, 'upload'])->name('recorder.upload');
+    Route::get('/test-upload-mp3', [ReadingController::class, 'testStaticFile']);
+    // TEST OPEN AI
+    Route::post('/transcribe', [WhisperController::class, 'transcribe'])->name('whisper.transcribe');
+    Route::view('/record', 'record');
+    // TEST API: Assembly;
+    // Route::post('/transcribe-assembly', [WhisperController::class, 'transcribeAssembly'])->name('whisper.transcribeAssembly');
+    Route::view('/transcribeAssembly', 'transcribeAssembly');
+
+    // TEST API Google
+    Route::post('/google', [GoogleSpeechController::class, 'transcribe'])->name('google.transcribe');
+    Route::view('/google-form', 'google_form');
+
+    Route::get('/download-audio/{filename}', function ($filename) {
+        $path = 'whisper_temp/' . $filename;
+
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+        return Storage::download($path);
+    });
+
+    Route::get('/download/{filename}', function ($filename) {
+        // dd($filename);
+        $path = 'audios/' . $filename;
+
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+        return Storage::download($path);
+    });
 });
 
 Auth::routes();

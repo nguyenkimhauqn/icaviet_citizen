@@ -1,0 +1,20 @@
+.navbar-light .navbar-toggler-icon {
+    background-image: url('../icon/align-justify.svg') !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.navbar-light .navbar-toggler {
+    border: none !important;
+}
+
+input::placeholder {
+    font-size: 18px;
+    color: #7F909F;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1247BB !important;
+    border-color: #1247BB !important;
+}
