@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Representative;
+use Illuminate\Support\Str;
 use app\Helper\RepresentativeHelper;
 use App\Helpers\RepresentativeHelper as HelpersRepresentativeHelper;
 
@@ -13,6 +16,21 @@ class RepresentativeController extends Controller
 {
     public function form()
     {
+        $user = Auth::user();
+
+        if ($user->representative) {
+            $rep = $user->representative;
+
+            return view('representative.results', [
+                'zip' => $rep->zip,
+                'state' => $rep->state,
+                'capital' => $rep->capital,
+                'representative' => $rep->representative,
+                'senators' => $rep->senators,
+                'governor' => $rep->governor,
+            ]);
+        }
+
         return view('representative.form');
     }
 
@@ -85,15 +103,23 @@ class RepresentativeController extends Controller
             return strtolower($office['title'] ?? '') === 'governor';
         });
 
-        return view('representative.results', compact(
-            'zip',
-            'state',
-            'lat',
-            'lon',
-            'representative',
-            'senators',
-            'governor',
-            'capital'
-        ));
+        // 5. Lưu trữ vào database.
+        $rep = Representative::updateOrCreate(
+            ['zip' => $zip],
+            [
+                'state' => $state,
+                'capital' => $capital,
+                'representative' => $representative,
+                'senators' => $senators,
+                'governor' => $governor,
+            ]
+        );
+
+        // 6. Gán cho user hiện tại
+        $user = Auth::user();
+        $user->representative_id = $rep->id;
+        $user->save();
+
+        return redirect()->route('representative.form');
     }
 }

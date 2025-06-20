@@ -70,4 +70,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /*
+    Custom redirect to represenvtatives by HauNguyen
+    */ 
+    protected function redirectTo()
+    {
+        return route('representative.form');
+    }
 }

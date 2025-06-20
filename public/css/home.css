@@ -1,6 +1,10 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #F5F4FA;
     font-family: "Georgia", serif;
+}
+
+.container-home {
+    margin-top: 20px;
 }
 
 .section-title {
@@ -24,15 +28,21 @@ body {
 }
 
 .feature-card {
-    background-color: #d6e4ff;
-    border-radius: 12px;
-    padding: 20px 10px;
+    background-color: #FFFFFF;
+    border: solid 0.5px #FFFFFF;
+    box-shadow: 0 3 6px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
     text-align: center;
-    height: 120px;
+    height: 158px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-weight: 500;
+    transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-2px);
 }
 
 .feature-icon {
@@ -43,7 +53,36 @@ body {
 .grid-container {
     margin-top: 20px;
 }
+
 a {
     text-decoration: none;
     color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+    color: inherit;
+    background: none;
+}
+
+@media (max-width: 440px) {
+    .row {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    .row>* {
+        padding: 10px !important;
+    }
+
+    .col-4 {
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+    }
+}
+
+
+
+.title_en {
+    font-weight: 700;
 }

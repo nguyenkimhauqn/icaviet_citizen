@@ -12,122 +12,141 @@
     @endif
     <!-- Nhúng file CSS -->
     <link rel="stylesheet" href="{{ asset('public/css/home.css') }}">
-    <div class="container">
+    <div class="banner">
+        <img src="{{ url('public/banners/banner-vi-nguoi-viet.png') }}" id="banner-home" class="img-fluid w-100" alt="banner-home">
+    </div>
+    <div class="wp-menu">
         <div class="row justify-content-center">
-            <!-- Header -->
-            <div class="container text-center mt-4">
-                <div class="section-title"> Luyện thi quốc tịch Mỹ </div>
-            </div>
             <!-- Grid chức năng -->
-            <div class="container grid-container">
+            <div class="container-home">
                 <div class="row g-3">
-                    <!-- 1 -->
+                    <!-- 1. Civics Test -->
                     <div class="col-4">
                         <a href="{{ route('civics.show') }}">
                             <div class="feature-card">
-                                <div class="feature-icon">📝</div>
-                                KIỂM TRA CÔNG DÂN
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href="{{ route('writing.show') }}">
-                            <div class="feature-card">
-                                <div class="feature-icon">✍️</div>
-                                KIỂM TRA VIẾT
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href="{{ route('reading.show') }}">
-                            <div class="feature-card">
-                                <div class="feature-icon">🎙️</div>
-                                KIỂM TRA ĐỌC
-                            </div>
-                        </a>
-                    </div>
-                    <!-- 2 -->
-                    <div class="col-4">
-                        <a href="{{ route('civics.starred') }}">
-                            <div class="feature-card">
-                                <div class="feature-icon">⭐</div>
-                                BÀI KIỂM TRA CÓ GẮN DẤU SAO
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/Icon-civics.svg') }}" alt="icon-civics">
+                                </div>
+                                <span class="title_en">Civics Test</span>
+                                <span class="title_vn">Kiểm tra công dân</span>
                             </div>
                         </a>
                     </div>
 
-                    {{-- <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">📖</div>
-                            TÀI LIỆU HỌC TẬP
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">🔁</div>
-                            THẺ FLASH
-                        </div>
-                    </div> --}}
-
-                    <!-- 3 -->
-                    {{-- <div class="col-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">🎧</div>
-                            MÁY NGHE NHẠC
-                        </div>
-                    </div> --}}
+                    <!-- 2. Writing Test -->
                     <div class="col-4">
-                        <a href="https://www.youtube.com/@citizennowmedia" target="_blank">
+                        <a href="">
                             <div class="feature-card">
-                                <div class="feature-icon">🎥</div>
-                                VIDEO HỌC TẬP
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href=" {{ route('n400.categories.index') }} ">
-                            <div class="feature-card">
-                                <div class="feature-icon">💬</div>
-                                PHỎNG VẤN & N400
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/Icon-writing.svg') }}" alt="icon-writing">
+                                </div>
+                                <span class="title_en">Writing Test</span>
+                                <span class="title_vn">Kiểm tra viết</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
 
-                    <!-- 4 -->
+                    <!-- 3. Reading Test -->
                     <div class="col-4">
-                        <a href=" {{ route('civics.results.index') }} ">
+                        <a href="">
                             <div class="feature-card">
-                                <div class="feature-icon">📊</div>
-                                KẾT QUẢ
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href=" {{ route('representative.form') }} ">
-                            <div class="feature-card">
-                                <div class="feature-icon">🧑‍💼</div>
-                                ĐẠI DIỆN CỦA BẠN
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href="{{ url('faq') }}">
-                            <div class="feature-card">
-                                <div class="feature-icon">❓</div>
-                                CÂU HỎI THƯỜNG GẶP
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-reading.svg') }}" alt="icon-reading">
+                                </div>
+                                <span class="title_en">Reading Test</span>
+                                <span class="title_vn">Kiểm tra đọc</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
 
-                    <!-- 5 -->
-                    {{-- <div class="col-4 offset-4">
-                        <div class="feature-card">
-                            <div class="feature-icon">🔗</div>
-                            CHIA SẺ
-                        </div>
-                    </div> --}}
+                    <!-- 4. Mock Test -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-moctest.svg') }}" alt="icon-mocktest">
+                                </div>
+                                <span class="title_en">Mock Test</span>
+                                <span class="title_vn">Thi thử</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 5. N-400 & Speaking -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/Icon-n400.svg') }}" alt="icon-n400">
+                                </div>
+                                <span class="title_en">N-400 & Speaking</span>
+                                <span class="title_vn">N400 & Nói</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 6. Results -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-result.svg') }}" alt="icon-result">
+                                </div>
+                                <span class="title_en">Results</span>
+                                <span class="title_vn">Kết quả</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 7. Vocabulary -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-vocabulary.svg') }}" alt="icon-vocabulary">
+                                </div>
+                                <span class="title_en">Vocabulary</span>
+                                <span class="title_vn">Từ vựng</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 8. Study Materials -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-study.png') }}" alt="icon-study">
+                                </div>
+                                <span class="title_en">Study Materials</span>
+                                <span class="title_vn">Tài liệu học tập</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 9. Starred Questions -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-star.png') }}" alt="icon-star">
+                                </div>
+                                <span class="title_en">Starred Questions</span>
+                                <span class="title_vn">Câu hỏi gắn sao</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

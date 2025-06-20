@@ -13,6 +13,7 @@ use App\Http\Controllers\GoogleSpeechController;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Category;
+use App\Models\Representative;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*

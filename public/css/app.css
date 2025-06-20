@@ -1,3 +1,20 @@
+/* Đặt style tổng thể cho khung trang */
+.wp-content { 
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 980px;
+    box-sizing: border-box;
+}
+
+/* Responsive cho thiết bị nhỏ hơn */
+@media (max-width: 440px) {
+    .wp-content{
+        max-width: 440px;
+        padding: 0px;
+    }
+}
+
 .navbar-light .navbar-toggler-icon {
     background-image: url('../icon/align-justify.svg') !important;
     background-size: contain;
@@ -6,6 +23,7 @@
 
 .navbar-light .navbar-toggler {
     border: none !important;
+    color: black !important;
 }
 
 input::placeholder {
@@ -18,3 +36,4 @@ input::placeholder {
     background-color: #1247BB !important;
     border-color: #1247BB !important;
 }
+
