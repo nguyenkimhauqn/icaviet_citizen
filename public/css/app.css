@@ -6,7 +6,13 @@
     max-width: 980px;
     box-sizing: border-box;
 }
-
+.heading-module {
+    font-size: 24px;
+    font-weight: 700;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0px !important;
+}
 /* Responsive cho thiết bị nhỏ hơn */
 @media (max-width: 440px) {
     .wp-content{

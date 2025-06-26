@@ -9,7 +9,11 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'audio_path', 'topic_id','category_id','user_id'];
+    protected $fillable = ['content', 'audio_path', 'topic_id', 'category_id', 'user_id', 'translation', 'tips', 'has_guideline'];
+
+    protected $casts = [
+        'has_guideline' => 'boolean',
+    ];
 
     public function topic()
     {
@@ -25,7 +29,7 @@ class Question extends Model
     {
         return $this->belongsToMany(User::class, 'starred_questions');
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class);

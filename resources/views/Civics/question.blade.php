@@ -3,71 +3,158 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('/public/css/civics.css') }}">
 
-    <div class="container max-w-2xl mx-auto px-4 py-6">
+    <div class="container mt-4">
         {{-- Header --}}
-        <div class="wp-header d-flex align-items-end mb-4">
+        <div class="wp-header d-flex align-items-center mb-4">
             <div class="btn-home mr-2">
-                <a href="{{ route('home') }}"
-                    class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
-                    title="Quay về trang chủ" style="width: 48px; height: 48px;">
-                    <i class="bi bi-arrow-left-circle-fill fs-3"></i>
+                <a href="{{ route('home') }}" class="" title="Quay về trang chủ" style="width: 42px; height: 42px;">
+                    <img style="width: 50px; height: 50px;" src="{{ url('public/icon/Icon-back-home.svg') }}" alt="">
                 </a>
             </div>
             <div class="flex justify-between items-center header-civics">
-                <h3 class="text-2xl font-bold text-gray-800"> {{ $heading ?? '' }} </h3>
+                <h3 class="heading-module text-2xl font-bold text-gray-800"> {!! $heading ?? '' !!} </h3>
             </div>
         </div>
 
         {{-- Tiến độ --}}
-        <div class="sp-bt">
+        <div class="process sp-bt d-flex justify-content-center">
             <div class="mb-2 text-base">
-                <span class="highlight-text">Câu hỏi {{ $page }}</span> / <span class="highlight-text">
+                <span class="">Câu hỏi </span> <span class="fw-bold"> {{ $page }} /
                     {{ $total }} </span>
-            </div>
-            <div class="mb-2 text-base">
-                <div class="text-sm highlight-text"> Số lượt làm bài kiểm tra {{ $quizId }} </div>
             </div>
         </div>
 
         {{-- Câu hỏi chính --}}
         <div class="question-block ">
             <div class="flex justify-between items-start sp-bt">
-                <div class="highlight-title"> {{ $question->content }} </div>
+                <div class="highlight-title"> {!! $question->content !!} </div>
                 <div class="flex space-x-3 ">
-                    <button class="text-blue-500 text-xl play-audio-btn"
-                        data-audio="{{ asset('public/audio/civics/questions/' . $question->audio_path) }}">🔊</button>
-                    <button class="toggle-star-btn {{ $isStarred ? 'stared' : '' }} " data-question-id={{ $question->id }}
-                        data-active={{ $isStarred ? '1' : '0' }}>⭐</button>
+                    <span class="d-block text-blue-500 text-xl play-audio-btn"
+                        data-audio="{{ asset('public/audio/civics/questions/' . $question->audio_path) }}"> <img
+                            src="{{ url('public/icon/Speaker.svg') }}" alt="icon_speaker"> </span>
+                    <span class="d-block toggle-star-btn {{ $isStarred ? 'stared' : '' }} "
+                        data-question-id={{ $question->id }} data-active={{ $isStarred ? '1' : '0' }}> <img
+                            src="{{ url('public/icon/Icon _Starred.svg') }}" alt="icon_starred"> </span>
                 </div>
             </div>
         </div>
 
-        {{-- Danh sách đáp án --}}
-        @foreach ($question->answers as $answer)
-            <button class="answer answer-option answer-disabled" type="button" name="answer_id"
-                value="{{ $answer->id }}">
-                <div class="left-answer">
-                    🟦 {{ $answer->content }}
-                </div>
-                @if ($answer->is_correct)
-                    <span class="text-blue-500 text-xl play-audio-answer" data-answer-id="{{ $answer->id }}"
-                        data-audio="{{ asset('public/audio/civics/answers/' . $answer->audio_path) }}">
-                        🔊
-                    </span>
+        <div class="answer-block">
+            {{-- Danh sách đáp án --}}
+            @foreach ($question->answers as $answer)
+                <button class="answer answer-option answer-disabled" type="button" name="answer_id"
+                    value="{{ $answer->id }}">
+                    {{-- Hiển thị đáp án động theo zip --}}
+                    @php
+                        $dynamicContent = $answer->content;
+
+                        if ($question->has_guideline && $answer->is_correct && isset($representativeData)) {
+                            switch ($question->id) {
+                                case 20: // Senator
+                                    $senators = $representativeData->senators;
+                                    if (is_array($senators) && count($senators) > 0) {
+                                        $firstSenator = $senators[0];
+                                        $dynamicContent =
+                                            $firstSenator['first_name'] . ' ' . $firstSenator['last_name'];
+                                    }
+                                    break;
+                                case 23: // Representative
+                                    $rep = $representativeData->representative;
+                                    if (is_array($rep)) {
+                                        $dynamicContent = $rep['first_name'] . ' ' . $rep['last_name'];
+                                    }
+                                    break;
+                                case 43: // Governor
+                                    $gov = $representativeData->governor;
+                                    if (is_array($gov)) {
+                                        $dynamicContent = $gov['first_name'] . ' ' . $gov['last_name'];
+                                    }
+                                    break;
+                                case 44: // Capital
+                                    $dynamicContent = $representativeData->capital ?? $answer->content;
+                                    break;
+                            }
+                        }
+                    @endphp
+
+                    <div class="left-answer">
+                        {{ $dynamicContent }}
+                    </div>
+                    @if ($answer->is_correct)
+                        <span id="play-audio-answer" class="text-blue-500 text-xl play-audio-answer"
+                            data-answer-id="{{ $answer->id }}"
+                            data-audio="{{ asset('public/audio/civics/answers/' . $answer->audio_path) }}">
+                            <img src="{{ url('public/icon/Icon_Speaker_answer.svg') }}" alt="icon_speaker">
+                        </span>
+                    @endif
+                </button>
+                @if ($answer->explanation || $answer->pronunciation)
+                    <div id="trans-box" class="trans-box d-none">
+                        @if ($answer->explanation)
+                            <strong>Dịch:</strong> {{ $answer->explanation }}
+                        @endif
+                        @if ($answer->pronunciation)
+                            <p class="mt-2"><strong>Phát âm dễ nhớ:</strong> {{ $answer->pronunciation }}</p>
+                        @endif
+                    </div>
                 @endif
-            </button>
-        @endforeach
-        {{-- Nút Next căn giữa --}}
-        <div class="flex justify-center mt-8 box-btn next-btn">
-            {{-- <a href="{{ $nextPageUrl }}" type="button"
-                class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 text-2xl">
-                <div class="icon-arrow">
-                    <i class="bi bi-arrow-right-short"></i>
+            @endforeach
+        </div>
+
+        {{-- Dịch câu hỏi và mẹo ghi nhớ --}}
+        @if ($question->translation)
+            <p class="mt-2">
+                <strong>Dịch:</strong> {{ $question->translation }}
+            </p>
+        @endif
+        <div class="container-tips">
+            @if ($question->tips)
+                <div class="tips-box">
+                    <strong>
+                        <p class="d-block"> Mẹo ghi nhớ: </p>
+                    </strong>
+                    @foreach (json_decode($question->tips, true) as $label => $value)
+                        <div class="answer-tips">
+                            <span class="tag">
+                                <span class="tag-key">{{ $label . ':' }} </span> <span class="tag-value">
+                                    {{ $value }} </span>
+                            </span>
+                        </div>
+                    @endforeach
                 </div>
-            </a> --}}
-            {{-- Câu hỏi tiếp theo trong chuyên mục --}}
-            <a href="{{ $nextPageUrl }}"
-                class="btn btn-primary btn-lg shadow-sm">
+            @endif
+        </div>
+
+        {{-- Hướng dẫn bổ sung nếu là câu liên quan người đại diện --}}
+        @if ($question->has_guideline)
+            @php
+                // Xác định link động theo ID
+                $guidelineLinks = [
+                    20 => 'https://www.senate.gov/senators/index.htm',
+                    23 => 'https://www.house.gov/representatives',
+                    43 => 'https://www.usa.gov/state-governor',
+                ];
+                $guidelineUrl = $guidelineLinks[$question->id] ?? null;
+            @endphp
+            <div class="guideline-box mt-5 p-4 bg-white rounded-[20px] border-l-[9px] border-[#27AE60]">
+                <p class="fw-bold mb-2 text-lg text-danger">
+                    Lưu ý: Thông tin hiển thị dựa trên mã ZIP và dữ liệu công khai có thể không chính xác 100%.
+                    Vui lòng kiểm tra lại trên trang web của chính phủ:
+                </p>
+
+                @if ($guidelineUrl)
+                    <p class="text-base leading-relaxed">
+                        <a href="{{ $guidelineUrl }}" target="_blank" class="text-blue-600 underline">
+                            {{ $guidelineUrl }}
+                        </a>
+                    </p>
+                @endif
+            </div>
+        @endif
+
+        {{-- Nút Next căn giữa --}}
+        <div class="d-flex justify-content-center mt-8 box-btn next-btn box-next-btn-circle">
+            <a href="{{ $nextPageUrl }}" class="next-btn-circle">
                 <i class="bi bi-chevron-right"></i>
             </a>
         </div>
@@ -79,21 +166,48 @@
         $(document).ready(function() {
             // === * Phát âm thanh * ===
             // Phát âm câu hỏi
+            let isPlaying = false;
             $('.play-audio-btn').on('click', function() {
+                // Nếu đang phát, chặn click tiếp
+                if (isPlaying) {
+                    return; // Không cho phát lặp
+                }
+
                 let audioSrc = $(this).data('audio');
                 let audio = new Audio(audioSrc);
-                if (audio.paused) {
-                    audio.play();
-                }
+
+                isPlaying = true; // Đánh dấu đang phát
+                audio.play();
+
+                // Khi âm thanh phát xong → cho click lại
+                audio.addEventListener('ended', function() {
+                    isPlaying = false;
+                });
+
+                // Nếu có lỗi khi phát (ví dụ autoplay bị chặn), cho phép phát lại
+                audio.addEventListener('error', function() {
+                    isPlaying = false;
+                });
             });
-            // Phát âm câu trả lời
+            // Phát âm câu trả lời theo audio sẵn
+            // $('.play-audio-answer').on('click', function() {
+            //     alert(1);
+            //     let audioSrc = $(this).data('audio');
+            //     let audio = new Audio(audioSrc);
+            //     if (audio.paused) {
+            //         audio.play();
+            //     }
+            // });
+
+
+            // Text to speech theo questions
             $('.play-audio-answer').on('click', function() {
-                let audioSrc = $(this).data('audio');
-                let audio = new Audio(audioSrc);
-                if (audio.paused) {
-                    audio.play();
-                }
+                // Phát văn bản bằng giọng nói
+                // Lấy nội dung văn bản của đáp án
+                const answerText = $(this).closest('button').find('.left-answer').text().trim();
+                speakText(answerText);
             });
+
             // Phát tự động câu hỏi khi vào trang
             const autoPlayBtn = $('.play-audio-btn').first(); // 1 cau
             if (autoPlayBtn.length) {
@@ -123,7 +237,7 @@
                         if (!res.success) return alert('Có lỗi xảy ra.');
 
                         $('.answer-option').prop('disabled', true);
-                        $('.answer-option').css('pointer-events', 'none');
+                        // $('.answer-option').css('pointer-events', 'none');
                         // Xử lý màu đáp án đúng & sai. 
                         $('.answer-option').each(function() {
                             const currentBtn = $(this);
@@ -141,6 +255,12 @@
                                 res.correct_answer_id) {
                                 currentBtn.addClass(
                                     'bg-red-500 text-white answer-wrong');
+
+                                // 🔊 Phát âm thanh sai
+                                const wrongAudio = new Audio(
+                                    '{{ asset('public/audio/civics/Wrong-answer.mp3') }}'
+                                );
+                                wrongAudio.play();
                             }
                             // Trường hợp: chọn đúng (phát âm đúng duy nhất một lần)
                             if (currentId === res.selected_answer_id && currentId ===
@@ -150,12 +270,29 @@
                                     `.play-audio-answer[data-answer-id="${currentId}"]`
                                 );
                                 correctAudio.css('display', 'block');
-                                const audioPath = correctAudio.data('audio');
-                                const audio = new Audio(audioPath);
-                                audio.play();
+
+                                // 🔊 Phát âm thanh đúng
+                                const correctSound = new Audio(
+                                    '{{ asset('public/audio/civics/correct-answer.mp3') }}'
+                                );
+                                correctSound.play();
+
+                                // Phát đáp án lưu trữ khi chọn đúng
+
+                                // const audioPath = correctAudio.data('audio');
+                                // const audio = new Audio(audioPath);
+                                // audio.play();
+
+                                //   Phát văn bản câu trả lời đúng
+                                const correctAnswerText = currentBtn.find(
+                                    '.left-answer').text().trim();
+                                speakText(correctAnswerText); // 
                             }
 
                         });
+
+                        // Hiển thị phần dịch & phát âm
+                        $('#trans-box').removeClass('d-none').addClass('d-block');
 
                         // Hiển thị đáp án đúng khác
                         // tạm off

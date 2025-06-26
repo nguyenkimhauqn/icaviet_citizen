@@ -22,7 +22,7 @@
                 <div class="row g-3">
                     <!-- 1. Civics Test -->
                     <div class="col-4">
-                        <a href="{{ route('civics.show') }}">
+                        <a href="{{ route('civics.form') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/Icon-civics.svg') }}" alt="icon-civics">

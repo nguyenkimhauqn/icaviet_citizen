@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Category;
 use App\Models\Representative;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -40,6 +41,7 @@ Route::get('/civics/demo', function () {
 
 Route::middleware(['auth'])->group(function () {
     // === * CIVICS * ===
+    Route::view('/civics/form', 'civics.form')->name('civics.form');
     Route::get('/civics', [CivicsController::class, 'show'])->name('civics.show');
     Route::post('/civics/answer/{question}', [CivicsController::class, 'checkAnswer'])->name('civics.ajaxAnswer');
     Route::post('civics/finish-quiz', [CivicsController::class, 'finishQuiz'])->name('civics.finishQuiz');

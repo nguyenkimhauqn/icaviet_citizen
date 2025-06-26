@@ -17,34 +17,76 @@ class CivicsController extends Controller
 {
     // Hiển thị câu hỏi thứ N trong bài viết kiểm tra (Lấy từ model và render ra view)
     public function show(Request $request)
-    {   
+    {
+        // Lấy mode từ user
+        $mode = $request->query('mode', 'random10'); // mặc định là 10 câu NN.
+
         $heading = "KIỂM TRA CÔNG DÂN";
         // ✨ Lấy vị trí bắt đầu từ last_question_index trong bảng users
         $user = Auth::user();
         $startIndex = $user->last_question_index ?? 0;
 
-        // ✨ Lấy 10 câu hỏi tiếp theo dựa trên vị trí
-        $questions = Question::with(['answers', 'answers.hints'])
-            ->where('topic_id', 1)
-            ->orderBy('id')
-            ->skip($startIndex)
-            ->take(10)
-            ->get()
-            ->map(function ($question) {
-                $question->setRelation('answers', $question->answers->shuffle());
-                return $question;
-            });
+        // test
+        $startIndex = 0;
+        // Lấy data theo mode
+        // #1. Khởi tạo query cơ bản
+        $query = Question::with(['answers', 'answers.hints'])
+            ->where('topic_id', 1);
+        // #2. Xử lý theo mode
+        switch ($mode) {
+            case 'random10':
+                $questions = $query->inRandomOrder()->take(10)->get();
+                break;
+
+            case 'ordered':
+                $questions = $query->orderBy('id')->take(100)->get();
+                break;
+
+            case 'random':
+                $questions = $query->inRandomOrder()->take(100)->get();
+                break;
+
+            case 'all': // fallback mặc định
+            default:
+                $questions = $query->orderBy('id')->skip($startIndex)->take(10)->get();
+                break;
+        }
+        // Shuffle đáp án cho từng câu
+        $questions = $questions->map(function ($question) {
+            $question->setRelation('answers', $question->answers->shuffle());
+            return $question;
+        });
+
+        // Lấy representative for đáp án đúng
+        $user = Auth::user()->load('representative');
+        $rep = $user->representative;
+        // dd($rep);
+        // dump($rep->senators,$rep->representative,$rep->governor, $rep->capital);
+        // dd("");
+        // Old Query
+        // $questions = Question::with(['answers', 'answers.hints'])
+        //     ->where('topic_id', 1)
+        //     ->orderBy('id')
+        //     ->skip($startIndex)
+        //     ->take(10)
+        //     ->get()
+        //     ->map(function ($question) {
+        //         $question->setRelation('answers', $question->answers->shuffle());
+        //         return $question;
+        //     });
+
         // 🟨 TÍNH SỐ TRANG HIỆN TẠI
         $page = $request->query('page', 1);
         $question = $questions->slice($page - 1, 1)->first();
         $total = $questions->count();
-        $nextPageUrl = $page < $total ? url()->current() . '?page=' . ($page + 1) : null;
+        $nextPageUrl = $page < $total ? url()->current() . '?page=' . ($page + 1) . '&mode=' . $mode : null;
         // dd($question);
         $countQuiz = Quiz::all()->count();
-
+        // dd($question);
         if (!$question) {
             abort(404, 'Câu hỏi không tồn tại');
         }
+
         // ✅ Luôn kiểm tra Session trước khi sử dụng
         if (!Session::has('civics.quiz') || empty(Session::get('civics.quiz.questions'))) {
             Session::put('civics.quiz', [
@@ -58,7 +100,7 @@ class CivicsController extends Controller
             ->exists();
 
         // dd(session::all());
-        return view('Civics.question', [
+        return view('civics.question', [
             'question' => $question, // Model Question
             'answers' => $question->answers, // Collection Answer
             'index' => 1,
@@ -69,7 +111,14 @@ class CivicsController extends Controller
             'isStarred' => $isStarred,
             'mode' => 'show',
             'heading' => $heading,
+            'representativeData' => $rep
         ]);
+    }
+
+    public function start(Request $request)
+    {
+        $mode = $request->input('mode'); // e.g. random10, all, ordered, random
+        return redirect()->route('civics.show', ['mode' => $mode]);
     }
 
     public function checkAnswer(Request $request, Question $question)
@@ -160,9 +209,22 @@ class CivicsController extends Controller
 
     // Wrong here
     public function showResult(Quiz $quiz, Request $request)
-    {   
-        $mode = $request->query('mode','show');
-        return view('Civics.result', compact('quiz','mode'));
+    {
+        $mode = $request->query('mode', 'show');
+        // dd($quiz);
+        $quizQuestions = QuizQuestion::with([
+            'question.answers',
+            'userAnswer',
+        ])
+            ->where('quiz_id', $quiz->id)
+            ->where('is_correct', false)
+            ->get();
+
+        // dd($quizQuestions);
+        // Danh sách câu hỏi đã đánh dấu sao
+        // $starredIds = StarredQuestion::where('user_id', $quiz->user_id)->pluck('question_id')->toArray();
+
+        return view('civics.result', compact('quiz', 'mode', 'quizQuestions'));
     }
 
     public function toggleStar(Request $request, Question $question)
@@ -184,15 +246,16 @@ class CivicsController extends Controller
         }
     }
 
-    public function showStarred(Request $request) {
+    public function showStarred(Request $request)
+    {
         $heading  = "KIỂM TRA GẮN DẤU SAO";
         $user = Auth::user();
-        $starredQuestions = $user->starredQuestions()->with(['answers','answers.hints'])->get();
+        $starredQuestions = $user->starredQuestions()->with(['answers', 'answers.hints'])->get();
         // dd($starredQuestions);
 
-        $page = $request->query('page',1);
+        $page = $request->query('page', 1);
         $total = $starredQuestions->count();
-        $question = $starredQuestions->slice($page-1, 1)->first();
+        $question = $starredQuestions->slice($page - 1, 1)->first();
         $nextPageUrl = $page < $total ? url()->current() . '?page=' . ($page + 1) : null;
         //doing 
         $countQuiz = Quiz::all()->count();
@@ -208,18 +271,17 @@ class CivicsController extends Controller
             ]);
         }
 
-        return view('Civics.question', [
+        return view('civics.question', [
             'question' => $question,
             'answers' => $question->answers,
             'index' => $page,
             'total' => $total,
-            'quizId' => $countQuiz, 
+            'quizId' => $countQuiz,
             'nextPageUrl' => $nextPageUrl,
             'page' => $page,
             'isStarred' => true,
             'mode' => 'showStarred',
             'heading' => $heading,
         ]);
-
     }
 }

@@ -26,9 +26,13 @@
                     </div>
 
                     {{-- Mật khẩu --}}
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3 position-relative" style="position: relative;">
                         <input id="password" type="password" placeholder="Nhập mật khẩu"
                             class="form-control @error('password') is-invalid @enderror" name="password" required>
+
+                        {{-- Icon Bootstrap toggle --}}
+                        <i class="bi bi-eye toggle-password icon-inside-input" onclick="togglePassword()"></i>
+
                         @error('password')
                             <span class="invalid-feedback d-block">{{ $message }}</span>
                         @enderror
@@ -126,5 +130,30 @@
             width: 100%;
             height: auto;
         }
+
+        .icon-inside-input {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
     </style>
+@endsection
+
+@section('script')
+    <script>
+        // Ẩn/ hiện mật khẩu: 
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+
+            const isHidden = passwordInput.type === 'password';
+            passwordInput.type = isHidden ? 'text' : 'password';
+
+            toggleIcon.classList.toggle('bi-eye');
+            toggleIcon.classList.toggle('bi-eye-slash');
+        }
+    </script>
 @endsection

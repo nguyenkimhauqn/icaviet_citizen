@@ -20,7 +20,9 @@
     <!-- Styles -->
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
 
-
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Bootstrap từ CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,12 +32,10 @@
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-        <!-- Bootstrap 4 CDN -->
+    <!-- Bootstrap 4 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="{{url('public/js/recorder.js')}}"></script>
+    <script src="{{ url('public/js/recorder.js') }}"></script>
 
 
 </head>
