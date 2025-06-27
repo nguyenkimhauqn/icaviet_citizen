@@ -126,7 +126,7 @@
         </div>
 
         {{-- Hướng dẫn bổ sung nếu là câu liên quan người đại diện --}}
-        @if ($question->has_guideline)
+        @if ($question->has_guideline && $question->id != 44)
             @php
                 // Xác định link động theo ID
                 $guidelineLinks = [
@@ -202,7 +202,11 @@
 
             // Text to speech theo questions
             $('.play-audio-answer').on('click', function() {
-                // Phát văn bản bằng giọng nói
+                // Nếu đang phát âm thì không thực hiện
+                if (window.speechSynthesis.speaking) {
+                    return;
+                }
+
                 // Lấy nội dung văn bản của đáp án
                 const answerText = $(this).closest('button').find('.left-answer').text().trim();
                 speakText(answerText);
@@ -236,6 +240,8 @@
                     success: function(res) {
                         if (!res.success) return alert('Có lỗi xảy ra.');
 
+
+
                         $('.answer-option').prop('disabled', true);
                         // $('.answer-option').css('pointer-events', 'none');
                         // Xử lý màu đáp án đúng & sai. 
@@ -243,6 +249,11 @@
                             const currentBtn = $(this);
                             const currentId = parseInt(currentBtn.val());
                             // Reset các màu cũ trước
+
+                            // Add class để ngăn qua trang
+                            if (currentId === res.selected_answer_id) {
+                                currentBtn.addClass('selected-answer');
+                            }
 
                             // Trường hợp: Luôn hiển thị đáp án đúng
                             if (currentId === res.correct_answer_id) {
@@ -284,9 +295,9 @@
                                 // audio.play();
 
                                 //   Phát văn bản câu trả lời đúng
-                                const correctAnswerText = currentBtn.find(
-                                    '.left-answer').text().trim();
-                                speakText(correctAnswerText); // 
+                                // const correctAnswerText = currentBtn.find(
+                                //     '.left-answer').text().trim();
+                                // speakText(correctAnswerText); // 
                             }
 
                         });
@@ -392,6 +403,17 @@
                 });
             });
             // [END] == * Lưu câu hỏi đánh dấu sao * ===  
+
+            // Kiểm tra đã chọn đáp án trước khi đi tiếp
+            $('.next-btn-circle').on('click', function(e) {
+                const hasSelected = $('.answer-option.selected-answer').length > 0;
+
+                if (!hasSelected) {
+                    e.preventDefault(); // chặn chuyển trang
+                    alert('Vui lòng chọn một đáp án trước khi tiếp tục!');
+                }
+            });
+            // [END] - Kiểm tra đã chọn đáp án trước khi đi tiếp
         });
     </script>
 @endsection

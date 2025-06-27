@@ -162,13 +162,12 @@ body {
     z-index: 100;
     padding: 10px 0px;
     background-color: #F5F4FAE5;
-    /* Safari */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
-    box-shadow: 0 -10px 25px 0 rgba(0, 0, 0, 0.02);
 
     /* Phần cố định ở cuối màn hình */
     position: fixed;
-    bottom: 20px;
+    bottom: 0px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;

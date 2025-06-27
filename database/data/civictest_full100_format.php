@@ -703,7 +703,7 @@ return [
         'question' => 'What is the <strong>capital of your state</strong>?',
         'translation' => 'Thủ phủ ở tiểu bang của bạn là gì?',
         'tips' => '{"Capital of your state": "Thủ phủ của tiểu bang"}',
-        'has_guideline' => false,
+        'has_guideline' => true,
         'correct_answers' => [
             [
                 'content' => 'Tra cứu tại 50states.com',

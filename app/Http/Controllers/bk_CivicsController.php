@@ -24,53 +24,33 @@ class CivicsController extends Controller
         $heading = "KIỂM TRA CÔNG DÂN";
         // ✨ Lấy vị trí bắt đầu từ last_question_index trong bảng users
         $user = Auth::user();
-
-        // Tạm chưa dùng
         $startIndex = $user->last_question_index ?? 0;
+
         // test
         $startIndex = 0;
         // Lấy data theo mode
         // #1. Khởi tạo query cơ bản
         $query = Question::with(['answers', 'answers.hints'])
             ->where('topic_id', 1);
-        // #2. Xử lý theo mode & mode random
-        if (!Session::has('civics.quiz') || empty(Session::get('civics.quiz.questions'))) {
-            switch ($mode) {
-                case 'random10':
-                    $questions = $query->inRandomOrder()->take(10)->get();
-                    break;
+        // #2. Xử lý theo mode
+        switch ($mode) {
+            case 'random10':
+                $questions = $query->inRandomOrder()->take(10)->get();
+                break;
 
-                case 'ordered':
-                    $questions = $query->orderBy('id')->take(100)->get();
-                    break;
+            case 'ordered':
+                $questions = $query->orderBy('id')->take(100)->get();
+                break;
 
-                case 'random':
-                    $questions = $query->inRandomOrder()->take(100)->get();
-                    break;
+            case 'random':
+                $questions = $query->inRandomOrder()->take(100)->get();
+                break;
 
-                case 'all': // fallback mặc định
-                default:
-                    $questions = $query->orderBy('id')->skip($startIndex)->take(10)->get();
-                    break;
-            }
-            // Lưu danh sách ID vào session để cố định câu hỏi cho lần truy cập sau
-            Session::put('civics.quiz', [
-                'questions' => $questions->pluck('id')->toArray(),
-                'answers' => [],
-            ]);
-        } else {
-            // ✅ Nếu đã có session, chỉ lấy lại các câu hỏi theo ID cũ (tránh bị random lại)
-            $questionIds = Session::get('civics.quiz.questions');
-            $questions = Question::with(['answers', 'answers.hints'])
-                ->whereIn('id', $questionIds)
-                ->get()
-                ->sortBy(function ($q) use ($questionIds) {
-                    return array_search($q->id, $questionIds);
-                })
-                ->values(); // reset index
+            case 'all': // fallback mặc định
+            default:
+                $questions = $query->orderBy('id')->skip($startIndex)->take(10)->get();
+                break;
         }
-
-
         // Shuffle đáp án cho từng câu
         $questions = $questions->map(function ($question) {
             $question->setRelation('answers', $question->answers->shuffle());

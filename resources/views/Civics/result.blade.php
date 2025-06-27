@@ -91,8 +91,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            // alert(1);
             $('.review-dropdown').on('click', function() {
+                // alert(1);
                 $('.list-question-answers').toggleClass('d-none d-block');
             });
         });
