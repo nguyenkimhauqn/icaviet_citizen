@@ -6,7 +6,9 @@
 
     <!-- Header -->
     <div class="header">
-        <img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" />
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" />
+        </a>
         <h1 class="header-title" style="margin-bottom: 0px;">
             THI THỬ
         </h1>
@@ -28,7 +30,7 @@
                         @endif
                     </div>
                     <p class="test-progress">
-                        {{ $test['note'] }}
+                        {!! $test['note'] !!}
                     </p>
                 </div>
             </div>

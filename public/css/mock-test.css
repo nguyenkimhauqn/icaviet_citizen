@@ -18,6 +18,10 @@ body {
     line-height: 1.5;
 }
 
+.success {
+    color: #27ae60;
+}
+
 .container {
     display: flex;
     flex-direction: column;

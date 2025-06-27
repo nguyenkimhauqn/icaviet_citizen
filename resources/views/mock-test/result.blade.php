@@ -106,7 +106,7 @@
                 Tiếp tục làm bài thi thử
             </a>
             <div class="mt-2">
-                <a class="text-decoration-none font-md home-link" href="#">Về trang chủ</a>
+                <a class="text-decoration-none font-md home-link" href="{{ route('home') }}">Về trang chủ</a>
             </div>
         </div>
     </div>

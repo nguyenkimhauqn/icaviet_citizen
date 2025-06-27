@@ -30,7 +30,7 @@
                 <div class="highlight-title"> {!! $question->content !!} </div>
                 <div class="flex space-x-3 ">
                     <span class="d-block text-blue-500 text-xl play-audio-btn"
-                        data-audio="{{ asset('public/audio/civics/questions/' . $question->audio_path) }}"> <img
+                        data-audio="{{ asset('audio/civics/questions/' . $question->audio_path) }}"> <img
                             src="{{ url('public/icon/Speaker.svg') }}" alt="icon_speaker"> </span>
                     <span class="d-block toggle-star-btn {{ $isStarred ? 'stared' : '' }} "
                         data-question-id={{ $question->id }} data-active={{ $isStarred ? '1' : '0' }}> <img
@@ -83,7 +83,7 @@
                     @if ($answer->is_correct)
                         <span id="play-audio-answer" class="text-blue-500 text-xl play-audio-answer"
                             data-answer-id="{{ $answer->id }}"
-                            data-audio="{{ asset('public/audio/civics/answers/' . $answer->audio_path) }}">
+                            data-audio="{{ asset('audio/civics/answers/' . $answer->audio_path) }}">
                             <img src="{{ url('public/icon/Icon_Speaker_answer.svg') }}" alt="icon_speaker">
                         </span>
                     @endif
@@ -217,7 +217,7 @@
                     console.warn('Autoplay bị chặn bởi trình duyệt:', e);
                 });
             }
-            // [END] - Phát âm thanh 
+            // [END] - Phát âm thanh
 
             // AJAX kiểm tra đáp án
             $('.answer-option').on('click', function(e) {
@@ -238,7 +238,7 @@
 
                         $('.answer-option').prop('disabled', true);
                         // $('.answer-option').css('pointer-events', 'none');
-                        // Xử lý màu đáp án đúng & sai. 
+                        // Xử lý màu đáp án đúng & sai.
                         $('.answer-option').each(function() {
                             const currentBtn = $(this);
                             const currentId = parseInt(currentBtn.val());
@@ -258,7 +258,7 @@
 
                                 // 🔊 Phát âm thanh sai
                                 const wrongAudio = new Audio(
-                                    '{{ asset('public/audio/civics/Wrong-answer.mp3') }}'
+                                    '{{ asset('audio/civics/Wrong-answer.mp3') }}'
                                 );
                                 wrongAudio.play();
                             }
@@ -273,7 +273,7 @@
 
                                 // 🔊 Phát âm thanh đúng
                                 const correctSound = new Audio(
-                                    '{{ asset('public/audio/civics/correct-answer.mp3') }}'
+                                    '{{ asset('audio/civics/correct-answer.mp3') }}'
                                 );
                                 correctSound.play();
 
@@ -286,7 +286,7 @@
                                 //   Phát văn bản câu trả lời đúng
                                 const correctAnswerText = currentBtn.find(
                                     '.left-answer').text().trim();
-                                speakText(correctAnswerText); // 
+                                speakText(correctAnswerText); //
                             }
 
                         });
@@ -322,13 +322,13 @@
                     }
                 });
             });
-            // [END] - AJAX check 
+            // [END] - AJAX check
 
             // Check Result
             $('.box-btn a').on('click', function(e) {
                 const currentPage = {{ $page }}; // so cau hien tai
                 const totalQuestions = {{ $total }} // tong so cau
-                const mode = "{{ $mode }}"; // 
+                const mode = "{{ $mode }}"; //
                 // alert(1);
                 const routeQuizResult = "{{ route('civics.quizResult', ['quiz' => 'QUIZ_ID']) }}";
                 const nextPage = currentPage + 1;
@@ -364,7 +364,7 @@
             });
             // [END] - Check Result
 
-            // === * Lưu câu hỏi đánh dấu sao * ===  
+            // === * Lưu câu hỏi đánh dấu sao * ===
 
             //  --- Check isStarred ---
             const starBtn = $('.toggle-star-btn');
@@ -391,7 +391,7 @@
                     }
                 });
             });
-            // [END] == * Lưu câu hỏi đánh dấu sao * ===  
+            // [END] == * Lưu câu hỏi đánh dấu sao * ===
         });
     </script>
 @endsection

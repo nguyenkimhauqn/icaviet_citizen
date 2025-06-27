@@ -6,7 +6,7 @@
 
     <div class="header-inner">
         <div class="header">
-            <a href="#"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 THI THỬ<br>
                 <span class="header-subtitle">{{ $testType->name }}</span>
@@ -34,6 +34,7 @@
                 </div>
             </form>
         @endif
+
         @if (session('error'))
             <div class="alert alert-danger mt-3">
                 {{ session('error') }}
@@ -50,7 +51,8 @@
         <button class="btn btn-round active microBtn">
             <img class="micro-icon" src="{{ asset('icon/mockTests/micro.svg') }}" alt="">
         </button>
-        <a href="{{ route('start.mock-test', $testType->slug) }}?page={{ $page + 1 }}" class="btn-round" id="nextBtn">
+        <a href="{{ route('start.mock-test', $testType->slug) }}?page={{ $page + 1 }}" class="btn-round disabled"
+            id="nextBtn">
             <img src="{{ asset('icon/mockTests/arrow-right.svg') }}" alt="Next" />
         </a>
     </div>

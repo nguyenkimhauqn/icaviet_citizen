@@ -7,7 +7,7 @@
 
     <div class="header-inner">
         <div class="header">
-            <a href="#"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 THI THỬ<br>
                 <span class="header-subtitle">{{ $testType->name }}</span>

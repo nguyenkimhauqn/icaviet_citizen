@@ -35,7 +35,7 @@
                 <div class="highlight-title"> {{ $question->content }} </div>
                 <div class="flex space-x-3 ">
                     <button class="text-blue-500 text-xl play-audio-btn"
-                        data-audio="{{ asset('public/audio/civics/questions/' . $question->audio_path) }}">🔊</button>
+                        data-audio="{{ asset('audio/civics/questions/' . $question->audio_path) }}">🔊</button>
                     <button class="toggle-star-btn {{ $isStarred ? 'stared' : '' }} " data-question-id={{ $question->id }}
                         data-active={{ $isStarred ? '1' : '0' }}>⭐</button>
                 </div>
@@ -51,7 +51,7 @@
                 </div>
                 @if ($answer->is_correct)
                     <span class="text-blue-500 text-xl play-audio-answer" data-answer-id="{{ $answer->id }}"
-                        data-audio="{{ asset('public/audio/civics/answers/' . $answer->audio_path) }}">
+                        data-audio="{{ asset('audio/civics/answers/' . $answer->audio_path) }}">
                         🔊
                     </span>
                 @endif
@@ -66,8 +66,7 @@
                 </div>
             </a> --}}
             {{-- Câu hỏi tiếp theo trong chuyên mục --}}
-            <a href="{{ $nextPageUrl }}"
-                class="btn btn-primary btn-lg shadow-sm">
+            <a href="{{ $nextPageUrl }}" class="btn btn-primary btn-lg shadow-sm">
                 <i class="bi bi-chevron-right"></i>
             </a>
         </div>
@@ -103,7 +102,7 @@
                     console.warn('Autoplay bị chặn bởi trình duyệt:', e);
                 });
             }
-            // [END] - Phát âm thanh 
+            // [END] - Phát âm thanh
 
             // AJAX kiểm tra đáp án
             $('.answer-option').on('click', function(e) {
@@ -124,7 +123,7 @@
 
                         $('.answer-option').prop('disabled', true);
                         $('.answer-option').css('pointer-events', 'none');
-                        // Xử lý màu đáp án đúng & sai. 
+                        // Xử lý màu đáp án đúng & sai.
                         $('.answer-option').each(function() {
                             const currentBtn = $(this);
                             const currentId = parseInt(currentBtn.val());
@@ -185,13 +184,13 @@
                     }
                 });
             });
-            // [END] - AJAX check 
+            // [END] - AJAX check
 
             // Check Result
             $('.box-btn a').on('click', function(e) {
                 const currentPage = {{ $page }}; // so cau hien tai
                 const totalQuestions = {{ $total }} // tong so cau
-                const mode = "{{ $mode }}"; // 
+                const mode = "{{ $mode }}"; //
                 // alert(1);
                 const routeQuizResult = "{{ route('civics.quizResult', ['quiz' => 'QUIZ_ID']) }}";
                 const nextPage = currentPage + 1;
@@ -227,7 +226,7 @@
             });
             // [END] - Check Result
 
-            // === * Lưu câu hỏi đánh dấu sao * ===  
+            // === * Lưu câu hỏi đánh dấu sao * ===
 
             //  --- Check isStarred ---
             const starBtn = $('.toggle-star-btn');
@@ -254,7 +253,7 @@
                     }
                 });
             });
-            // [END] == * Lưu câu hỏi đánh dấu sao * ===  
+            // [END] == * Lưu câu hỏi đánh dấu sao * ===
         });
     </script>
 @endsection

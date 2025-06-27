@@ -62,12 +62,12 @@ class MockTestController extends Controller
 
         if ($answeredCount >= $total) {
             // Ví dụ: chuyển sang bài `reading`
-            return redirect()->route('mock-test.prepare', match ($slug) {
-                'civics' => 'reading',
-                'reading' => 'writing',
-                'writing' => 'n400',
-                default => 'home', // fallback
-            });
+            // return redirect()->route('mock-test.prepare', match ($slug) {
+            //     'civics' => 'reading',
+            //     'reading' => 'writing',
+            //     'writing' => 'n400',
+            //     default => 'home', // fallback
+            // });
         }
 
         $view = match ($slug) {
@@ -116,6 +116,7 @@ class MockTestController extends Controller
         $total = $testType->questions()->count();
         $maxAttempts = $testType->max_attempts ?? 1;
 
+
         // Check nếu đã có câu trả lời trước đó thì update
         $userAnswer = UserAnswerQuestion::where('attempt_id', $attemptId)
             ->where('question_id', $questionId)
@@ -155,6 +156,7 @@ class MockTestController extends Controller
                 return $redirect;
             }
         }
+
 
         // Chuyển trang tiếp theo nếu không phải writing hoặc đúng
         if ($currentPage >= $total) {
@@ -201,6 +203,7 @@ class MockTestController extends Controller
         $retryKey = "{$slug}_retry_{$questionId}";
         $resultKey = "{$slug}_retry_result_{$questionId}";
 
+
         if ($isCorrect) {
             $attemptCount = session()->get($retryKey, 1);
 
@@ -209,7 +212,7 @@ class MockTestController extends Controller
 
             // Xóa retry để không ảnh hưởng đến logic chuyển tiếp
             session()->forget($retryKey);
-            return null;
+            return redirect()->route('mock-test.prepare', [$nextSlug]);
         }
 
         $attemptCount = session()->get($retryKey, 1);
@@ -231,6 +234,7 @@ class MockTestController extends Controller
             ->with('error', "Câu trả lời chưa đúng. Bạn còn {$remaining} lượt thử lại.");
     }
 
+
     public function prepare($slug)
     {
         $currentTest = Topic::where('slug', $slug)->firstOrFail();
@@ -247,7 +251,7 @@ class MockTestController extends Controller
 
     public function showResult(Request $request)
     {
-        $testTypes = Topic::take(4)->orderBy('id')->get();
+        $testTypes = Topic::take(4)->orderBy('num_order')->get();
         $results = [];
 
         foreach ($testTypes as $testType) {
