@@ -13,7 +13,7 @@ class MockTestController extends Controller
 {
     public function show()
     {
-        $mockTest = Topic::take(4)->get();
+        $mockTest = Topic::orderBy('num_order', 'asc')->take(4)->get();
         return view('mock-test.index', compact('mockTest'));
     }
 
@@ -104,7 +104,7 @@ class MockTestController extends Controller
         if ($question->type === 'text' && $answerText) {
             $correctAnswer = $question->answers->firstWhere('is_correct', true);
             $isCorrect = $correctAnswer &&
-                strtolower(trim($correctAnswer->answer_text)) === strtolower(trim($answerText));
+                strtolower(trim($correctAnswer->content)) === strtolower(trim($answerText));
         }
 
         if ($question->type === 'multiple_choice' && $answerId) {
@@ -235,10 +235,9 @@ class MockTestController extends Controller
     {
         $currentTest = Topic::where('slug', $slug)->firstOrFail();
 
-        $previousTest = Topic::where('id', '<', $currentTest->id)
-            ->orderBy('id', 'desc')
+        $previousTest = Topic::where('num_order', '<', $currentTest->num_order)
+            ->orderBy('num_order', 'desc')
             ->first();
-
 
         return view('mock-test.prepare', [
             'currentTest' => $currentTest,
@@ -342,7 +341,7 @@ class MockTestController extends Controller
         }
 
 
-        // $request->session()->forget('mock_test_attempt_id');
+        $request->session()->forget('mock_test_attempt_id');
 
         return view('mock-test.result', compact('results'));
     }
