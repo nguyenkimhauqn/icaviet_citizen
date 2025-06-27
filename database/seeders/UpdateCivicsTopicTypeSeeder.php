@@ -15,10 +15,28 @@ class UpdateCivicsTopicTypeSeeder extends Seeder
      */
     public function run()
     {
-        $topic = Topic::where('slug', 'civics')->first();
+        // Civics
+        $civicTopic = Topic::where('slug', 'civics')->first();
+        if ($civicTopic) {
+            Question::where('topic_id', $civicTopic->id)
+                ->update(['type' => 'multiple_choice']);
+        }
 
-        if ($topic) {
-            Question::where('topic_id', $topic->id)
+        $readingTopic = Topic::where('slug', 'reading')->first();
+        if ($readingTopic) {
+            Question::where('topic_id', $readingTopic->id)
+                ->update(['type' => 'text']);
+        }
+
+        $writingTopic = Topic::where('slug', 'writing')->first();
+        if ($writingTopic) {
+            Question::where('topic_id', $writingTopic->id)
+                ->update(['type' => 'text']);
+        }
+
+        $n400Topic = Topic::where('slug', 'n400')->first();
+        if ($n400Topic) {
+            Question::where('topic_id', $n400Topic->id)
                 ->update(['type' => 'multiple_choice']);
         }
     }
