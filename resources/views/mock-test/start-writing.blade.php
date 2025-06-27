@@ -61,36 +61,34 @@
 @endsection
 
 @push('scripts')
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('textarea[name="answer_text"]').val('');
-                $('textarea[name="answer_text"]').on('input', function() {
-                    if ($(this).val().trim().length > 0) {
-                        $('#nextBtn').addClass('active');
-                    } else {
-                        $('#nextBtn').removeClass('active');
-                    }
-                });
-
-                $('.audio').on('click', function() {
-                    const audio = document.getElementById('questionAudio');
-                    if (audio) {
-                        audio.currentTime = 0;
-                        audio.play();
-                    }
-                })
-
-                $('#nextBtn').on('click', function(e) {
-                    if (!$('textarea[name="answer_text"]').val().trim()) {
-                        e.preventDefault();
-                        alert('Vui lòng nhập câu trả lời!');
-                        return;
-                    }
-
-                    $('#questionForm').submit();
-                });
+    <script>
+        $(document).ready(function() {
+            $('textarea[name="answer_text"]').val('');
+            $('textarea[name="answer_text"]').on('input', function() {
+                if ($(this).val().trim().length > 0) {
+                    $('#nextBtn').addClass('active');
+                } else {
+                    $('#nextBtn').removeClass('active');
+                }
             });
-        </script>
-    @endpush
+
+            $('.audio').on('click', function() {
+                const audio = document.getElementById('questionAudio');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play();
+                }
+            })
+
+            $('#nextBtn').on('click', function(e) {
+                if (!$('textarea[name="answer_text"]').val().trim()) {
+                    e.preventDefault();
+                    alert('Vui lòng nhập câu trả lời!');
+                    return;
+                }
+
+                $('#questionForm').submit();
+            });
+        });
+    </script>
 @endpush
