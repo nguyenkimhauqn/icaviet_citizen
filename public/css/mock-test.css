@@ -533,6 +533,21 @@ input::placeholder {
     }
 }
 
+@media (max-width: 400px) {
+    .test-title {
+        font-size: 16px;
+    }
+
+    .test-subtitle {
+        font-size: 16px;
+    }
+
+    .result-badge {
+        padding: 6px 0px;
+        min-width: 70px;
+    }
+}
+
 @media (min-width: 768px) {
     .container {
         max-width: 980px;

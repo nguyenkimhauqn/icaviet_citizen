@@ -1,4 +1,4 @@
-@extends('layouts.app1')
+@extends('layouts.base-test')
 
 @section('title', 'Kết quả bài thi thử')
 
