@@ -158,7 +158,11 @@ class MockTestController extends Controller
 
         // Chuyển trang tiếp theo nếu không phải writing hoặc đúng
         if ($currentPage >= $total) {
-            $nextTest = Topic::where('id', '>', $testType->id)->orderBy('id')->first();
+            $top4Topics = Topic::orderBy('id')->limit(4)->get();
+
+            $nextTest = $top4Topics->first(function ($topic) use ($testType) {
+                return $topic->id > $testType->id;
+            });
 
             return $nextTest
                 ? redirect()->route('mock-test.prepare', $nextTest->slug)
