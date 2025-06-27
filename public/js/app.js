@@ -1,5 +1,4 @@
-
-// Text to speech by Hau Nguyen 
+// Text to speech by Hau Nguyen
 function speakText(text) {
     let hasSpoken = false;
 
@@ -8,14 +7,21 @@ function speakText(text) {
         hasSpoken = true;
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
+        utterance.lang = "en-US";
         utterance.rate = 0.7;
 
         const voices = speechSynthesis.getVoices();
-        const preferredVoices = ['Google US English', 'Samantha', 'Microsoft Zira', 'Karen'];
-        const matched = voices.find(v => preferredVoices.includes(v.name));
-        const fallback = voices.find(v => v.lang === 'en-US' && v.name.toLowerCase().includes('female'));
-        const anyUS = voices.find(v => v.lang === 'en-US');
+        const preferredVoices = [
+            "Google US English",
+            "Samantha",
+            "Microsoft Zira",
+            "Karen",
+        ];
+        const matched = voices.find((v) => preferredVoices.includes(v.name));
+        const fallback = voices.find(
+            (v) => v.lang === "en-US" && v.name.toLowerCase().includes("female")
+        );
+        const anyUS = voices.find((v) => v.lang === "en-US");
 
         utterance.voice = matched || fallback || anyUS || null;
         speechSynthesis.speak(utterance);

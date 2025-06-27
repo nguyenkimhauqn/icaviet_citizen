@@ -99,7 +99,7 @@
             $('.audio').on('click', function() {
                 const text = $('.questionText').val();
                 console.log('speak', text);
-                speak(text);
+                speakText(text);
             });
 
 
