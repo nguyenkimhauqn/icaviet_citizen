@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TextHelper;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Topic;
 use App\Models\UserAnswerQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class MockTestController extends Controller
@@ -49,7 +51,7 @@ class MockTestController extends Controller
         $total = match ($slug) {
             'civics' => 10,
             'reading', 'writing' => 1,
-            'n400' => 50,
+            'n400' => 5,
             default => $testType->questions()->count(),
         };
 
@@ -60,14 +62,14 @@ class MockTestController extends Controller
             })
             ->count();
 
-        if ($answeredCount >= $total) {
-            // Ví dụ: chuyển sang bài `reading`
-            // return redirect()->route('mock-test.prepare', match ($slug) {
-            //     'civics' => 'reading',
-            //     'reading' => 'writing',
-            //     'writing' => 'n400',
-            //     default => 'home', // fallback
-            // });
+
+        if ($slug === 'civics' && $answeredCount >= 10) {
+            return redirect()->route('mock-test.prepare', 'reading');
+        }
+
+        // TODO: Fix => chỉ giả lập 5 lần, nhớ fix
+        if ($slug === 'n400' && $answeredCount >= 5) {
+            return redirect()->route('mock-test.result');
         }
 
         $view = match ($slug) {
@@ -91,6 +93,8 @@ class MockTestController extends Controller
         $questionId = $request->question_id;
         $answerId = $request->answer_id;
         $answerText = $request->answer_text;
+        $questionContent = $request->question_content;
+
         $additionalField = $request->additional_field;
         $attemptId = session()->get('mock_test_attempt_id');
 
@@ -101,10 +105,9 @@ class MockTestController extends Controller
         $question = Question::with('answers')->findOrFail($questionId);
         $isCorrect = false;
 
-        if ($question->type === 'text' && $answerText) {
-            $correctAnswer = $question->answers->firstWhere('is_correct', true);
-            $isCorrect = $correctAnswer &&
-                strtolower(trim($correctAnswer->content)) === strtolower(trim($answerText));
+        if ($answerText) {
+            // $isCorrect = strtolower(trim($questionContent)) === strtolower(trim($answerText));
+            $isCorrect = TextHelper::normalizeText($questionContent) === TextHelper::normalizeText($answerText);
         }
 
         if ($question->type === 'multiple_choice' && $answerId) {
@@ -133,7 +136,7 @@ class MockTestController extends Controller
         } else {
             UserAnswerQuestion::create([
                 'attempt_id' => $attemptId,
-                'user_id' => null,
+                'user_id' => Auth::user()->id,
                 'question_id' => $questionId,
                 'answer_id' => $answerId,
                 'answer_text' => $answerText,
@@ -173,30 +176,6 @@ class MockTestController extends Controller
 
         return redirect()->route('start.mock-test', [$slug, 'page' => $currentPage + 1]);
     }
-
-    // private function handleRetry($slug, $questionId, $currentPage, $maxAttempts, $isCorrect, $nextSlug)
-    // {
-    //     if ($isCorrect) {
-    //         // Nếu đúng thì không cần retry
-    //         session()->forget("{$slug}_retry_{$questionId}");
-    //         return null;
-    //     }
-
-    //     $retryKey = "{$slug}_retry_{$questionId}";
-    //     $attemptCount = session()->get($retryKey, 1);
-
-    //     if ($attemptCount >= $maxAttempts) {
-    //         session()->forget($retryKey);
-    //         return redirect()->route('mock-test.prepare', [$nextSlug]);
-    //     }
-
-    //     session()->put($retryKey, $attemptCount + 1);
-    //     $remaining = $maxAttempts - $attemptCount;
-
-    //     return redirect()
-    //         ->route('start.mock-test', [$slug, 'page' => $currentPage])
-    //         ->with('error', "Câu trả lời chưa đúng. Bạn còn {$remaining} lượt thử lại.");
-    // }
 
     private function handleRetry($slug, $questionId, $currentPage, $maxAttempts, $isCorrect, $nextSlug)
     {
@@ -271,7 +250,6 @@ class MockTestController extends Controller
                 ->get()
                 ->keyBy('question_id');
 
-
             $correctAnswers = $userAnswers->where('is_correct', true)->count();
 
             $isPassed = match ($testType->slug) {
@@ -285,8 +263,8 @@ class MockTestController extends Controller
             foreach ($questions as $question) {
                 $userAnswer = $userAnswers->get($question->id);
 
-                //  Nếu là civics và chưa trả lời => bỏ qua
-                if ($testType->slug === 'civics' && !$userAnswer) {
+                // Bỏ qua nếu chưa có câu trả lời từ người dùng
+                if (!$userAnswer) {
                     continue;
                 }
 
@@ -302,7 +280,13 @@ class MockTestController extends Controller
                     'pronunciation_suggest_answer' => $correctAnswer?->pronunciation,
                     'is_correct' => $userAnswer?->is_correct,
                 ];
+
+                // Nếu chỉ muốn 1 câu cho reading/writing thì vẫn giữ lại break nếu cần
+                if (in_array($testType->slug, ['reading', 'writing'])) {
+                    break;
+                }
             }
+
 
             if ($testType->slug === 'civics') {
                 $totalQuestions = UserAnswerQuestion::where('attempt_id', $attemptId)
@@ -327,9 +311,9 @@ class MockTestController extends Controller
                     }
                 }
             } else {
-                $totalQuestions = $questions->count();
+                // $totalQuestions = $questions->count();
+                $totalQuestions = 5;
             }
-            // $totalQuestions = $questions->count();
 
             $results[] = [
                 'title' => $testType->name,

@@ -340,6 +340,13 @@ body {
     margin: 0;
 }
 
+.font-very-sm-italic {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 0;
+}
+
 .font-sm-2 {
     font-family: "Inter", sans-serif;
     font-weight: 400;
@@ -410,6 +417,10 @@ button:disabled,
 .btn-round.disabled img {
     opacity: 1;
     filter: grayscale(100%);
+}
+
+.additional-field {
+    padding: 10px;
 }
 
 /* Prepare Page */
@@ -486,6 +497,16 @@ input::placeholder {
     font-family: "Inter", sans-serif;
     padding: 10px 0px;
     min-width: 70px;
+}
+
+.question-box {
+    padding: 0px 15px;
+}
+
+.answer-box {
+    margin-top: 15px;
+    background: #edf0f5;
+    padding: 20px 15px;
 }
 
 .home-link {

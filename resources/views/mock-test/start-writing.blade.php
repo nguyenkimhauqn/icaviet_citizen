@@ -25,6 +25,7 @@
             <form method="POST" action="{{ route('submit.answer', [$testType->slug, 'page' => $page]) }}" id="questionForm">
                 @csrf
                 <input type="hidden" name="question_id" value="{{ $question->id }}">
+                <input type="hidden" name="question_content" value="{{ $question->content }}">
 
                 <div class="quiz-container">
                     <div class="audio">

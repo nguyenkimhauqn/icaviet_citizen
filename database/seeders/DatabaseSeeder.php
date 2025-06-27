@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             CivicTest1Seeder::class,
 
         ]);
-        
+
         // 2. data kiểm tra viết
         // $this->call(WritingTestSeeder::class);
 

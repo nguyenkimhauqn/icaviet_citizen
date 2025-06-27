@@ -36,7 +36,8 @@
             </form>
         @endif
 
-        @if ($question && $question->type === 'multiple_choice')
+        {{-- TODO: Fix --}}
+        @if ($question && ($question->type === null || $question->type === 'multiple_choice'))
             <form method="POST" action="{{ route('submit.answer', [$testType->slug, 'page' => $page]) }}"
                 id="questionForm">
                 @csrf
@@ -54,7 +55,7 @@
                     <div class="radio-options bg-light p-4 rounded">
                         @foreach ($question->answers as $answer)
                             <div class="form-check mb-2 d-flex justify-content-center gap-2 align-items-start">
-                                <div class="d-flex flex-column">
+                                <div class="d-flex flex-column" style="width: 100%;">
                                     <div class="d-flex gap-2 justify-content-center align-items-center">
                                         <input class="form-check-input toggle-additional" type="radio" name="answer_id"
                                             id="answer{{ $answer->id }}" value="{{ $answer->id }}"
@@ -67,9 +68,9 @@
                                     </div>
 
                                     {{-- Field bổ sung --}}
-                                    <input type="text" name="additional_field_{{ $answer->id }}"
-                                        class="form-control mt-2 additional-field questionText"
-                                        placeholder="Nhập thông tin bổ sung..." style="display: none;">
+                                    <textarea type="text" name="additional_field_{{ $answer->id }}"
+                                        class="form-control mt-2 additional-field questionText" placeholder="Nhập thông tin bổ sung..."
+                                        style="display: none;"></textarea>
                                 </div>
                             </div>
                         @endforeach
@@ -145,7 +146,7 @@
                 // Hiện field bổ sung nếu đáp án cần
                 if (hasAdditional) {
                     const inputName = `additional_field_${selected.val()}`;
-                    $(`input[name="${inputName}"]`).show();
+                    $(`textarea[name="${inputName}"]`).show();
                 }
             });
 
@@ -160,7 +161,7 @@
                 }
 
                 // Xử lý lấy giá trị của field bổ sung nếu có
-                const $additionalInput = $(`input[name="additional_field_${selected}"]`);
+                const $additionalInput = $(`textarea[name="additional_field_${selected}"]`);
                 const $hiddenField = $('#additional_field');
 
                 if ($additionalInput.length > 0 && $additionalInput.is(':visible')) {
