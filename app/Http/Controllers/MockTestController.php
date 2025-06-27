@@ -47,6 +47,9 @@ class MockTestController extends Controller
 
         $page = (int) $request->query('page', 1);
         $question = $testType->questions()->with('answers')->skip($page - 1)->take(1)->first();
+        if ($question) {
+            $question->setRelation('answers', $question->answers->shuffle());
+        }
 
         $total = match ($slug) {
             'civics' => 10,
