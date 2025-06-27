@@ -9,7 +9,7 @@ use App\Http\Controllers\CivicsResultController;
 use App\Http\Controllers\RepresentativeController;
 use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
-
+use App\Http\Controllers\MockTestController;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Category;
@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-//  ===Auth===  
+//  ===Auth===
 Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -80,6 +80,14 @@ Route::middleware(['auth'])->group(function () {
         // Trang chi tiết bài kiểm tra theo quiz_id
         Route::get('/results/{quiz}', [CivicsResultController::class, 'show'])->name('civics.results.show');
     });
+    // [END] === * Kết quả * ===
+
+    // === * Mock Test * ===
+    Route::get('/mock-test', [MockTestController::class, 'show'])->name('mock-test.list');
+    Route::get('/start-mock-test/{slug}', [MockTestController::class, 'start'])->name('start.mock-test');
+    Route::post('/mock-test/{slug}/submit', [MockTestController::class, 'submitAnswer'])->name('submit.answer');
+    Route::get('/mock-test/{slug}/prepare', [MockTestController::class, 'prepare'])->name('mock-test.prepare');
+    Route::get('/mock-test/result', [MockTestController::class, 'showResult'])->name('mock-test.result');
     // [END] === * Kết quả * ===
 
     // === * FAQ * ===
