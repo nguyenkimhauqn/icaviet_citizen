@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
-@section('content')
-    <link rel="stylesheet" href="{{ asset('/public/css/n400.css') }}">
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/n400.css') }}">
+@endpush
 
+@section('content')
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
         <div class="wp-header d-flex align-items-end mb-4">
@@ -57,8 +59,8 @@
 
                 {{-- Icon Loa --}}
                 <img id="icon-audio-question" class="img-fluid img-loudspeaker play-audio-btn"
-                    src="{{ url('public/icon/loudspeaker.png') }}"
-                    data-audio="{{ asset('audio/n400/' . $question->audio_path) }}" alt="icon_loudspeaker">
+                    src="{{ url('icon/loudspeaker.png') }}" data-audio="{{ asset('audio/n400/' . $question->audio_path) }}"
+                    alt="icon_loudspeaker">
 
                 {{-- Toggle đáp án --}}
                 <h5 id="icon-show">
