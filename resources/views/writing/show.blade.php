@@ -33,9 +33,9 @@
                 <div class="wp-question fl-item flex justify-center items-center my-6">
                     {{-- Icon Loa --}}
                     <img class="img-fluid img-loudspeaker play-audio-btn" src="{{ url('public/icon/loudspeaker.png') }}"
-                        data-audio="{{ asset('public/audio/writing/' . $question->audio_path) }}" alt="icon_loudspeaker">
+                        data-audio="{{ asset('audio/writing/' . $question->audio_path) }}" alt="icon_loudspeaker">
                     {{-- Audio element ẩn --}}
-                    <audio id="audio-player" src="{{ asset('public/audio/writing/' . $question->audio_path) }}"></audio>
+                    <audio id="audio-player" src="{{ asset('audio/writing/' . $question->audio_path) }}"></audio>
                     {{-- Nút hiện/ẩn đáp án --}}
                     <h5 id="icon-show">
                         <i class="bi bi-toggle-off toggle-icon"></i>

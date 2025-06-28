@@ -58,7 +58,7 @@
                 {{-- Icon Loa --}}
                 <img id="icon-audio-question" class="img-fluid img-loudspeaker play-audio-btn"
                     src="{{ url('public/icon/loudspeaker.png') }}"
-                    data-audio="{{ asset('public/audio/n400/' . $question->audio_path) }}" alt="icon_loudspeaker">
+                    data-audio="{{ asset('audio/n400/' . $question->audio_path) }}" alt="icon_loudspeaker">
 
                 {{-- Toggle đáp án --}}
                 <h5 id="icon-show">
