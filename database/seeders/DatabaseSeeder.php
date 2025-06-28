@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
         
         // 2. data kiểm tra viết
-        // $this->call(WritingTestSeeder::class);
+        $this->call(WritingTestSeeder::class);
 
         // 3. data kiểm tra đọc
         // $this->call(ReadingTestSeeder::class);

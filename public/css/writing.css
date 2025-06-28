@@ -1,3 +1,12 @@
+/* Chung all module */
+body {
+    background-color: #F5F4FA;
+}
+
+.navbar {
+    display: none !important;
+}
+
 .answer-option {
     font-size: 18px;
     font-weight: 500;
@@ -45,14 +54,14 @@
 }
 
 .highlight-text {
-    color: #0d6efd;
-    font-weight: bold;
+    color: #000000;
+    /* font-weight: bold; */
 }
 
 .highlight-title {
     color: #0f5132;
     font-size: 20px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .sp-bt {
@@ -145,7 +154,8 @@
     padding: 16px 16px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
-    resize: none; /* không cho kéo */
+    resize: none;
+    /* không cho kéo */
     align-content: center;
     overflow: hidden;
 }
@@ -171,10 +181,12 @@
 
 .toggle-icon {
     font-size: 2.5rem;
-    color: #000000; /* xanh lá Bootstrap */
+    color: #000000;
+    /* xanh lá Bootstrap */
     transition: color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
 }
+
 .toggle-icon-btn {
     font-size: 1.8rem;
     color: #fff;
@@ -184,13 +196,87 @@
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
 }
+
 .toggle-icon-btn:hover {
     background-color: #1e7e34;
     transform: scale(1.1);
 }
+
 .toggle-icon:active,
 .toggle-icon-btn:active {
     transform: scale(0.95);
     opacity: 0.8;
 }
 
+textarea.form-control {
+    background-color: #F8F7FB !important;
+    height: auto;
+    border-radius: 12px !important;
+}
+
+textarea.form-control::placeholder {
+    color: #BDBDBD !important;
+    /* thay bằng mã màu bạn muốn */
+    opacity: 1;
+    /* đảm bảo không bị nhạt màu quá */
+}
+
+#icon-show {
+    margin-top: 15px !important;
+}
+
+.box-icon-show {
+    border-bottom: solid 1px #3C3C435C;
+    padding: 0px 0px 20px 0px;
+}
+
+/* Căn chỉnh bố cục nút */
+.wp-action {
+    width: 100%;
+    z-index: 100;
+    padding: 10px 0px;
+    background-color: #F5F4FAE5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+
+    /* Phần cố định ở cuối màn hình */
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+/* Nút hình tròn */
+.action-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Màu từng nút */
+.btn-previous {
+    background-color: #D9D9D9;
+    color: #000;
+    border: none;
+}
+
+.btn-submit {
+    width: 64px;
+    height: 64px;
+    background-color: #0D47C6;
+    color: #fff;
+    border: none;
+}
+
+.btn-next {
+    background-color: #D9D9D9;
+    color: #000;
+    border: none;
+}

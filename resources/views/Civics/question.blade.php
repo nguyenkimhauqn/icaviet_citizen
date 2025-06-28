@@ -199,8 +199,7 @@
             //     }
             // });
 
-
-            // Text to speech theo questions
+            // Text to speech theo answerText
             $('.play-audio-answer').on('click', function() {
                 // Nếu đang phát âm thì không thực hiện
                 if (window.speechSynthesis.speaking) {
