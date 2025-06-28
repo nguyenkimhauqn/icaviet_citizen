@@ -3,8 +3,6 @@
 @section('title', $testType->title)
 
 @section('content')
-
-
     <div class="header-inner">
         <div class="header">
             <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
@@ -35,7 +33,7 @@
                     <audio id="questionAudio" src="{{ asset('audio/writing/' . $question->audio_path) }}"></audio>
 
                     <textarea type="text" name="answer_text" class="instruction-text form-control mt-3" placeholder="Nhập ở đây">
-                        </textarea>
+                    </textarea>
                 </div>
             </form>
         @endif
