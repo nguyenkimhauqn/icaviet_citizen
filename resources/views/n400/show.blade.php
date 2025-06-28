@@ -83,8 +83,8 @@
             $tips = json_decode($question->tips, true);
         @endphp
 
-        <div class="container-tips">
-            @if ($question->tips)
+        @if (isset($question->tips) && isset($tips->another_answer_way))
+            <div class="container-tips">
                 <div class="tips-box">
                     <strong>
                         <p class="d-block font-sm font-bold">Mẹo ghi nhớ:</p>
@@ -92,6 +92,7 @@
                     <div class="d-flex gap-2">
                         @foreach (json_decode($question->tips, true) as $label => $value)
                             <div class="answer-tips">
+
                                 <span class="tag">
                                     <span class="tag-key">{{ $label . ':' }} </span> <span class="tag-value">
                                         {{ $value }} </span>
@@ -101,8 +102,9 @@
 
                     </div>
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
+
 
         <div class="hint-container">
             <div class="toggle-container">

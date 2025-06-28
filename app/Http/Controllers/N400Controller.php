@@ -18,15 +18,7 @@ class N400Controller extends Controller
         $totalQuestions = Question::where('category_id', $id)->count();
 
         if ($page > $totalQuestions) {
-            $nextCategory = Category::where('id', '>', $id)->orderBy('id')->first();
-
-            if ($nextCategory) {
-                // Chuyển sang category tiếp theo, page = 1
-                return redirect()->route('n400.category.show', ['id' => $nextCategory->id, 'page' => 1]);
-            } else {
-                // Không còn category nào nữa
-                return view('n400.completed');
-            }
+            return view('n400.completed');
         }
 
         $question = Question::where('category_id', $id)
