@@ -25,8 +25,7 @@
                         <div class="col-10 col-md-6">
                             <a class="text-dark text-decoration-none"
                                 href="{{ route('n400.category.show', $category->id) }}">
-                                <strong>{{ $loop->iteration }}. {{ $category->title_en }}</strong>
-                                <span class="text-muted">({{ $category->questions_count }})</span>
+                                <strong>{{ $category->title_en }}</strong>
                             </a>
                         </div>
                         <div class="col-2 col-md-6 text-end">

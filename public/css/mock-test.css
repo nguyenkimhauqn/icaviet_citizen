@@ -331,6 +331,13 @@ body {
 }
 
 /* Fonts */
+
+.font-bold {
+    font-weight: 700 !important;
+    font-size: 20px;
+    margin: 0;
+}
+
 .font-sm {
     font-weight: 400;
     font-size: 20px;
