@@ -306,3 +306,17 @@ input:checked + .slider::before {
     height: 1px;
     background: #ccc;
 }
+
+.container-tips {
+    margin-top: 20px;
+}
+
+.answer-tips {
+    background-color: #badfff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.tag-key {
+    font-weight: 700;
+}

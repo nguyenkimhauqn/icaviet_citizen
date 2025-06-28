@@ -83,6 +83,27 @@
             $tips = json_decode($question->tips, true);
         @endphp
 
+        <div class="container-tips">
+            @if ($question->tips)
+                <div class="tips-box">
+                    <strong>
+                        <p class="d-block font-sm font-bold">Mẹo ghi nhớ:</p>
+                    </strong>
+                    <div class="d-flex gap-2">
+                        @foreach (json_decode($question->tips, true) as $label => $value)
+                            <div class="answer-tips">
+                                <span class="tag">
+                                    <span class="tag-key">{{ $label . ':' }} </span> <span class="tag-value">
+                                        {{ $value }} </span>
+                                </span>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            @endif
+        </div>
+
         <div class="hint-container">
             <div class="toggle-container">
                 <label class="switch">
@@ -95,19 +116,19 @@
 
             <div id="hintText" style="display: none;">
                 <div class="translate-box mt-3 text-center">
-                    <p class="font-very-sm-italic">{{ $question->translation }}</p>
+                    <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
                 </div>
                 @if (isset($tips['another_answer_way']))
                     <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
                         style="background: #f9f9fc; border-left: 4px solid #27ae60;">
-                        <p class="mb-2"><strong>Cách trả lời khác:</strong></p>
+                        <p class="mb-2 font-sm"><strong>Cách trả lời khác:</strong></p>
                         <ul class="ps-3 mb-0" style="list-style: none;">
                             @foreach ($tips['another_answer_way'] as $tip)
                                 <li class="mb-1">
                                     <span class="d-block">
                                         - <span
                                             class="font-sm {{ isset($tip['is_best_answer']) && $tip['is_best_answer'] == true ? 'font-bold' : '' }}">{{ $tip['en'] }}</span>
-                                        <em class="font-sm-italic"> ({{ $tip['vi'] }})</em>
+                                        <em class="font-sm-italic">({{ $tip['vi'] }})</em>
                                     </span>
                                 </li>
                             @endforeach
