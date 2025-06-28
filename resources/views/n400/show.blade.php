@@ -243,8 +243,9 @@
                     return;
                 }
 
+                const selectedAnswer = $('input[name="answer_id"]:checked').val();
                 const nextUrl =
-                    `{{ route('n400.category.show', ['id' => $category->id]) }}?page={{ $page + 1 }}`;
+                    `{{ route('n400.category.show', ['id' => $category->id]) }}?page={{ $page }}&answer_id=${selectedAnswer}`;
                 window.location.href = nextUrl;
             });
 
