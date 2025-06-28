@@ -29,7 +29,7 @@
                 <div class="quiz-container">
                     <div class="audio">
                         <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
-                        {{-- <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input> --}}
+                        <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
                     <span class="font-sm text-center">{{ $question->content }}</span>
 
