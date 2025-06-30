@@ -77,7 +77,7 @@
 
                     <!-- 5. N-400 & Speaking -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('n400.categories.index') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('icon/home/Icon-n400.svg') }}" alt="icon-n400">

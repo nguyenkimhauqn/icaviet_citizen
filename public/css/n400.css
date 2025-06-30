@@ -241,6 +241,7 @@
 }
 
 .hint-container {
+    padding: 10px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -319,4 +320,17 @@ input:checked + .slider::before {
 
 .tag-key {
     font-weight: 700;
+}
+
+.category-item {
+    list-style: none;
+    padding: 12px 18px;
+}
+
+.category-item:nth-child(odd) {
+    background: #edf0f5;
+}
+
+.category-item:nth-child(even) {
+    background: #f5f4fa;
 }

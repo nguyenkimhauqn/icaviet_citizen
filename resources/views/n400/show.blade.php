@@ -12,11 +12,8 @@
             <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 N-400 & NÓI<br>
-                {{-- <span class="header-subtitle">{{ $testType->name }}</span>
+                <span class="header-subtitle">{{ $category->title_en }}</span>
 
-                @if ($testType->vietnamese_name)
-                    <span class="header-subtitle-2">({{ $testType->vietnamese_name }})</span>
-                @endif --}}
             </h1>
         </div>
     </div>
@@ -31,10 +28,10 @@
                         <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
-                    <span class="font-sm text-center">{{ $question->content }}</span>
+                    <span class="font-sm text-center">{!! $question->content !!}</span>
 
-                    <textarea type="text" name="answer_text" class="instruction-text form-control mt-4" placeholder="Nhập ở đây">
-                        </textarea>
+                    <textarea type="text" name="answer_text" class="instruction-text form-control mt-4"
+                        placeholder=" {{ isset($question->answer_note) ? e($question->answer_note) : 'Nhập ở đây' }} ">{{ e($question->default_answers) }}</textarea>
                 </div>
             </form>
         @endif
@@ -48,7 +45,7 @@
                         <input class="questionText hidden" type="hidden" value="{{ $question->question_text }}"></input>
                     </div>
 
-                    <span class="font-sm text-center">{{ $question->content }}</span>
+                    <span class="font-sm text-center">{!! $question->content !!}</span>
 
                     <div class="radio-options bg-light p-4 rounded text-start mt-4">
                         @foreach ($question->answers as $answer)
@@ -57,15 +54,14 @@
                                     <div class="d-flex gap-2 justify-content-start align-items-center">
                                         <input class="form-check-input toggle-additional" type="radio" name="answer_id"
                                             id="answer{{ $answer->id }}" value="{{ $answer->id }}"
-                                            data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}">
+                                            data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}"
+                                            @if (trim($answer->content) === trim($question->default_answers)) checked @endif>
 
                                         <label class="form-check-label radio-label font-sm"
                                             for="answer{{ $answer->id }}">
                                             {{ $answer->content }}
                                         </label>
                                     </div>
-
-
                                 </div>
                             </div>
 
@@ -73,6 +69,22 @@
                             <textarea type="text" name="additional_field_{{ $answer->id }}"
                                 class="form-control mt-2 additional-field questionText" placeholder="{{ $answer->additional_answer_placeholder }}"
                                 style="display: none;"></textarea>
+
+                            {{-- Box cảnh báo --}}
+                            @if ($answer->warning)
+                                <div class="warning-container mb-2 d-none" data-answer-id="{{ $answer->id }}">
+                                    <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
+                                        style="background: #f9f9fc; border-left: 4px solid #FF3363;">
+                                        <p class="d-flex align-center gap-2 mb-2 font-sm" style="color: #FF3363;">
+                                            <img src="{{ asset('icon/n400/warning.svg') }}" alt="Warning">
+                                            <strong>Cảnh báo:</strong>
+                                        </p>
+                                        <ul class="m-0 p-0" style="list-style: none;">
+                                            <li>{{ $answer->warning }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -83,14 +95,14 @@
             $tips = json_decode($question->tips, true);
         @endphp
 
-        @if (isset($question->tips) && isset($tips->another_answer_way))
+        @if (isset($question->tips) && !isset($tips['another_answer_way']))
             <div class="container-tips">
                 <div class="tips-box">
                     <strong>
                         <p class="d-block font-sm font-bold">Mẹo ghi nhớ:</p>
                     </strong>
-                    <div class="d-flex gap-2">
-                        @foreach (json_decode($question->tips, true) as $label => $value)
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach ($tips as $label => $value)
                             <div class="answer-tips">
 
                                 <span class="tag">
@@ -120,11 +132,11 @@
                 <div class="translate-box mt-3 text-center">
                     <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
                 </div>
-                @if (isset($tips['another_answer_way']))
+                @if (isset($question->tips) && isset($tips['another_answer_way']))
                     <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
                         style="background: #f9f9fc; border-left: 4px solid #27ae60;">
-                        <p class="mb-2 font-sm"><strong>Cách trả lời khác:</strong></p>
-                        <ul class="ps-3 mb-0" style="list-style: none;">
+                        <p class="ml-2 mb-2 font-sm"><strong>Cách trả lời khác:</strong></p>
+                        <ul class="p-0 mb-0" style="list-style: none;">
                             @foreach ($tips['another_answer_way'] as $tip)
                                 <li class="mb-1">
                                     <span class="d-block">
@@ -182,7 +194,7 @@
             // Trường hợp dạng TEXT
             if (isTextType) {
                 const $textInput = $('textarea[name="answer_text"]');
-                $textInput.val('');
+                // $textInput.val('');/
 
                 $textInput.on('input', function() {
                     $('#nextBtn').toggleClass('active', $(this).val().trim().length > 0);
@@ -217,10 +229,18 @@
             radioInputs.on('change', function() {
                 const selected = $(this);
                 const hasAdditional = selected.data('has-additional');
+                const answerId = selected.val();
+
 
                 // Highlight label được chọn
                 $('.radio-label').removeClass('active');
                 $(`label[for="${selected.attr('id')}"]`).addClass('active');
+
+                // Ẩn toàn bộ cảnh báo
+                $('.warning-container').addClass('d-none');
+
+                // Hiện cảnh báo nếu có
+                $(`.warning-container[data-answer-id="${answerId}"]`).removeClass('d-none');
 
                 // Cho phép bấm nút tiếp
                 $('#nextBtn').addClass('active');
