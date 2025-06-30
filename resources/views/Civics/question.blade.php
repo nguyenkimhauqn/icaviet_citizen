@@ -111,7 +111,7 @@
             @if ($question->tips)
                 <div class="tips-box">
                     <strong>
-                        <p class="d-block"> Mẹo ghi nhớ: </p>
+                        <p class="d-block"> Từ vựng: </p>
                     </strong>
                     @foreach (json_decode($question->tips, true) as $label => $value)
                         <div class="answer-tips">
@@ -268,7 +268,7 @@
 
                                 // 🔊 Phát âm thanh sai
                                 const wrongAudio = new Audio(
-                                    '{{ asset('audio/civics/Wrong-answer.mp3') }}'
+                                    '{{ asset('public/audio/civics/Wrong-answer.mp3') }}'
                                 );
                                 wrongAudio.play();
                             }
@@ -283,7 +283,7 @@
 
                                 // 🔊 Phát âm thanh đúng
                                 const correctSound = new Audio(
-                                    '{{ asset('audio/civics/correct-answer.mp3') }}'
+                                    '{{ asset('/public/audio/civics/correct-answer.mp3') }}'
                                 );
                                 correctSound.play();
 
@@ -294,18 +294,14 @@
                                 // audio.play();
 
                                 //   Phát văn bản câu trả lời đúng
-                                <<
-                                << << < HEAD
-                                    // const correctAnswerText = currentBtn.find(
-                                    //     '.left-answer').text().trim();
-                                    // speakText(correctAnswerText); //
-                                    ===
-                                    === =
-                                    const correctAnswerText = currentBtn.find(
-                                        '.left-answer').text().trim();
+
+                                // const correctAnswerText = currentBtn.find(
+                                //     '.left-answer').text().trim();
+
+                                const correctAnswerText = currentBtn.find(
+                                    '.left-answer').text().trim();
                                 speakText(correctAnswerText); //
-                                >>>
-                                >>> > van
+
                             }
 
                         });

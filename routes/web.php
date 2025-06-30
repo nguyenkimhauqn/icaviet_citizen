@@ -53,7 +53,9 @@ Route::middleware(['auth'])->group(function () {
 
     // === * WRITING * ===
     Route::get('/writing/{index?}', [WritingController::class, 'show'])->name('writing.show');
-    Route::post('/writing/check', [WritingController::class, 'check'])->name('writing.check');
+    // Route::post('/writing/check', [WritingController::class, 'check'])->name('writing.check');
+    Route::post('/writing/check-ajax', [WritingController::class, 'checkAjax'])->name('writing.check.ajax');
+
     // === * [END] - WRITING * ===
 
     // === * READING * ===

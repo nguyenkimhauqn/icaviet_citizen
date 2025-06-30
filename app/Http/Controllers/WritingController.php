@@ -30,8 +30,10 @@ class WritingController extends Controller
     {
         // dd("ok");
         $index = (int) $request->input('index');
+        // dd($index);
         $userAnswer = $request->input('user_answer');
         // dd($userAnswer);
+
         // Lấy câu hỏi từ topic writing
         $question = Question::where('topic_id', 2)->orderBy('id')->skip($index)->first();
 
@@ -40,12 +42,49 @@ class WritingController extends Controller
                 ->with('error', 'Không tìm thấy câu hỏi');
         }
 
-        // So sánh chính xác tuyệt đối
-        $isCorrect = strtolower($userAnswer) === strtolower($question->content);
+        // So sánh Chuẩn hóa chuỗi: bỏ dấu chấm câu, khoảng trắng, chữ thường
+        $normalize = function ($text) {
+            $text = strip_tags($text); // Loại bỏ <strong> hoặc các thẻ HTML khác
+            $text = preg_replace('/[.,!?;:]/', '', $text); // Xóa dấu câu
+            $text = preg_replace('/\s+/', ' ', $text); // Gom khoảng trắng
+            return strtolower(trim($text)); // Về chữ thường.
+        };
+
+        $normalizedUserAnswer = $normalize($userAnswer);
+        $normalizedCorrectAnswer = $normalize($question->content);
+
+        $isCorrect = $normalizedUserAnswer === $normalizedCorrectAnswer;
 
         // Lưu vào session để hiển thị
         return redirect()->route('writing.show', ['index' => $index])
             ->with('result', $isCorrect)
             ->with('input_answer', $userAnswer);
+    }
+
+    public function checkAjax(Request $request)
+    {
+        $index = (int) $request->input('index');
+        $userAnswer = $request->input('user_answer');
+
+        $question = Question::where('topic_id', 2)->orderBy('id')->skip($index)->first();
+        if (!$question) {
+            return response()->json(['error' => 'Không tìm thấy câu hỏi'], 404);
+        }
+
+        $normalize = function ($text) {
+            $text = strip_tags($text);
+            $text = preg_replace('/[.,!?;:]/', '', $text);
+            $text = preg_replace('/\s+/', ' ', $text);
+            return strtolower(trim($text));
+        };
+
+        $normalizedUserAnswer = $normalize($userAnswer);
+        $normalizedCorrectAnswer = $normalize($question->content);
+        $isCorrect = $normalizedUserAnswer === $normalizedCorrectAnswer;
+
+        return response()->json([
+            'result' => $isCorrect,
+            'input_answer' => $userAnswer,
+        ]);
     }
 }

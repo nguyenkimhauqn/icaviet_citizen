@@ -6,7 +6,7 @@
 
             {{-- Logo và banner --}}
             <div class="card-head text-center banner-wrapper">
-                <img src="{{ asset('banners/banner-login.png') }}" alt="Banner" class="img-fluid">
+                <img src="{{ asset('public/banners/banner-login.png') }}" alt="Banner" class="img-fluid">
             </div>
 
             <div class="card card-body">
