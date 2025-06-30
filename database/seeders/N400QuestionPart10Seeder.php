@@ -790,7 +790,7 @@ class N400QuestionPart10Seeder extends Seeder
                 'Weapon' => 'vũ khí'
             ])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
+        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'skip_to_question' => 55]);
         Answer::create([
             'question_id' => $q->id,
             'content' => 'Yes',
@@ -1374,7 +1374,7 @@ class N400QuestionPart10Seeder extends Seeder
                 '18th and 26th birthdays' => 'trong khoảng từ 18 đến 26 tuổi'
             ])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
+        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'skip_to_question' => 104]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
         // 36
@@ -1386,7 +1386,13 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'Yes',
             'tips' => json_encode(['Selective Service' => 'Quân vụ'])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'warning' => 'Thường trú nhân đủ điều kiện nhưng không đăng ký Quân vụ có thể bị xem là không có tư cách đạo đức tốt.']);
+        Answer::create([
+            'question_id' => $q->id,
+            'content' => 'No',
+            'is_correct' => true,
+            'warning' => 'Thường trú nhân đủ điều kiện nhưng không đăng ký Quân vụ có thể bị xem là không có tư cách đạo đức tốt.',
+            'skip_to_question' => 100,
+        ]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
         // 37
@@ -1450,7 +1456,7 @@ class N400QuestionPart10Seeder extends Seeder
                 'U.S. armed forces' => 'quân đội Mỹ'
             ])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
+        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'skip_to_question' => 111]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
         // Câu 41
@@ -1465,7 +1471,7 @@ class N400QuestionPart10Seeder extends Seeder
                 'U.S. armed forces' => 'quân đội Mỹ'
             ])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
+        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'skip_to_question' => 107]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
         // Câu 42
@@ -1571,7 +1577,13 @@ class N400QuestionPart10Seeder extends Seeder
             ])
         ]);
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
-        Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true, 'additional_answer_placeholder' => 'Cung cấp chức vị']);
+        Answer::create([
+            'question_id' => $q->id,
+            'content' => 'Yes',
+            'is_correct' => true,
+            'additional_answer_placeholder' => 'Cung cấp chức vị',
+            'skip_to_question' => 113
+        ]);
 
         // Câu 48.a
         $q = Question::create([
