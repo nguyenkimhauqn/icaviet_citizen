@@ -55,11 +55,6 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Vui lòng đứng lên.',
             'type' => 'text',
             'default_answers' => 'Yes',
-            'tips' => json_encode([
-                'another_answer_way' => [
-                    ['en' => 'Yes', 'vi' => 'Vâng', 'is_best_answer' => true],
-                ]
-            ]),
         ]);
 
         // 4
@@ -69,11 +64,6 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Vui lòng giơ tay phải lên.',
             'type' => 'text',
             'default_answers' => 'Yes',
-            'tips' => json_encode([
-                'another_answer_way' => [
-                    ['en' => 'Yes', 'vi' => 'Vâng', 'is_best_answer' => true],
-                ]
-            ]),
         ]);
 
         // 5
