@@ -30,8 +30,12 @@
                     </div>
                     <span class="font-sm text-center">{!! $question->content !!}</span>
 
-                    <textarea type="text" name="answer_text" class="instruction-text form-control mt-4"
-                        placeholder=" {{ isset($question->answer_note) ? e($question->answer_note) : 'Nhập ở đây' }} ">{{ e($question->default_answers) }}</textarea>
+                    <div class="position-relative">
+                        <img class="icon-textarea" src="{{ asset('icon/n400/sound.svg') }}" alt="Audio">
+                        <textarea name="answer_text" class="instruction-text form-control mt-4 ps-5"
+                            placeholder="{{ isset($question->answer_note) ? e($question->answer_note) : 'Nhập ở đây' }}">{{ e($question->default_answers) }}</textarea>
+                    </div>
+
                 </div>
             </form>
         @endif
@@ -75,11 +79,11 @@
                                 <div class="warning-container mb-2 d-none" data-answer-id="{{ $answer->id }}">
                                     <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
                                         style="background: #f9f9fc; border-left: 4px solid #FF3363;">
-                                        <p class="d-flex align-center gap-2 mb-2 font-sm" style="color: #FF3363;">
+                                        <p class="d-flex align-center gap-2 mb-2 text-dark font-sm" style="color: #FF3363;">
                                             <img src="{{ asset('icon/n400/warning.svg') }}" alt="Warning">
                                             <strong>Cảnh báo:</strong>
                                         </p>
-                                        <ul class="m-0 p-0" style="list-style: none;">
+                                        <ul class="m-0 p-0 text-dark font-sm" style="list-style: none;">
                                             <li>{{ $answer->warning }}</li>
                                         </ul>
                                     </div>
@@ -128,25 +132,27 @@
             </div>
             <div class="line mt-3"></div>
 
-            <div id="hintText" style="display: none;">
-                <div class="translate-box mt-3 text-center">
+            <div id="hintText" style="display: none; width: 100%;">
+                <div class="translate-box mt-3 text-start">
                     <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
                 </div>
                 @if (isset($question->tips) && isset($tips['another_answer_way']))
-                    <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
-                        style="background: #f9f9fc; border-left: 4px solid #27ae60;">
-                        <p class="ml-2 mb-2 font-sm"><strong>Cách trả lời khác:</strong></p>
-                        <ul class="p-0 mb-0" style="list-style: none;">
-                            @foreach ($tips['another_answer_way'] as $tip)
-                                <li class="mb-1">
-                                    <span class="d-block">
-                                        - <span
-                                            class="font-sm {{ isset($tip['is_best_answer']) && $tip['is_best_answer'] == true ? 'font-bold' : '' }}">{{ $tip['en'] }}</span>
-                                        <em class="font-sm-italic">({{ $tip['vi'] }})</em>
-                                    </span>
-                                </li>
-                            @endforeach
-                        </ul>
+                    <div class="another-section">
+                        <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm another-way"
+                            style="background: #f9f9fc; border-left: 4px solid #27ae60; max-width: 500px;">
+                            <p class="ml-2 mb-2 text-dark font-sm"><strong>Cách trả lời khác:</strong></p>
+                            <ul class="p-0 mb-0 text-dark font-sm" style="list-style: none;">
+                                @foreach ($tips['another_answer_way'] as $tip)
+                                    <li class="mb-1">
+                                        <span class="d-block">
+                                            - <span
+                                                class="font-sm {{ isset($tip['is_best_answer']) && $tip['is_best_answer'] == true ? 'font-bold' : '' }}">{{ $tip['en'] }}</span>
+                                            <em class="font-sm-italic">({{ $tip['vi'] }})</em>
+                                        </span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 @endif
             </div>
@@ -158,9 +164,9 @@
     </main>
 
     <div class="test-footer">
-        {{-- <button class="btn btn-round" id="prevBtn">
-                    <img src="{{ asset('icon/mockTests/arrow-left.svg') }}" alt="Prev" />
-                </button> --}}
+        <button class="btn btn-round" id="prevBtn">
+            <img src="{{ asset('icon/mockTests/arrow-left.svg') }}" alt="Prev" />
+        </button>
         <button class="btn btn-round" id="nextBtn">
             <img src="{{ asset('icon/mockTests/arrow-right.svg') }}" alt="Next" />
         </button>
@@ -172,11 +178,22 @@
     <script>
         $(document).ready(function() {
 
+            $('#prevBtn').on('click', function(e) {
+                e.preventDefault(); // Ngăn hành vi mặc định (nếu có)
+                window.history.back(); // Quay lại trang trước
+            });
+
             // Audio click (text-to-speech)
             $('.audio').on('click', function() {
                 const text = $('.questionText').val();
                 console.log('speak', text);
                 speakText(text);
+            });
+
+            $('.icon-textarea').on('click', function() {
+                const text = $('textarea[name="answer_text"]').val();
+                console.log('✅ speak:', text);
+                speakText(text)
             });
 
             // Toggle hiện/ẩn gợi ý
@@ -201,24 +218,51 @@
                 });
 
                 $('#nextBtn').on('click', function(e) {
-                    const isTextType = $('textarea[name="answer_text"]').length > 0;
+                    const $textInput = $('textarea[name="answer_text"]');
+                    const rawValue = $textInput.val().trim();
 
-                    if (isTextType) {
-                        const $textInput = $('textarea[name="answer_text"]');
-                        const text = $textInput.val().trim();
+                    if (!rawValue) {
+                        alert('Vui lòng nhập câu trả lời!');
+                        return;
+                    }
 
-                        if (!text) {
-                            alert('Vui lòng nhập câu trả lời!');
-                            return;
+                    const numericValue = Number(rawValue);
+                    const isNumber = !isNaN(numericValue);
+
+                    // Lấy skip_to từ Blade
+                    const skipToCategory = {{ $question->skip_to_category ?? 'null' }};
+                    const skipToQuestion = {{ $question->skip_to_question ?? 'null' }};
+
+                    let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
+                    let nextPage = {{ $page + 1 }};
+
+                    if (isNumber && numericValue === 0) {
+                        // Chỉ skip nếu có giá trị hợp lệ
+                        if (skipToCategory && skipToCategory !== 0) {
+                            nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
+                                '__ID__', skipToCategory);
                         }
 
-                        // Chuyển sang page kế tiếp
-                        const nextUrl =
-                            `{{ route('n400.category.show', ['id' => $category->id]) }}?page={{ $page + 1 }}`;
-                        window.location.href = nextUrl;
-                    }
-                });
+                        if (skipToQuestion && skipToQuestion !== 0) {
+                            nextPage = skipToQuestion;
+                        }
 
+                    } else if (!isNumber) {
+                        // Nếu là chữ → chỉ skip nếu có skip hợp lệ
+                        if (skipToCategory && skipToCategory !== 0) {
+                            nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
+                                '__ID__', skipToCategory);
+                        }
+
+                        if (skipToQuestion && skipToQuestion !== 0) {
+                            nextPage = skipToQuestion;
+                        }
+                    }
+
+                    const params = new URLSearchParams();
+                    params.set('page', nextPage);
+                    window.location.href = nextUrl + '?' + params.toString();
+                });
 
                 return;
             }

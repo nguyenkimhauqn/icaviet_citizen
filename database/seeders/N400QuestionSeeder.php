@@ -270,12 +270,14 @@ class N400QuestionSeeder extends Seeder
             'question_id' => $question1->id,
             'content' => 'Green card for over 5 years',
             'is_correct' => true,
+            'enabled_category' => -1,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Spouse of U.S. citizen for 3 years',
             'is_correct' => true,
+            'enabled_category' => 7,
         ]);
 
         Answer::create([
@@ -283,6 +285,7 @@ class N400QuestionSeeder extends Seeder
             'content' => 'Other reason',
             'is_correct' => true,
             'additional_answer_placeholder' => 'Lý do khác như VAWA, vợ/chồng công dân Mỹ làm việc cho tổ chức đủ điều kiện ở nước ngoài, phục vụ quân đội Mỹ trong thời chiến,...',
+            'enabled_category' => -1,
         ]);
 
         // Câu 2
@@ -891,6 +894,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => '',
             'tips' => '{"How many": "bao nhiêu", "Children": "những người con"}',
+            'skip_to_category' => 9,
         ]);
 
         $question2 = Question::create([
@@ -1067,6 +1071,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => '',
             'tips' => '{"Where": "ở đâu", "Work": "làm việc", "The last 5 years / 3 years": "5 năm qua / 3 năm qua"}',
+            'skip_to_category' => 10
         ]);
 
         $question7 = Question::create([

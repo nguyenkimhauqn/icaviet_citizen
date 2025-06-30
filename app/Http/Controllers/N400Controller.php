@@ -44,6 +44,16 @@ class N400Controller extends Controller
                     return view('n400.completed');
                 }
 
+                // Nếu enabled_category (7) thì lưu id enabled_category vào session
+                if ($answer->enabled_category == -1) { // reset
+                    session()->forget('enabled_category');
+                }
+
+                // Nếu có enabled_category > 0 → ghi vào session
+                elseif ($answer->enabled_category) {
+                    session()->put('enabled_category', $answer->enabled_category);
+                }
+
                 // Nếu có skip_to_category → chuyển category
                 if ($answer->skip_to_category) {
                     $targetCategory = $answer->skip_to_category;

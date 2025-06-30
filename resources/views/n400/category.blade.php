@@ -20,9 +20,9 @@
             <li class="category-item">
                 <div class="row align-items-center">
                     <div class="col-10 col-md-6">
-                        <a class="text-decoration-none font-sm-light"
+                        <a class="text-decoration-none text-dark font-sm"
                             href="{{ route('n400.category.show', $category->id) }}">
-                            <strong>{{ $category->title_en }}</strong>
+                            {{ $category->title_en }}
                             <p class="font-sm-italic">{{ $category->title_vn }}</p>
                         </a>
                     </div>

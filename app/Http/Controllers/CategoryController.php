@@ -11,8 +11,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        // Lấy toàn bộ chuyên mục & số lượng câu hỏi
-        $categories = Category::withCount('questions')->get();
+        $enabled = session()->get('enabled_category');
+
+        $categories = Category::withCount('questions')
+            ->when($enabled != 7, function ($query) {
+                $query->where('id', '!=', 7);
+            })
+            ->get();
+
         return view('n400.category', compact('categories'));
     }
 
@@ -77,7 +83,7 @@ class CategoryController extends Controller
 
     public function storeQuestion(Request $request)
     {
-        // doing 
+        // doing
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'question' => 'required|string|max:1000',

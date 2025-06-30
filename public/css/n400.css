@@ -334,3 +334,29 @@ input:checked + .slider::before {
 .category-item:nth-child(even) {
     background: #f5f4fa;
 }
+
+.instruction-text {
+    text-align: start;
+}
+
+.icon-textarea {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 34%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+.another-way {
+    align-items: start !important;
+    justify-self: start;
+}
+
+.another-section {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}

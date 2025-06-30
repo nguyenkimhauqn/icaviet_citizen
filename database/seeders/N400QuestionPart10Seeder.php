@@ -1576,23 +1576,12 @@ class N400QuestionPart10Seeder extends Seeder
                 'Order of nobility' => 'danh hiệu quý tộc'
             ])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
+        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true,  'skip_to_question' => 113]);
         Answer::create([
             'question_id' => $q->id,
             'content' => 'Yes',
             'is_correct' => true,
             'additional_answer_placeholder' => 'Cung cấp chức vị',
-            'skip_to_question' => 113
-        ]);
-
-        // Câu 48.a
-        $q = Question::create([
-            'category_id' => 11,
-            'content' => 'What is a “hereditary title”?',
-            'translation' => '“Tước vị thừa kế” là gì?',
-            'type' => 'text',
-            'default_answers' => 'A royal title, like prince or princess',
-            'default_answers_pronunciation' => 'ờ roi-ồ tai-tồ, lai-(k) p-rin-(s) or p-rin-sẹt-(s)'
         ]);
 
         // Câu 49
@@ -1609,6 +1598,16 @@ class N400QuestionPart10Seeder extends Seeder
         ]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'warning' => 'Thường trú nhân không sẵn sàng từ bỏ tước vị ở quốc gia khác có thể bị cho là không trung thành với Mỹ.']);
+
+        // Câu 48.a
+        $q = Question::create([
+            'category_id' => 11,
+            'content' => 'What is a “hereditary title”?',
+            'translation' => '“Tước vị thừa kế” là gì?',
+            'type' => 'text',
+            'default_answers' => 'A royal title, like prince or princess',
+            'default_answers_pronunciation' => 'ờ roi-ồ tai-tồ, lai-(k) p-rin-(s) or p-rin-sẹt-(s)'
+        ]);
 
         // Câu 50
         $q = Question::create([
