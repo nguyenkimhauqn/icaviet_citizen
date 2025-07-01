@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WritingTestSeeder::class);
 
         // 3. data kiểm tra đọc
-        // $this->call(ReadingTestSeeder::class);
+        $this->call(ReadingTestSeeder::class);
 
         // 4.1. danh mục N400
         // $this->call(CategorySeeder::class);

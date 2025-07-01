@@ -46,8 +46,6 @@
                         </p>
                     @endif
 
-                    <div id="alert-content"></div>
-
                     {{-- Kết quả thu âm --}}
                     {{-- doing  --}}
                     <div id="box-speech-result" class="bg-light box-speech-result d-flex justify-content-between p-3">
@@ -56,7 +54,7 @@
                         </span>
                         <img id="icon-correct" class="d-none" src="{{ url('public/icon/icon-correct.svg') }}"
                             alt="icon-correct">
-                        {{-- <i id="icon-close" class="bi bi-x-lg px-3 py-2 d-none"></i> --}}
+                        <i id="icon-close" class="bi bi-x-lg px-3 py-2 d-none"></i>
                     </div>
 
                 </div>
@@ -105,7 +103,7 @@
                 </a>
 
                 {{-- Submit (Kiểm tra) --}}
-                <button id="start-recording" class="btn-start action-btn btn-submit">
+                <button id="start-recording" class="btn action-btn btn-submit">
                     <i id="icon-mic" class="bi bi-mic"></i>
                     <i id="icon-stop" class="bi bi-square d-none"></i>
                 </button>
@@ -124,19 +122,18 @@
     <script>
         $(document).ready(function() {
             // ====== [01] Auto play audio once ======
-            // if (!sessionStorage.getItem('playedAudio')) {
-            //     const autoPlayBtn = $('.play-audio-btn').first();
-            //     if (autoPlayBtn.length) {
-            //         const audioSrc = autoPlayBtn.data('audio');
-            //         const autoAudio = new Audio(audioSrc);
-            //         autoAudio.play().then(() => {
-            //             sessionStorage.setItem('playedAudio', 'true');
-            //         }).catch(function(e) {
-            //             console.warn('Autoplay bị chặn bởi trình duyệt:', e);
-            //         });
-            //     }
-            // }
-            
+            if (!sessionStorage.getItem('playedAudio')) {
+                const autoPlayBtn = $('.play-audio-btn').first();
+                if (autoPlayBtn.length) {
+                    const audioSrc = autoPlayBtn.data('audio');
+                    const autoAudio = new Audio(audioSrc);
+                    autoAudio.play().then(() => {
+                        sessionStorage.setItem('playedAudio', 'true');
+                    }).catch(function(e) {
+                        console.warn('Autoplay bị chặn bởi trình duyệt:', e);
+                    });
+                }
+            }
             $('.wp-action a').on('click', function() {
                 sessionStorage.removeItem('playedAudio');
             });
@@ -151,36 +148,25 @@
             });
 
             // ====== [03] Speech To Text ======
-            // Xử lý âm thanh
-            const correctAudio = new Audio('{{ asset('/public/audio/civics/correct-answer.mp3') }}');
-            const wrongAudio = new Audio('{{ asset('/public/audio/civics/Wrong-answer.mp3') }}');
-            // Gán sẵn để iOS ghi nhận hành vi người dùng
-            document.addEventListener('click', function() {
-                correctAudio.load(); // pre-load
-                wrongAudio.load();
-            });
-
-            // #3.1 Hàm chuẩn hóa văn bản 
             function normalize(text) {
-                return text
-                    .toLowerCase()
-                    .replace(/[^\w\s]|_/g, "") // bỏ dấu câu
-                    .replace(/\s+/g, " ") // chuẩn hóa khoảng trắng
+                return text.toLowerCase()
+                    .replace(/[^\w\s]|_/g, "")
+                    .replace(/\s+/g, " ")
                     .trim();
             }
-            // #3.2. Kha báo biến DOM và SpeechRecognition
+
             const $startBtn = $('#start-recording');
             const $resultBox = $('#box-speech-result');
-            const $resultContent = $('#speech-result')
+            const $speechResult = $('#speech-result');
+            const $iconCorrect = $('#icon-correct');
+            const $iconClose = $('#icon-close');
+            const $btnNext = $('.action-btn.btn-next');
             const $answerText = $('#writing-answer').text();
 
-            // Thêm phần tử liên quan đến hiển thị trong lúc ghi âm
-            const iconStop = document.getElementById('icon-stop'); // icon stop
-            const iconMic = document.getElementById('icon-mic'); // icon micro
-            const iconWave = document.getElementById('box-img-loading'); // icon sóng
-            // const alertContent = document.getElementById('alert-content'); // Alert Content
-            const iconCorrect = document.getElementById('icon-correct'); // icon correct
-            // #3.3 Kiểm tra hỗ trợ API
+            const micIcon = document.getElementById('icon-mic');
+            const stopIcon = document.getElementById('icon-stop');
+            const imgLoading = document.getElementById('box-img-loading');
+
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
             if (!SpeechRecognition) {
@@ -188,79 +174,101 @@
                 $startBtn.prop('disabled', true);
                 return;
             }
-            // #3.4. Khởi tạo và cấu hình recognition
+
             const recognition = new SpeechRecognition();
-            recognition.lang = 'en-US'; // Ngôn ngữ tiếng anh
-            recognition.interimResults = false; // Chỉ nhận kết quả cuối (không realtime preview)
-            recognition.maxAlternatives = 1; // Chỉ lấy 1 kết quả tốt nhất
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
 
-            // #3.5. Xử lý CLICK ghi âm
-            $startBtn.on('click', function() {
-                $resultBox.removeClass('answer-correct answer-wrong'); // Xóa trạng thái đúng/ sai
-                $resultBox.addClass('isActive'); // Gắn trạng thái đang nghe
-                $resultContent.text('⏳ Đang nghe...');
+            // ==== START RECORD ====
+            let isRecording = false;
 
-                recognition.start(); // Bắt đầu thu âm
+            function startRecording() {
+                if (isRecording) return;
+                isRecording = true
 
-                // Hiển thị icon stop và sóng âm khi bắt đầu ghi
-                iconStop.classList.remove('d-none'); // Hiện icon stop (hình vuông)
-                iconMic.classList.add('d-none'); // Ẩn icon mic
-                iconWave.classList.remove('d-none'); // Hiện sóng âm
-                iconCorrect.classList.add('d-none'); // icon đúng
+                // UI update
+                $resultBox.removeClass('correct-answer wrong-answer isActive');
+                $speechResult.text('');
+                $iconCorrect.addClass('d-none');
+                $iconClose.addClass('d-none');
+                $resultBox.addClass('isActive');
+
+                micIcon.classList.add('d-none');
+                stopIcon.classList.remove('d-none');
+                imgLoading.classList.remove('d-none');
+
+                if (navigator.vibrate) navigator.vibrate(100); // UX rung nhẹ
+
+                recognition.start();
+            }
+
+            // ==== STOP RECORD ====
+            function stopRecording() {
+                if (!isRecording) return;
+                isRecording = false;
+
+                setTimeout(() => {
+                    recognition.stop();
+                }, 300); // bạn có thể thử 200ms đến 500ms để xem tối ưu nhất
+            }
+
+            // ==== GHI ÂM GIỮ-ĐỂ-NÓI ====
+            $startBtn.on('mousedown touchstart', function(e) {
+                e.preventDefault();
+                startRecording();
             });
 
-            // #3.6. Khi có kết quả trả về (onresult)
+            $startBtn.on('mouseup touchend', function(e) {
+                e.preventDefault();
+                stopRecording();
+            });
+
+            // ==== KẾT QUẢ ====
             recognition.onresult = function(event) {
                 const rawTranscript = event.results[0][0].transcript;
                 const transcript = normalize(rawTranscript);
                 const answerNormalized = normalize($answerText);
-                $resultBox.removeClass('isActive'); // Gỡ trạng thái đang nghe
 
-                // Ẩn tất cả icon liên quan đến ghi âm
-                iconStop.classList.add('d-none');
-                iconWave.classList.add('d-none');
-                iconMic.classList.remove('d-none');
-                // 3.7. So sánh kết quả và hiển thị đúng/sai
+                $resultBox.removeClass('isActive');
+                stopIcon.classList.add('d-none');
+                micIcon.classList.remove('d-none');
+                imgLoading.classList.add('d-none');
+
+                $speechResult.text(transcript);
+
                 if (transcript === answerNormalized) {
-                    // ĐÚNG
-                    $resultContent.text(transcript);
-                    $resultBox.removeClass('bg-light answer-wrong').addClass('answer-correct');
-                    iconCorrect.classList.remove('d-none');
-                    new Audio('{{ asset('/public/audio/civics/correct-answer.mp3') }}')
-                        .play();
-
+                    $resultBox.removeClass('bg-light wrong-answer').addClass('correct-answer');
+                    $iconCorrect.removeClass('d-none').addClass('d-block');
+                    $iconClose.addClass('d-none');
+                    $btnNext.addClass('btn-next-correct');
+                    $btnNext.find('i').css('color', 'white');
+                    const correctSound = new Audio('{{ asset('/public/audio/civics/correct-answer.mp3') }}');
+                    correctSound.play();
                 } else {
-                    // SAI
-                    $resultContent.text(transcript);
-                    $resultBox.removeClass('bg-light answer-correct').addClass('answer-wrong');
-                    // alertContent.textContent('Chưa đúng, hãy thử lại');
-                    new Audio('{{ asset('/public/audio/civics/Wrong-answer.mp3') }}')
-                        .play();
+                    $resultBox.removeClass('bg-light correct-answer').addClass('wrong-answer');
+                    $iconCorrect.removeClass('d-block').addClass('d-none');
+                    $iconClose.removeClass('d-none');
+                    const wrongAudio = new Audio('{{ asset('public/audio/civics/Wrong-answer.mp3') }}');
+                    wrongAudio.play();
                 }
             };
 
-            // #3.7. Lỗi trong quá trình ghi âm
             recognition.onerror = function(event) {
-                $resultContent.text("❌ Lỗi: " + event.error);
-
-                // Ẩn icon stop & sóng âm nếu xảy ra lỗi
-                iconStop.classList.add('d-none');
-                iconWave.classList.add('d-none');
+                $speechResult.text("❌ Lỗi: " + event.error);
             };
 
-            // #3.8. Khi ghi âm kết thúc (tự động hoặc stop)
             recognition.onend = function() {
+                isRecording = false;
+
                 if ($resultBox.hasClass('isActive')) {
                     $resultBox.removeClass('isActive');
-                    $resultContent.text('❌ Không nghe rõ âm thanh, vui lòng thử lại');
+                    $speechResult.text('Nhấn vào micro và đọc câu!');
+                    stopIcon.classList.add('d-none');
+                    micIcon.classList.remove('d-none');
+                    imgLoading.classList.add('d-none');
                 }
-
-                // Ẩn icon stop & sóng âm nếu chưa có kết quả
-                iconStop.classList.add('d-none');
-                iconMic.classList.remove('d-none');
-                iconWave.classList.add('d-none');
             };
-            // [END] 03. - Speech to Text
 
             // ====== [04] Toggle dịch + mẹo ghi nhớ ======
             $('#icon-show').on('click', function(e) {

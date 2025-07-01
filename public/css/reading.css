@@ -1,3 +1,16 @@
+/* Chung all module */
+body {
+    background-color: #F5F4FA;
+}
+
+.navbar {
+    display: none !important;
+}
+
+.container {
+    padding-bottom: 150px;
+}
+
 .answer-option {
     font-size: 18px;
     font-weight: 500;
@@ -14,8 +27,9 @@
 }
 
 .answer-wrong {
-    background-color: #ff0015;
-    color: #721c24;
+    background-color: #BF0C2C;
+    color: #FFFFFF !important;
+
 }
 
 .answer-disabled {
@@ -24,8 +38,8 @@
 }
 
 .answer-correct {
-    background-color: #00ff8c;
-    color: #0f5132;
+    background-color: #028B64;
+    color: #FFFFFF !important;
 }
 
 .hint-box {
@@ -38,21 +52,21 @@
 .question-block {
     background-color: #fff;
     padding: 20px 15px 20px 15px;
-    border-radius: 5px;
+    border-radius: 12px;
     margin-bottom: 24px;
     border: 1px solid #dee2e6;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .highlight-text {
-    color: #0d6efd;
-    font-weight: bold;
+    color: #000000;
+    /* font-weight: bold; */
 }
 
 .highlight-title {
     color: #0f5132;
     font-size: 20px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .sp-bt {
@@ -199,16 +213,151 @@
     opacity: 0.8;
 }
 
-.box-speech-result {
-    width: auto;
-    min-width: 300px;
-    padding: 10px;
+textarea.form-control {
+    width: 100%;
+    background-color: #F8F7FB !important;
+    color: #000 !important;
+    height: auto;
+    border-radius: 12px !important;
+}
 
+textarea.form-control::placeholder {
+    color: #BDBDBD !important;
+    /* thay bằng mã màu bạn muốn */
+    opacity: 1;
+    /* đảm bảo không bị nhạt màu quá */
 }
-.bg-success, .bg-danger {
+
+#icon-show {
+    margin-top: 15px !important;
+}
+
+.box-icon-show {
+    border-bottom: solid 1px #3C3C435C;
+    padding: 0px 0px 20px 0px;
+}
+
+/* Căn chỉnh bố cục nút */
+.wp-action {
+    width: 100%;
+    z-index: 100;
+    padding: 10px 0px;
+    background-color: #F5F4FAE5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+
+    /* Phần cố định ở cuối màn hình */
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+/* Nút hình tròn */
+.action-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Màu từng nút */
+.btn-previous {
+    background-color: #D9D9D9;
+    color: #000;
+    border: none;
+}
+
+.btn-submit {
+    width: 64px;
+    height: 64px;
+    background-color: #0D47C6;
     color: #fff;
+    border: none;
 }
-#start-recording.d-focus:focus {
-    outline: none !important;
-    box-shadow: none !important;
+
+.btn-next {
+    background-color: #D9D9D9;
+    color: #000;
+    border: none;
+}
+
+.correct-answer {
+    background-color: #028B64 !important;
+    /* màu xanh lá đậm như ảnh */
+    color: white !important;
+}
+
+.wrong-answer {
+    background-color: #BF0C2C !important;
+    color: white !important;
+}
+
+.answer-tips .tag {
+    display: inline-block;
+    background-color: #BADFFF;
+    color: #122759;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.answer-tips .tag .tag-key {
+    font-weight: 800 !important;
+}
+
+.btn-next-correct {
+    background-color: #1247BB !important;
+}
+
+.textarea-wrapper {
+    position: relative;
+}
+
+#clear-answer-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    display: none;
+    /* Ẩn mặc định */
+}
+
+#box-speech-result {
+    width: 50%;
+    padding: 10px 0px;
+    border-radius: 12px;
+    color: #828282;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    #box-speech-result {
+        width: 90%;
+    }
+}
+
+#box-img-loading {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+#box-img-loading img {
+    width: 10%;
+}
+.btn-start:hover {
+    background-color: #11357C;
 }

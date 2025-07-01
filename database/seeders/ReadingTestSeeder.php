@@ -27,64 +27,75 @@ class ReadingTestSeeder extends Seeder
                 'updated_at' => now(),
             ]
         );
-        $questions = [
-            'Where is the White House?',
-            'Who is the President now?',
-            'What is the capital of the United States?',
-            'When do we vote for the President?',
-            'What country is north of the United States?',
-            'What is the largest state?',
-            'Who was the first President?',
-            'What do we have to pay to the government?',
-            'What is one right in the Declaration of Independence?',
-            'What does the President live?',
-            'What is one color of the American flag?',
-            'What is the name of the national anthem?',
-            'When is Independence Day?',
-            'What do the stripes on the flag mean?',
-            'What is the name of the country we live in?',
-            'What do we call the first ten amendments to the Constitution?',
-            'What do we celebrate on the fourth of July?',
-            'Who lives in the White House?',
-            'Who elects the President?',
-            'Who was the Father of Our Country?',
-            'Who can vote?',
-            'What is the name of the President of the United States now?',
-            'Where is the Statue of Liberty?',
-            'Why do people want to come to the United States?',
-            'Who signs bills to become laws?',
-            'Who is in charge of the executive branch?',
-            'What do we call the Constitution"s first ten amendments?',
-            'What is the capital of your state?',
-            'What do the stars on the flag mean?',
-            'What is the name of the national holiday?',
-            'Why does the flag have 13 stripes?',
-            'What do we show loyalty to when we say the Pledge of Allegiance?',
-            'What is the economic system of the United States?',
-            'Name one branch of the government.',
-            'Who makes federal laws?',
-            'What does the judicial branch do?',
-            'What are the two parts of the U.S. Congress?',
-            'Who is one of your state\'s U.S. Senators now?',
-            'What are two major political parties in the United States?',
-            'Who is the Commander in Chief of the military?',
-            'What is the highest court in the United States?',
-            'Who vetoes bills?',
-            'How many U.S. Senators are there?',
-            'How many U.S. Representatives are there?',
-            'What is one responsibility that is only for United States citizens?',
-            'Name one right only for United States citizens.'
-        ];
-        // 4. Ghi vào bảng `questions`
-        foreach ($questions as $index => $content) {
-            $audioPath = "reading-" . str_pad($index + 1, 2, '0', STR_PAD_LEFT) . '.mp3';
+
+        // 3. Danh sách câu hỏi với dịch và tips
+
+        $questions = require database_path('data/reading.php');
+
+        // 4. Xử lý từng câu hỏi
+        foreach ($questions as $index => $q) {
+            $content = $this->highlightTips($q['content'], $q['tips']);
+
             DB::table('questions')->insert([
                 'content' => $content,
-                'audio_path' => $audioPath,
+                'translation' => $q['translation'],
+                'pronunciation' => $q['pronunciation'],
+                'tips' => json_encode($q['tips'], JSON_UNESCAPED_UNICODE),
+                'audio_path' => 'reading-' . str_pad($index + 1, 2, '0', STR_PAD_LEFT) . '.mp3',
                 'topic_id' => 3,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
         }
+    }
+
+    /**
+     * Highlight các từ vựng bằng <strong> mà không lồng thẻ.
+     */
+    private function highlightTips($content, $tips)
+    {
+        $positions = [];
+
+        // Ưu tiên từ dài hơn trước
+        uksort($tips, function ($a, $b) {
+            return strlen($b) - strlen($a);
+        });
+
+        $lowerContent = strtolower($content);
+
+        foreach ($tips as $term => $definition) {
+            $lowerTerm = strtolower($term);
+            $offset = 0;
+
+            while (($pos = strpos($lowerContent, $lowerTerm, $offset)) !== false) {
+                $end = $pos + strlen($term);
+
+                // Kiểm tra overlap
+                $overlap = false;
+                foreach ($positions as [$s, $e]) {
+                    if (!($end <= $s || $pos >= $e)) {
+                        $overlap = true;
+                        break;
+                    }
+                }
+
+                if (!$overlap) {
+                    $positions[] = [$pos, $end, substr($content, $pos, $end - $pos)];
+                }
+
+                $offset = $end;
+            }
+        }
+
+        // Sắp theo vị trí ngược để thay thế không làm lệch vị trí còn lại
+        usort($positions, function ($a, $b) {
+            return $b[0] - $a[0];
+        });
+
+        foreach ($positions as [$start, $end, $text]) {
+            $content = substr_replace($content, "<strong>{$text}</strong>", $start, strlen($text));
+        }
+
+        return $content;
     }
 }

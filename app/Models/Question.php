@@ -9,7 +9,7 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['content', 'audio_path', 'topic_id', 'category_id', 'user_id', 'translation', 'tips', 'has_guideline'];
+    protected $fillable = ['content', 'audio_path', 'topic_id', 'category_id', 'user_id', 'translation','pronunciation','tips', 'has_guideline'];
 
     protected $casts = [
         'has_guideline' => 'boolean',

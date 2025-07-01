@@ -25,7 +25,7 @@
                         <a href="{{ route('civics.form') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/Icon-civics.svg') }}" alt="icon-civics">
+                                    <img src="{{ asset('public/icon/home/Icon-civics.svg') }}" alt="icon-civics">
                                 </div>
                                 <span class="title_en">Civics Test</span>
                                 <span class="title_vn">Kiểm tra công dân</span>
@@ -35,38 +35,36 @@
 
                     <!-- 2. Writing Test -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('writing.show') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/Icon-writing.svg') }}" alt="icon-writing">
+                                    <img src="{{ asset('public/icon/home/Icon-writing.svg') }}" alt="icon-writing">
                                 </div>
                                 <span class="title_en">Writing Test</span>
                                 <span class="title_vn">Kiểm tra viết</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
 
                     <!-- 3. Reading Test -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('reading.show') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/icon-reading.svg') }}" alt="icon-reading">
+                                    <img src="{{ asset('public/icon/home/icon-reading.svg') }}" alt="icon-reading">
                                 </div>
                                 <span class="title_en">Reading Test</span>
                                 <span class="title_vn">Kiểm tra đọc</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
 
                     <!-- 4. Mock Test -->
                     <div class="col-4">
-                        <a href="{{ route('mock-test.list') }}">
+                        <a href="">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/icon-moctest.svg') }}" alt="icon-mocktest">
+                                    <img src="{{ asset('public/icon/home/icon-moctest.svg') }}" alt="icon-mocktest">
                                 </div>
                                 <span class="title_en">Mock Test</span>
                                 <span class="title_vn">Thi thử</span>
@@ -80,7 +78,7 @@
                         <a href="">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/Icon-n400.svg') }}" alt="icon-n400">
+                                    <img src="{{ asset('public/icon/home/Icon-n400.svg') }}" alt="icon-n400">
                                 </div>
                                 <span class="title_en">N-400 & Speaking</span>
                                 <span class="title_vn">N400 & Nói</span>
@@ -94,7 +92,7 @@
                         <a href="">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/icon-result.svg') }}" alt="icon-result">
+                                    <img src="{{ asset('public/icon/home/icon-result.svg') }}" alt="icon-result">
                                 </div>
                                 <span class="title_en">Results</span>
                                 <span class="title_vn">Kết quả</span>
@@ -108,7 +106,7 @@
                         <a href="">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/icon-vocabulary.svg') }}" alt="icon-vocabulary">
+                                    <img src="{{ asset('public/icon/home/icon-vocabulary.svg') }}" alt="icon-vocabulary">
                                 </div>
                                 <span class="title_en">Vocabulary</span>
                                 <span class="title_vn">Từ vựng</span>
@@ -122,7 +120,7 @@
                         <a href="">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/icon-study.png') }}" alt="icon-study">
+                                    <img src="{{ asset('public/icon/home/icon-study.png') }}" alt="icon-study">
                                 </div>
                                 <span class="title_en">Study Materials</span>
                                 <span class="title_vn">Tài liệu học tập</span>
@@ -136,7 +134,7 @@
                         <a href="">
                             <div class="feature-card">
                                 <div class="feature-icon">
-                                    <img src="{{ asset('icon/home/icon-star.png') }}" alt="icon-star">
+                                    <img src="{{ asset('public/icon/home/icon-star.png') }}" alt="icon-star">
                                 </div>
                                 <span class="title_en">Starred Questions</span>
                                 <span class="title_vn">Câu hỏi gắn sao</span>

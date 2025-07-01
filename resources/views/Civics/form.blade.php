@@ -30,7 +30,7 @@
                     <label class="d-flex justify-content-between align-items-center w-100">
                         <div>
                             <div class="fw-bold">Học 10 câu ngẫu nhiên</div>
-                            <small class="fst-italic">Phù hợp để luyện mỗi ngày hoặc mới bắt đầu</small>
+                            <small class="">Phù hợp để luyện mỗi ngày hoặc mới bắt đầu</small>
                         </div>
                         <input type="radio" name="mode" class="form-check-input" value="random10" checked>
                     </label>
@@ -40,7 +40,7 @@
                     <label class="d-flex justify-content-between align-items-center w-100">
                         <div>
                             <div class="fw-bold">Học 100 câu</div>
-                            <small class="fst-italic">Phù hợp để ôn tập toàn bộ nội dung</small>
+                            <small class="">Phù hợp để ôn tập toàn bộ nội dung</small>
                         </div>
                     </label>
                 </div>

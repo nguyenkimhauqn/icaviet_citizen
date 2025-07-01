@@ -29,7 +29,7 @@ class WritingTestSeeder extends Seeder
         );
 
         // 3. Danh sách câu hỏi với dịch và tips
-        $questions = require database_path('data/writing.php');
+        $questions = require database_path('data/reading.php');
 
         // 4. Xử lý từng câu hỏi
         foreach ($questions as $index => $q) {
