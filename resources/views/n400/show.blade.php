@@ -406,53 +406,67 @@
                     $('#nextBtn').toggleClass('active', $(this).val().trim().length > 0);
                 });
 
+                // $('#nextBtn').on('click', function(e) {
+                //     const $textInput = $('textarea[name="answer_text"]');
+                //     const rawValue = $textInput.val().trim();
+
+                //     // Nếu không nhập gì thì đi tiếp trong category hiện tại
+                //     if (!rawValue) {
+                //         const nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
+                //         const nextPage = {{ $page + 1 }};
+                //         const params = new URLSearchParams();
+                //         params.set('page', nextPage);
+                //         params.set('answer_text', rawValue);
+                //         window.location.href = nextUrl + '?' + params.toString();
+                //         return;
+                //     }
+
+                //     const numericValue = Number(rawValue);
+                //     const isNumber = !isNaN(numericValue);
+
+                //     const skipToCategory = {{ $question->skip_to_category ?? 'null' }};
+                //     const skipToQuestion = {{ $question->skip_to_question ?? 'null' }};
+
+                //     let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
+                //     let nextPage = {{ $page + 1 }};
+                //     let currentPage = {{ $page }};
+
+                //     // Chỉ skip nếu nhập đúng là số 0
+                //     if (isNumber && numericValue === 0) {
+                //         if (skipToCategory && skipToCategory !== 0) {
+                //             nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
+                //                 '__ID__', skipToCategory);
+                //             nextPage = 1;
+                //         }
+
+                //         if (skipToQuestion && skipToQuestion !== 0) {
+                //             nextPage = skipToQuestion;
+                //         }
+                //     }
+
+                //     if (skipToCategory && skipToCategory !== 0) {
+                //         nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
+                //             '__ID__', skipToCategory);
+                //         nextPage = 1;
+                //     }
+
+                //     const params = new URLSearchParams();
+                //     params.set('page', nextPage);
+                //     params.set('answer_text', rawValue);
+                //     window.location.href = nextUrl + '?' + params.toString();
+                // });
+
                 $('#nextBtn').on('click', function(e) {
                     const $textInput = $('textarea[name="answer_text"]');
                     const rawValue = $textInput.val().trim();
 
-                    // Nếu không nhập gì thì đi tiếp trong category hiện tại
-                    if (!rawValue) {
-                        const nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
-                        const nextPage = {{ $page + 1 }};
-                        const params = new URLSearchParams();
-                        params.set('page', nextPage);
-                        params.set('answer_text', rawValue);
-                        window.location.href = nextUrl + '?' + params.toString();
-                        return;
-                    }
-
-                    const numericValue = Number(rawValue);
-                    const isNumber = !isNaN(numericValue);
-
-                    const skipToCategory = {{ $question->skip_to_category ?? 'null' }};
-                    const skipToQuestion = {{ $question->skip_to_question ?? 'null' }};
-
-                    let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
-                    let nextPage = {{ $page + 1 }};
-                    let currentPage = {{ $page }};
-
-                    // Chỉ skip nếu nhập đúng là số 0
-                    if (isNumber && numericValue === 0) {
-                        if (skipToCategory && skipToCategory !== 0) {
-                            nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
-                                '__ID__', skipToCategory);
-                            nextPage = 1;
-                        }
-
-                        if (skipToQuestion && skipToQuestion !== 0) {
-                            nextPage = skipToQuestion;
-                        }
-                    }
-
-                    if (skipToCategory && skipToCategory !== 0) {
-                        nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
-                            '__ID__', skipToCategory);
-                        nextPage = 1;
-                    }
-
+                    const currentPage = {{ $page }};
+                    const nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
                     const params = new URLSearchParams();
-                    params.set('page', nextPage);
-                    params.set('answer_text', rawValue);
+
+                    params.set('page', currentPage); // Gửi về đúng page hiện tại
+                    params.set('answer_text', rawValue); // Gửi raw input để controller xử lý skip
+
                     window.location.href = nextUrl + '?' + params.toString();
                 });
 

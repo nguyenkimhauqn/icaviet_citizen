@@ -157,29 +157,28 @@ class N400Controller extends Controller
 
                     return view('n400.completed');
                 }
+
+                if ($question->skip_to_category) {
+                    return redirect()->route('n400.category.show', [
+                        'id' => $question->skip_to_category,
+                        'page' => $question->skip_to_question ?: 1
+                    ]);
+                }
+
+                if ($question->skip_to_question) {
+                    return redirect()->route('n400.category.show', [
+                        'id' => $id,
+                        'page' => $question->skip_to_question
+                    ]);
+                }
             }
 
-            if ($question->skip_to_category) {
-                return redirect()->route('n400.category.show', [
-                    'id' => $question->skip_to_category,
-                    'page' => $question->skip_to_question ?: 1
-                ]);
-            }
-
-            if ($question->skip_to_question) {
-                return redirect()->route('n400.category.show', [
-                    'id' => $id,
-                    'page' => $question->skip_to_question
-                ]);
-            }
-
-            // Nếu nhập rỗng hoặc không có skip → chuyển sang câu tiếp theo
+            // Nếu nhập khác 0 → sang câu tiếp theo
             return redirect()->route('n400.category.show', [
                 'id' => $id,
                 'page' => $page + 1
             ]);
         }
-
 
         // Xử lý logic nếu có answer_id truyền lên (kèm logic skip)
         if ($request->has('answer_id')) {
