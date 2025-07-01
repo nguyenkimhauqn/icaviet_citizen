@@ -8,9 +8,9 @@
 
 @section('content')
 
-    <!-- Modal -->
+    <!-- Modal CREATE -->
     <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             {{-- <div class="form-container bg-white text-center">
                 <h5 class="mb-4 add-question-title">Thêm câu hỏi mới</h5>
 
@@ -44,6 +44,30 @@
         </div>
     </div>
 
+    <!-- Modal DELETE -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa câu hỏi này không?
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteQuestionForm" method="POST"
+                        action="{{ route('n400.destroy', ['id' => $question->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Xóa</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <div class="header-inner">
@@ -61,16 +85,29 @@
 
     <main class="main-content">
         <div class="add-question-container mt-4">
-            <img src="{{ asset('icon/n400/menu.svg') }}" alt="Menu">
+            <a href="{{ route('n400.categories.index') }}"><img src="{{ asset('icon/n400/menu.svg') }}" alt="Menu"></a>
             <div class="d-flex">
                 <div class="add-btn" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
                     data-category-id="{{ $category->id }}">
                     <span>Thêm câu hỏi</span>
                     <img src="{{ asset('icon/n400/plus.svg') }}" alt="Thêm câu hỏi">
                 </div>
-                <img src="{{ asset('icon/n400/star.svg') }}" alt="Thêm câu hỏi">
+                {{-- <img src="{{ asset('icon/n400/star.svg') }}" alt="Thêm câu hỏi"> --}}
             </div>
         </div>
+
+        @if ($question->type == 'text' && isset($question->user_id))
+            <div class="d-flex justify-content-between mt-2 p-2">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm font-sm mt-2">
+                    Câu hỏi do bạn tạo
+                </span>
+
+                <span class="badge bg-danger text-white px-3 py-2 rounded-pill shadow-sm font-sm mt-2 delete"
+                    data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                    Xóa
+                </span>
+            </div>
+        @endif
 
         @if ($question && $question->type == 'text')
             <form method="GET" action="{{ route('n400.category.show', ['id' => $category->id, 'page' => $page + 1]) }}"
@@ -461,11 +498,23 @@
                     const rawValue = $textInput.val().trim();
 
                     const currentPage = {{ $page }};
-                    const nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
+                    const currentCategoryId = {{ $category->id }};
+
+                    let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
                     const params = new URLSearchParams();
 
-                    params.set('page', currentPage); // Gửi về đúng page hiện tại
-                    params.set('answer_text', rawValue); // Gửi raw input để controller xử lý skip
+                    // Kiểm tra điều kiện đặc biệt (by pass tạm thời)
+                    if (currentCategoryId === 9 && currentPage === 6) {
+                        nextUrl = `{{ route('n400.category.show', ['id' => 10]) }}`;
+                        params.set('page', 1);
+                    } else {
+                        params.set('page', currentPage); // Gửi về đúng page hiện tại
+                        params.set('answer_text', rawValue); // Gửi raw input để controller xử lý skip
+                    }
+
+
+                    //    params.set('page', currentPage); // Gửi về đúng page hiện tại
+                    //     params.set('answer_text', rawValue); // Gửi raw input để controller xử lý skip
 
                     window.location.href = nextUrl + '?' + params.toString();
                 });

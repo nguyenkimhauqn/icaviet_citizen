@@ -432,3 +432,12 @@ input:checked + .slider::before {
 input::placeholder {
     text-align: left !important;
 }
+
+.delete {
+    display: block;
+    cursor: pointer;
+}
+
+#modalQuestionForm {
+    width: 100%;
+}

@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class N400Controller extends Controller
 {
@@ -130,8 +131,19 @@ class N400Controller extends Controller
         }
 
         // Lấy câu hỏi hiện tại
+        // $question = Question::where('category_id', $id)
+        //     ->with('answers')
+        //     ->orderBy('id')
+        //     ->skip($page - 1)
+        //     ->take(1)
+        //     ->first();
         $question = Question::where('category_id', $id)
             ->with('answers')
+            ->where(function ($query) {
+                $userId = auth()->id();
+                $query->whereNull('user_id')
+                    ->orWhere('user_id', $userId);
+            })
             ->orderBy('id')
             ->skip($page - 1)
             ->take(1)
@@ -258,8 +270,22 @@ class N400Controller extends Controller
             'content' => $request->input('content'),
             'default_answers' => $request->input('default_answers'),
             'type' => 'text',
+            'user_id' => Auth::user()->id,
         ]);
 
         return redirect()->back()->with('success', 'Đã thêm câu hỏi mới!');
+    }
+
+    public function destroy($id)
+    {
+        $question = Question::findOrFail($id);
+
+        // if ($question->user_id !== auth()->id()) {
+        //     abort(403);
+        // }
+
+        $question->delete();
+
+        return redirect()->route('n400.categories.index')->with('success', 'Đã xóa câu hỏi!');
     }
 }

@@ -68,6 +68,8 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/category/{id}/question/{index?}', [CategoryController::class, 'show'])->name('n400.category.show');
         Route::get('/category/{id}/question', [N400Controller::class, 'show'])->name('n400.category.show');
         Route::post('/questions', [N400Controller::class, 'store'])->name('n400.store');
+        Route::delete('/n400/{id}/delete', [N400Controller::class, 'destroy'])->name('n400.destroy');
+
 
         Route::get('/category/{id}/prev', [CategoryController::class, 'prevCategory'])->name('n400.category.prev');
         Route::get('/category/{id}/next', [CategoryController::class, 'nextCategory'])->name('n400.category.next');
