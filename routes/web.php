@@ -64,8 +64,11 @@ Route::middleware(['auth'])->group(function () {
     // === * N400 * ===
     Route::prefix('n400')->group(function () {
         Route::get('/categories', [CategoryController::class, 'index'])->name('n400.categories.index');
+
         // Route::get('/category/{id}/question/{index?}', [CategoryController::class, 'show'])->name('n400.category.show');
         Route::get('/category/{id}/question', [N400Controller::class, 'show'])->name('n400.category.show');
+        Route::post('/questions', [N400Controller::class, 'store'])->name('n400.store');
+
         Route::get('/category/{id}/prev', [CategoryController::class, 'prevCategory'])->name('n400.category.prev');
         Route::get('/category/{id}/next', [CategoryController::class, 'nextCategory'])->name('n400.category.next');
         Route::post('update-answer', [CategoryController::class, 'updateAnswer'])->name('n400.updateAnswer');

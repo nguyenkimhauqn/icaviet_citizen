@@ -1022,7 +1022,7 @@ class N400QuestionSeeder extends Seeder
             'content' => 'Are you currently <strong>employed</strong> or <strong>attending school</strong>?',
             'translation' => 'Hiện tại bạn đang đi làm hay đi học?',
             'type' => 'multiple_choice',
-            'default_answers' => 'I am currently employed.',
+            'default_answers' => 'I am currently employed',
             'tips' => '{"Employed": "đi làm", "Attending school": "đi học"}',
         ]);
 
@@ -1144,6 +1144,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => '',
             'tips' => "{\"How many times\": \"mấy lần\", \"Leave/left\": \"rời khỏi\", \"United States\": \"Mỹ\"}",
+            'skip_to_category' => 10,
         ]);
 
         $question2 = Question::create([
@@ -1204,7 +1205,7 @@ class N400QuestionSeeder extends Seeder
             'question_id' => $question5->id,
             'content' => 'Yes',
             'is_correct' => true,
-            'additional_answer_placeholder' => 'Nhập ngày lại Mỹ.',
+            'additional_answer_placeholder' => 'Nhập ngày quay lại Mỹ',
         ]);
         // ----- END: PART 9 ----
 
@@ -1285,14 +1286,14 @@ class N400QuestionSeeder extends Seeder
         ]);
         Answer::create([
             'question_id' => $q->id,
-            'content' => 'Yes',
+            'content' => 'No',
             'is_correct' => true,
-            'skip_to_category' => -1
         ]);
         Answer::create([
             'question_id' => $q->id,
-            'content' => 'No',
+            'content' => 'Yes',
             'is_correct' => true,
+            'skip_to_category' => -1
         ]);
 
         // Câu 6

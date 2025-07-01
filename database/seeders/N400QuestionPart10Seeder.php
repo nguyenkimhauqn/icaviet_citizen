@@ -757,7 +757,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 12
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER worked, volunteered, or otherwise served in a place where people were detained, for example, a prison, jail, prison camp, detention facility, or labor camp or have you EVER directed or participated in any other activity that involved detaining people?',
+            'content' => 'Have you EVER worked, volunteered, or otherwise served in a place where people were detained, for example, a <strong>prison, jail</strong>, prison camp, detention facility, or labor camp or have you EVER directed or participated in any other activity that involved detaining people?',
             'translation' => 'Bạn đã từng làm việc, tình nguyện, hoặc phục vụ tại nơi giam giữ người như nhà tù, trại giam,... hay tham gia vào các hoạt động khác liên quan đến việc giam giữ người chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -804,7 +804,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 13
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Were you EVER a part of any group, did you EVER help any you, unit, or organization that used a weapon against any person, or threatened to do so?',
+            'content' => 'Were you EVER a part of any group, did you EVER help any you, unit, or organization that used a <strong>weapon</strong> against any person, or threatened to do so?',
             'translation' => 'Bạn có từng tham gia hoặc giúp đỡ bất kỳ nhóm nào đã dùng vũ khí để làm hại người khác hoặc đe dọa sẽ làm như vậy chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -823,7 +823,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 14
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'When you were part of this group, or when you helped this group, did you ever use a weapon against another person?',
+            'content' => 'When you were part of this group, or when you helped this group, did you ever use a <strong>weapon</strong> against another person?',
             'translation' => 'Khi bạn tham gia hoặc hỗ trợ nhóm đó, bạn có sử dụng vũ khí để làm hại ai đó không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -842,7 +842,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 15
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'When you were part of this group, or when you helped this group, did you ever threaten another person that you would use a weapon against that person?',
+            'content' => 'When you were part of this group, or when you helped this group, did you ever threaten another person that you would use a <strong>weapon</strong> against that person?',
             'translation' => 'Khi bạn tham gia hoặc hỗ trợ nhóm đó, bạn có đe dọa người khác rằng bạn sẽ sử dụng vũ khí để làm hại người đó không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -861,7 +861,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 16
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER sold, provided, or transported weapons, or assisted any person in selling, providing, or transporting weapons, which you knew or believed would be used against another person?',
+            'content' => 'Have you EVER sold, provided, or <strong>transported</strong> <strong>weapons</strong>, or assisted any person in selling, providing, or transporting weapons, which you knew or believed would be used against another person?',
             'translation' => 'Bạn đã từng làm hoặc giúp đỡ người khác bán, cung cấp, hoặc vận chuyển vũ khí mà bạn biết rằng những vũ khí đó sẽ được dùng để làm hại người khác chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -876,7 +876,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 17
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER received any weapons training, paramilitary training, or other military-type training?',
+            'content' => 'Have you EVER received any <strong>weapons training</strong>, paramilitary training, or other military-type training?',
             'translation' => 'Bạn đã từng được huấn luyện sử dụng vũ khí, huấn luyện bán quân sự, hoặc bất kỳ loại huấn luyện kiểu quân sự nào chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -912,7 +912,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 18
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER recruited (asked), enlisted (signed up), conscripted (required to join), or used any person under 15 years of age to serve in or help an armed group, or attempted or worked with others to do so?',
+            'content' => 'Have you EVER recruited (asked), enlisted (signed up), conscripted (required to join), or used any person <strong>under 15</strong> years of age to serve in or help an <strong>armed group</strong>, or attempted or worked with others to do so?',
             'translation' => 'Bạn đã từng tuyển, ép buộc, rủ rê, hay sử dụng bất kỳ người nào dưới 15 tuổi để phục vụ hoặc hỗ trợ một nhóm vũ trang chưa? Hoặc bạn có từng cố gắng làm việc đó, hoặc hợp tác với người khác để làm việc đó không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -938,7 +938,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 19
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER used any person under 15 years of age to take part in hostilities or attempted or worked with others to do so? This could include participating in combat or providing services related to combat (such as serving as a messenger or transporting supplies).',
+            'content' => 'Have you EVER used any person <strong>under 15</strong> years of age to take part in <strong>hostilities</strong> or attempted or worked with others to do so? This could include participating in <strong>combat</strong> or providing services related to combat (such as serving as a messenger or transporting supplies).',
             'translation' => 'Bạn đã từng hoặc giúp người khác lợi dụng trẻ em dưới 15 tuổi để tham gia vào các hoạt động thù địch chưa? (Ví dụ như tham gia chiến đấu, làm người đưa tin, hoặc vận chuyển tiếp tế.)',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -965,7 +965,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 20
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER committed, agreed to commit, asked someone else to commit, helped commit, or tried to commit a crime or offense for which you were NOT arrested?',
+            'content' => 'Have you EVER committed, agreed to commit, asked someone else to commit, helped commit, or tried to <strong>commit a crime</strong> or offense for which you were NOT <strong>arrested</strong>?',
             'translation' => 'Bạn đã từng thực hiện, đồng ý thực hiện, xúi giục người khác thực hiện, giúp đỡ, hoặc cố gắng thực hiện một tội danh mà bạn KHÔNG bị bắt chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1029,7 +1029,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 21
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been arrested, cited, detained or confined by any law enforcement officer, military official (in the U.S. or elsewhere), or immigration official for any reason, or been charged with a crime or offense?',
+            'content' => 'Have you EVER been <strong>arrested</strong>, <strong>cited</strong>, detained or <strong>confined</strong> by any law enforcement officer, military official (in the U.S. or elsewhere), or immigration official for any reason, or been charged with a crime or offense?',
             'translation' => 'Bạn đã từng bị bắt, bị vé phạt, bị tạm giữ hoặc giam giữ bởi cảnh sát, quân đội, hoặc nhân viên di trú (ở Mỹ hoặc nước khác) vì bất kỳ lý do nào chưa, hoặc đã từng bị buộc tội vi phạm pháp luật chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1286,7 +1286,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers' => 'To give money to ex-spouse after divorce',
             'default_answers_translation' => 'Là trả tiền cấp dưỡng cho vợ/chồng cũ sau ly hôn',
-            'default_answers_pronunciation' => 'tu gi-(v) mân-ni tu ịt-s-pao-(s)',
+            'default_answers_pronunciation' => 'tu gi-(v) mân-ni tu ét-s-pao-(s)',
         ]);
 
         // Câu 30
@@ -1389,7 +1389,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers' => 'Process of sending someone out of the U.S.',
             'default_answers_translation' => 'Quy trình đưa một người ra khỏi Mỹ.',
-            'default_answers_pronunciation' => 'p-ró-sẹt-(s) ọp sen-đinh sâm-quan ao-(t) of đờ diu-ét-(s)',
+            'default_answers_pronunciation' => 'p-ró-sẹt-(s) ọp sen-đinh sâm-quan ao-(t) ọp đờ diu-ét-(s)',
         ]);
 
         // 34
@@ -1620,7 +1620,7 @@ class N400QuestionPart10Seeder extends Seeder
                 'Order of nobility' => 'danh hiệu quý tộc'
             ])
         ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true,  'skip_to_question' => 113]);
+        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true,  'skip_to_question' => 112]);
         Answer::create([
             'question_id' => $q->id,
             'content' => 'Yes',
@@ -1798,9 +1798,9 @@ class N400QuestionPart10Seeder extends Seeder
         $q = Question::create([
             'category_id' => 11,
             'content' => 'If the law requires it, are you willing to perform <strong>noncombatant services</strong> (do something that does not include fighting in a war) in the U.S. armed forces?',
-            'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng thực hiện các nhiệm vụ không chiến đấu trong quân đội Mỹ không?',
+            'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng thực hiện các nhiệm vụ không chiến đấu trong quân đội Mỹ không? (Tức là làm những việc không liên quan đến tham gia chiến tranh)',
             'type' => 'multiple_choice',
-            'tips' => '{"Noncombatant services": "nhiệm vụ không chiến đấu", "U.S. armed forces": "quân đội Mỹ"}'
+            'tips' => '{"Noncombatant services": "nhiệm vụ không chiến đấu (như y tế, hậu cần, kỹ thuật, thông tin...)", "U.S. armed forces": "quân đội Mỹ"}'
         ]);
         Answer::create([
             'question_id' => $q->id,

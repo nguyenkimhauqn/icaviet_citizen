@@ -137,6 +137,50 @@ class N400Controller extends Controller
             ->take(1)
             ->first();
 
+        // Nếu là câu hỏi dạng text và có giá trị gửi lên (answer_text)
+        if ($question && $question->type === 'text' && $request->has('answer_text')) {
+            $answerText = trim($request->query('answer_text'));
+            $numericValue = is_numeric($answerText) ? intval($answerText) : null;
+
+            // Nếu nhập 0 → xử lý skip
+            if ($numericValue === 0) {
+                if ($question->skip_to_category == -1) {
+                    $nextCategory = Category::where('id', '>', $id)->orderBy('id')->first();
+
+                    if ($nextCategory) {
+                        if ($nextCategory->id === 7 && !session()->has('enabled_category')) {
+                            return redirect()->route('n400.category.show', ['id' => 8, 'page' => 1]);
+                        }
+
+                        return redirect()->route('n400.category.show', ['id' => $nextCategory->id, 'page' => 1]);
+                    }
+
+                    return view('n400.completed');
+                }
+            }
+
+            if ($question->skip_to_category) {
+                return redirect()->route('n400.category.show', [
+                    'id' => $question->skip_to_category,
+                    'page' => $question->skip_to_question ?: 1
+                ]);
+            }
+
+            if ($question->skip_to_question) {
+                return redirect()->route('n400.category.show', [
+                    'id' => $id,
+                    'page' => $question->skip_to_question
+                ]);
+            }
+
+            // Nếu nhập rỗng hoặc không có skip → chuyển sang câu tiếp theo
+            return redirect()->route('n400.category.show', [
+                'id' => $id,
+                'page' => $page + 1
+            ]);
+        }
+
+
         // Xử lý logic nếu có answer_id truyền lên (kèm logic skip)
         if ($request->has('answer_id')) {
             $answer = Answer::find($request->query('answer_id'));
@@ -200,5 +244,23 @@ class N400Controller extends Controller
             'page' => $page,
             'total' => $totalQuestions
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'content' => 'required|string',
+            'default_answers' => 'required|string',
+        ]);
+
+        Question::create([
+            'category_id' => $request->input('category_id'),
+            'content' => $request->input('content'),
+            'default_answers' => $request->input('default_answers'),
+            'type' => 'text',
+        ]);
+
+        return redirect()->back()->with('success', 'Đã thêm câu hỏi mới!');
     }
 }

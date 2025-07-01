@@ -7,6 +7,45 @@
 @endpush
 
 @section('content')
+
+    <!-- Modal -->
+    <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            {{-- <div class="form-container bg-white text-center">
+                <h5 class="mb-4 add-question-title">Thêm câu hỏi mới</h5>
+
+                <form>
+                    <input type="text" class="form-control mb-3" placeholder="Nhập câu hỏi">
+                    <input type="text" class="form-control mb-4" placeholder="Nhập câu trả lời">
+                    <button type="submit" class="btn btn-primary w-100 py-2">Lưu</button>
+                </form>
+            </div> --}}
+
+
+            <form id="modalQuestionForm" method="POST" action="{{ route('n400.store') }}">
+                @csrf
+                <input type="hidden" name="category_id" id="modal_category_id">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title add-question-title" id="addQuestionModalLabel">Thêm
+                            câu hỏi mới</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control mb-3" name="content" placeholder="Nhập câu hỏi" required>
+                        <input type="text" class="form-control mb-3" name="default_answers"
+                            placeholder="Nhập câu trả lời" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary w-100 py-2">Lưu</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
     <div class="header-inner">
         <div class="header">
             <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
@@ -19,11 +58,24 @@
     </div>
 
 
+
     <main class="main-content">
+        <div class="add-question-container mt-4">
+            <img src="{{ asset('icon/n400/menu.svg') }}" alt="Menu">
+            <div class="d-flex">
+                <div class="add-btn" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
+                    data-category-id="{{ $category->id }}">
+                    <span>Thêm câu hỏi</span>
+                    <img src="{{ asset('icon/n400/plus.svg') }}" alt="Thêm câu hỏi">
+                </div>
+                <img src="{{ asset('icon/n400/star.svg') }}" alt="Thêm câu hỏi">
+            </div>
+        </div>
+
         @if ($question && $question->type == 'text')
             <form method="GET" action="{{ route('n400.category.show', ['id' => $category->id, 'page' => $page + 1]) }}"
                 id="questionForm">
-                <div class="quiz-container">
+                <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
                         <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
@@ -37,9 +89,9 @@
                     </div>
 
                     @if (isset($question->default_answers_pronunciation))
-                        <div class="position-relative">
-                            <label class="pronunciation-title font-bold-italic">Phát âm dễ nhớ:</label>
-                            <textarea name="answer_text" class="instruction-text form-control mt-4 ps-5">{{ e($question->default_answers_pronunciation) }}</textarea>
+                        <div class="">
+                            <p class="font-bold-italic text-start mt-2">Phát âm dễ nhớ:</p>
+                            <textarea name="answer_text" class="instruction-text form-control mt-1">{{ e($question->default_answers_pronunciation) }}</textarea>
                         </div>
                     @endif
 
@@ -50,7 +102,7 @@
         @if ($question && ($question->type === null || $question->type === 'multiple_choice'))
             <form method="GET" action="{{ route('n400.category.show', ['id' => $category->id, 'page' => $page + 1]) }}"
                 id="questionForm">
-                <div class="quiz-container">
+                <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
                         <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
@@ -114,7 +166,8 @@
                                 <div class="warning-container mb-2 d-none" data-answer-id="{{ $answer->id }}">
                                     <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
                                         style="background: #f9f9fc; border-left: 4px solid #FF3363;">
-                                        <p class="d-flex align-center gap-2 mb-2 text-dark font-sm" style="color: #FF3363;">
+                                        <p class="d-flex align-center gap-2 mb-2 text-dark font-sm"
+                                            style="color: #FF3363;">
                                             <img src="{{ asset('icon/n400/warning.svg') }}" alt="Warning">
                                             <strong>Cảnh báo:</strong>
                                         </p>
@@ -192,7 +245,7 @@
                 @if (isset($question->tips) && isset($tips['another_answer_way']))
                     <div class="another-section">
                         <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm another-way"
-                            style="background: #f9f9fc; border-left: 4px solid #27ae60; max-width: 500px;">
+                            style="background: #f9f9fc; border-left: 4px solid #27ae60; width: 100%;">
                             <p class="ml-2 mb-2 text-dark font-sm"><strong>Cách trả lời khác:</strong></p>
                             <ul class="p-0 mb-0 text-dark font-sm" style="list-style: none;">
                                 @foreach ($tips['another_answer_way'] as $tip)
@@ -242,6 +295,15 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+
+            // Binding category_id vào hidden input khi mở modal
+            $('#addQuestionModal').on('show.bs.modal', function(event) {
+                const button = $(event.relatedTarget); // Button triggering modal
+                const categoryId = button.data('category-id'); // Lấy category id
+
+                $(this).find('#modal_category_id').val(categoryId); // Gán vào hidden input
+            });
+
 
             function showDefaultAdditionalField() {
                 const defaultChecked = $('input[name="answer_id"]:checked');
@@ -354,6 +416,7 @@
                         const nextPage = {{ $page + 1 }};
                         const params = new URLSearchParams();
                         params.set('page', nextPage);
+                        params.set('answer_text', rawValue);
                         window.location.href = nextUrl + '?' + params.toString();
                         return;
                     }
@@ -366,6 +429,7 @@
 
                     let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
                     let nextPage = {{ $page + 1 }};
+                    let currentPage = {{ $page }};
 
                     // Chỉ skip nếu nhập đúng là số 0
                     if (isNumber && numericValue === 0) {
@@ -380,13 +444,22 @@
                         }
                     }
 
+                    if (skipToCategory && skipToCategory !== 0) {
+                        nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
+                            '__ID__', skipToCategory);
+                        nextPage = 1;
+                    }
+
                     const params = new URLSearchParams();
                     params.set('page', nextPage);
+                    params.set('answer_text', rawValue);
                     window.location.href = nextUrl + '?' + params.toString();
                 });
 
                 return;
             }
+
+
 
             // Trường hợp dạng MULTIPLE CHOICE
             const radioInputs = $('input[name="answer_id"]');
@@ -436,10 +509,10 @@
             $('#nextBtn').on('click', function(e) {
                 const selected = $('input[name="answer_id"]:checked').val();
 
-                if (!selected) {
-                    alert('Vui lòng chọn một đáp án!');
-                    return;
-                }
+                // if (!selected) {
+                //     alert('Vui lòng chọn một đáp án!');
+                //     return;
+                // }
 
                 const selectedAnswer = $('input[name="answer_id"]:checked').val();
                 const nextUrl =
