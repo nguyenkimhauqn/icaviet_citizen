@@ -381,6 +381,14 @@ body {
     color: #333;
 }
 
+.font-bold {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
 .font-bold-italic {
     font-style: italic;
     font-weight: 700;

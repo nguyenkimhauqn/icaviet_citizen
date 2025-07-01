@@ -658,7 +658,7 @@ class N400QuestionPart10Seeder extends Seeder
             'question_id' => $q->id,
             'content' => 'Yes',
             'is_correct' => true,
-            'warning' => 'Thêm tên đơn vị (the name of the military unit), cấp bậc (rank), thời gian tham gia (your dates of involvement).'
+            'additional_answer_placeholder' => 'Thêm tên đơn vị (the name of the military unit), cấp bậc (rank), thời gian tham gia (your dates of involvement).'
         ]);
 
         // Câu 10.a
@@ -719,16 +719,16 @@ class N400QuestionPart10Seeder extends Seeder
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
         // Câu 11.d (trùng nội dung 11.c)
-        $q = Question::create([
-            'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>vigilante unit</strong>?',
-            'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào đơn vị dân phòng tự phát?',
-            'type' => 'multiple_choice',
-            'default_answers' => 'No',
-            'tips' => '{"Vigilante unit": "dân phòng tự phát"}'
-        ]);
-        Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
-        Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
+        // $q = Question::create([
+        //     'category_id' => 11,
+        //     'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>vigilante unit</strong>?',
+        //     'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào đơn vị dân phòng tự phát?',
+        //     'type' => 'multiple_choice',
+        //     'default_answers' => 'No',
+        //     'tips' => '{"Vigilante unit": "dân phòng tự phát"}'
+        // ]);
+        // Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
+        // Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
         // Câu 11.e
         $q = Question::create([
@@ -1772,15 +1772,16 @@ class N400QuestionPart10Seeder extends Seeder
         ]);
         Answer::create([
             'question_id' => $q->id,
-            'content' => 'Yes',
-            'is_correct' => true
-        ]);
-        Answer::create([
-            'question_id' => $q->id,
             'content' => 'No',
             'is_correct' => true,
             'warning' => 'Thường trú nhân cần trung thành và sẵn sàng phục vụ quốc gia khi cần thiết.'
         ]);
+        Answer::create([
+            'question_id' => $q->id,
+            'content' => 'Yes',
+            'is_correct' => true
+        ]);
+
 
         // Câu 54.a
         $q = Question::create([
@@ -1803,15 +1804,16 @@ class N400QuestionPart10Seeder extends Seeder
         ]);
         Answer::create([
             'question_id' => $q->id,
-            'content' => 'Yes',
-            'is_correct' => true
-        ]);
-        Answer::create([
-            'question_id' => $q->id,
             'content' => 'No',
             'is_correct' => true,
             'warning' => 'Thường trú nhân cần trung thành và sẵn sàng phục vụ quốc gia khi cần thiết.'
         ]);
+        Answer::create([
+            'question_id' => $q->id,
+            'content' => 'Yes',
+            'is_correct' => true
+        ]);
+
 
         // Câu 55.a
         $q = Question::create([
@@ -1834,14 +1836,14 @@ class N400QuestionPart10Seeder extends Seeder
         ]);
         Answer::create([
             'question_id' => $q->id,
-            'content' => 'Yes',
-            'is_correct' => true
-        ]);
-        Answer::create([
-            'question_id' => $q->id,
             'content' => 'No',
             'is_correct' => true,
             'warning' => 'Thường trú nhân cần trung thành và sẵn sàng phục vụ quốc gia khi cần thiết.'
+        ]);
+        Answer::create([
+            'question_id' => $q->id,
+            'content' => 'Yes',
+            'is_correct' => true
         ]);
     }
 }

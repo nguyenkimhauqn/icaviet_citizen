@@ -106,11 +106,6 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => 'Yes, I do.',
             'default_answers_translation' => 'Có, tôi hứa',
-            'tips' => json_encode([
-                'another_answer_way' => [
-                    ['en' => 'Yes, I do.', 'vi' => 'Có, tôi hứa', 'is_best_answer' => true],
-                ]
-            ]),
         ]);
 
         // 8
@@ -197,9 +192,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => 'Okay.',
             'tips' => json_encode([
-                'another_answer_way' => [
-                    ['en' => 'Okay.', 'vi' => 'Được → và đưa giấy hẹn thi quốc tịch', 'is_best_answer' => true],
-                ]
+                'suggestion' => 'Được → và đưa giấy hẹn thi quốc tịch'
             ]),
         ]);
 
@@ -211,9 +204,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => 'Okay.',
             'tips' => json_encode([
-                'another_answer_way' => [
-                    ['en' => 'Okay.', 'vi' => 'Được', 'is_best_answer' => true],
-                ]
+                'suggestion' => 'Được -> và đưa các giấy tờ theo yêu cầu',
             ]),
         ]);
 
@@ -237,45 +228,37 @@ class N400QuestionSeeder extends Seeder
         // Câu 1: Multiple Choice
         $question1 = Question::create([
             'category_id' => 2,
-            'content' => 'What is your basis for applying for naturalization?',
+            'content' => 'What is your <strong>basis</strong> for applying for naturalization?',
             'translation' => 'Bạn nộp đơn thi quốc tịch theo diện nào?',
             'type' => 'multiple_choice',
             'default_answers' => 'Green card for over 5 years',
             'tips' => json_encode([
-                'another_answer_way' => [
-                    [
-                        'en' => 'Green card for over 5 years.',
-                        'vi' => 'Có thẻ xanh hơn 5 năm.'
-                    ],
-                    [
-                        'en' => 'Spouse of U.S. citizen for 3 years.',
-                        'vi' => 'Kết hôn với công dân Mỹ được 3 năm.'
-                    ],
-                    [
-                        'en' => 'Other reason',
-                        'vi' => 'Lý do khác như VAWA, vợ/chồng công dân Mỹ làm việc cho tổ chức đủ điều kiện ở nước ngoài, phục vụ quân đội Mỹ trong thời chiến,...'
-                    ]
-                ]
+                'Basis' => 'cơ sở nộp đơn'
             ]),
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Green card for over 5 years',
+            'explanation' => 'Có thẻ xanh hơn 5 năm.',
             'is_correct' => true,
             'enabled_category' => -1,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Spouse of U.S. citizen for 3 years',
+            'explanation' => 'Kết hôn với công dân Mỹ được 3 năm.',
             'is_correct' => true,
             'enabled_category' => 7,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Other reason',
+            'explanation' => 'Lý do khác như VAWA, vợ/chồng công dân Mỹ làm việc cho tổ chức đủ điều kiện ở nước ngoài, phục vụ quân đội Mỹ trong thời chiến,...',
             'is_correct' => true,
             'additional_answer_placeholder' => 'Lý do khác như VAWA, vợ/chồng công dân Mỹ làm việc cho tổ chức đủ điều kiện ở nước ngoài, phục vụ quân đội Mỹ trong thời chiến,...',
             'enabled_category' => -1,
@@ -315,6 +298,7 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Bạn có phải là thường trú nhân hợp pháp không?',
             'type' => 'text',
             'default_answers' => 'Yes, I am.',
+            'default_answers_translation' => 'Đúng.',
             'tips' => json_encode([
                 'Legal permanent resident' => 'thường trú nhân',
             ]),
@@ -429,7 +413,21 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Tại sao bạn muốn đổi tên?',
             'type' => 'text',
             'default_answers' => 'Because I want to change the order of my name.',
-            'tips' => '{"Why": "tại sao", "Change your name": "đổi tên", "another_answer_way": [{"en": "Because I want to change the order of my name.", "vi": "Bởi vì tôi muốn đổi lại thứ tự tên của tôi."}, {"en": "Because I don’t like my old name.", "vi": "Bởi vì tôi không thích tên cũ nữa."}]}',
+            'tips' => json_encode([
+                "Why" => "tại sao",
+                "Change your name" => "đổi tên",
+                "another_answer_way" => [
+                    [
+                        "en" => "Because I want to change the order of my name.",
+                        "vi" => "Bởi vì tôi muốn đổi lại thứ tự tên của tôi.",
+                        "is_best_answer" => true,
+                    ],
+                    [
+                        "en" => "Because I don’t like my old name.",
+                        "vi" => "Bởi vì tôi không thích tên cũ nữa."
+                    ]
+                ]
+            ]),
         ]);
 
         $question6 = Question::create([
@@ -447,7 +445,7 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Tên trên thẻ xanh của bạn có giống với tên hợp pháp hiện tại không?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
-            'tips' => '{"Name": "tên", "Green card": "thẻ xanh", "Same": "giống", "another_answer_way": [{"en": "Nếu chọn No, cung cấp thêm tên khác với trên thẻ xanh.", "vi": ""}]}',
+            'tips' => '{"Name": "tên", "Green card": "thẻ xanh", "Same": "giống", "suggestion": "Nếu chọn No, cung cấp thêm tên khác với trên thẻ xanh."}',
         ]);
 
         Answer::create([
@@ -502,7 +500,7 @@ class N400QuestionSeeder extends Seeder
         $question12 = Question::create([
             'category_id' => 3,
             'content' => 'Was your <strong>father</strong> or <strong>mother</strong> a <strong>U.S. citizen</strong> before your 18th birthday?',
-            'translation' => 'Ba hoặc mẹ của bạn có phải là công dân Mỹ trước sinh nhật 18 tuổi không?',
+            'translation' => 'Ba hoặc mẹ của bạn có phải là công dân Mỹ trước khi bạn 18 tuổi không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
             'tips' => '{"Father": "ba", "Mother": "mẹ", "U.S. citizen": "công dân Mỹ"}',
@@ -569,6 +567,7 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Số An sinh Xã hội của bạn là gì?',
             'type' => 'text',
             'default_answers' => '',
+            'answer_note' => 'Bạn có thể tự nhớ câu trả lời mà không cần nhập',
             'tips' => '{"Social Security Number": "số An sinh Xã hội"}',
         ]);
 
@@ -585,12 +584,14 @@ class N400QuestionSeeder extends Seeder
             'question_id' => $question16->id,
             'content' => 'Male',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question16->id,
             'content' => 'Female',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
         // ----- END: PART 3 ----
 
@@ -634,7 +635,7 @@ class N400QuestionSeeder extends Seeder
             'content' => 'What <strong>color</strong> are your <strong>eyes</strong>?',
             'translation' => 'Màu mắt của bạn là gì?',
             'type' => 'text',
-            'default_answers' => 'Black',
+            'default_answers' => 'Black / Brown',
             'tips' => '{"Color":"màu","Eyes":"mắt"}',
         ]);
 
@@ -654,7 +655,7 @@ class N400QuestionSeeder extends Seeder
             'content' => 'How much do you <strong>weigh</strong>?',
             'translation' => 'Cân nặng của bạn là bao nhiêu?',
             'type' => 'text',
-            'default_answers' => '',
+            'default_answers' => '...pounds',
             'tips' => '{"Weigh":"cân nặng"}',
         ]);
 
@@ -704,26 +705,31 @@ class N400QuestionSeeder extends Seeder
             'content' => 'What is your current <strong>marital status</strong>?',
             'translation' => 'Tình trạng hôn nhân hiện tại của bạn là gì?',
             'type' => 'multiple_choice',
-            'default_answers' => 'Single, never married',
+            'default_answers' => 'Married',
             'tips' => '{"Marital status": "tình trạng hôn nhân"}',
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Single, never married',
+            'explanation' => 'độc thân, chưa từng kết hôn',
             'is_correct' => true,
             'skip_to_category' => 8,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Married',
+            'explanation' => 'đã kết hôn',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Divorced',
+            'explanation' => 'đã ly hôn',
             'is_correct' => true,
             'skip_to_question' => 3,
         ]);
@@ -731,21 +737,27 @@ class N400QuestionSeeder extends Seeder
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Widowed',
+            'explanation' => 'góa vợ/chồng',
             'is_correct' => true,
             'skip_to_question' => 3,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Separated',
+            'explanation' => 'ly thân',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'Marriage annulled',
+            'explanation' => 'hủy hôn (hôn nhân không hợp lệ)',
             'is_correct' => true,
             'skip_to_question' => 3,
+            'has_audio' => true,
         ]);
 
         $question2 = Question::create([
@@ -843,6 +855,7 @@ class N400QuestionSeeder extends Seeder
             'content' => 'By birth',
             'is_correct' => true,
             'skip_to_question' => 7,
+            'has_audio' => true
         ]);
 
         Answer::create([
@@ -933,18 +946,21 @@ class N400QuestionSeeder extends Seeder
             'question_id' => $question5->id,
             'content' => 'Biological child',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question5->id,
             'content' => 'Stepchild',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question5->id,
             'content' => 'Adopted child',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         $question6 = Question::create([
@@ -1012,17 +1028,19 @@ class N400QuestionSeeder extends Seeder
 
         Answer::create([
             'question_id' => $question1->id,
-            'content' => 'I am currently employed.',
+            'content' => 'I am currently employed',
             'explanation' => 'Tôi hiện đang đi làm',
             'is_correct' => true,
+            'has_audio' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
-            'content' => 'I am attending school.',
+            'content' => 'I am attending school',
             'explanation' => 'Tôi hiện đang đi học',
             'is_correct' => true,
             'skip_to_question' => 7,
+            'has_audio' => true,
         ]);
 
         $question2 = Question::create([
@@ -1037,7 +1055,7 @@ class N400QuestionSeeder extends Seeder
         $question3 = Question::create([
             'category_id' => 9,
             'content' => 'What is the <strong>name</strong> of the <strong>company</strong> or <strong>business</strong> you work for?',
-            'translation' => 'Tên công ty bạn đang làm tên gì?',
+            'translation' => 'Công ty bạn đang làm tên gì?',
             'type' => 'text',
             'default_answers' => '',
             'tips' => '{"Name": "tên", "Company, business": "công ty, doanh nghiệp"}',
@@ -1269,6 +1287,7 @@ class N400QuestionSeeder extends Seeder
             'question_id' => $q->id,
             'content' => 'Yes',
             'is_correct' => true,
+            'skip_to_category' => -1
         ]);
         Answer::create([
             'question_id' => $q->id,

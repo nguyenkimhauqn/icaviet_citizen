@@ -25,7 +25,7 @@
                 id="questionForm">
                 <div class="quiz-container">
                     <div class="audio">
-                        <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
+                        <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
                     <span class="font-sm text-center">{!! $question->content !!}</span>
@@ -52,7 +52,7 @@
                 id="questionForm">
                 <div class="quiz-container">
                     <div class="audio">
-                        <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
+                        <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
 
@@ -66,7 +66,8 @@
                                         <div class="d-flex gap-2 justify-content-start align-items-center">
                                             <input class="form-check-input toggle-additional" type="radio"
                                                 name="answer_id" id="answer{{ $answer->id }}"
-                                                value="{{ $answer->id }}"
+                                                value="{{ $answer->id }}" data-answer="{{ $answer->content }}"
+                                                data-has-audio="{{ $answer->has_audio ? 'true' : 'false' }}"
                                                 data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}"
                                                 @if (trim($answer->content) === trim($question->default_answers)) checked @endif>
 
@@ -76,20 +77,37 @@
                                             </label>
                                         </div>
 
-                                        <div class="audio-answer" data-answer="{{ $answer->content }}">
-                                            <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 10px;"
+                                        {{-- @if ($answer->has_audio)
+                                            <div class="audio-answer" data-answer="{{ $answer->content }}">
+                                                <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 10px;"
+                                                    alt="Play audio" />
+                                            </div>
+                                        @endif --}}
+
+                                        <div class="audio-answer d-none" id="audio-icon-{{ $answer->id }}"
+                                            data-answer="{{ $answer->content }}">
+                                            <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 25px;"
                                                 alt="Play audio" />
                                         </div>
-
 
                                     </div>
                                 </div>
                             </div>
 
                             {{-- Field bổ sung --}}
-                            <textarea type="text" name="additional_field_{{ $answer->id }}"
+                            {{-- <textarea type="text" name="additional_field_{{ $answer->id }}"
                                 class="form-control mt-2 additional-field questionText" placeholder="{{ $answer->additional_answer_placeholder }}"
-                                style="display: none;"></textarea>
+                                style="display: none;"></textarea> --}}
+
+                            <div class="position-relative additional-field-container" style="display: none;">
+                                <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
+                                    src="{{ asset('icon/n400/sound.svg') }}" alt="Audio"
+                                    style="position: absolute; top: 12px; left: 10px; width: 20px; cursor: pointer;">
+
+                                <textarea type="text" name="additional_field_{{ $answer->id }}"
+                                    class="form-control mt-2 ps-5 additional-field questionText"
+                                    placeholder="{{ $answer->additional_answer_placeholder }}" rows="3"></textarea>
+                            </div>
 
                             {{-- Box cảnh báo --}}
                             @if ($answer->warning)
@@ -114,10 +132,11 @@
 
         @php
             $tips = json_decode($question->tips, true);
+
+            $filteredTips = collect($tips ?? [])->filter(function ($value, $key) {
+                return $key !== 'another_answer_way' && $key !== 'suggestion';
+            });
         @endphp
-
-
-
 
         <div class="hint-container">
             <div class="toggle-container">
@@ -135,28 +154,40 @@
                     @if ($question->default_answers_translation)
                         - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
                     @endif
+
+                    @foreach ($question->answers as $answer)
+                        @if ($answer->explanation)
+                            <div>
+                                - <span class="font-bold">{{ $answer->content }}:</span>
+                                <span class="font-very-sm-italic">{{ $answer->explanation }}</span>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-                @if (isset($question->tips) && !isset($tips['another_answer_way']))
-                    <div class="container-tips">
+
+                @if ($filteredTips->isNotEmpty())
+                    <div class="container-tips mb-2">
                         <div class="tips-box">
                             <strong>
                                 <p class="d-block font-sm font-bold">Mẹo ghi nhớ:</p>
                             </strong>
                             <div class="d-flex flex-wrap gap-2 mt-2">
                                 @foreach ($tips as $label => $value)
-                                    <div class="answer-tips">
-
-                                        <span class="tag">
-                                            <span class="tag-key">{{ $label . ':' }} </span> <span class="tag-value">
-                                                {{ $value }} </span>
-                                        </span>
-                                    </div>
+                                    @if ($label !== 'another_answer_way' && $label !== 'suggestion')
+                                        {{-- Bỏ qua entry đặc biệt --}}
+                                        <div class="answer-tips">
+                                            <span class="tag">
+                                                <span class="tag-key">{{ $label . ':' }} </span>
+                                                <span class="tag-value">{{ $value }}</span>
+                                            </span>
+                                        </div>
+                                    @endif
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
                 @endif
+
 
                 @if (isset($question->tips) && isset($tips['another_answer_way']))
                     <div class="another-section">
@@ -174,6 +205,18 @@
                                     </li>
                                 @endforeach
                             </ul>
+                        </div>
+                    </div>
+                @endif
+
+                @if (isset($question->tips) && isset($tips['suggestion']))
+                    <div class="another-section">
+                        <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm another-way"
+                            style="background: #f9f9fc; border-left: 4px solid #27ae60; max-width: 500px;">
+                            <p class="ml-2 mb-2 text-dark font-sm"><strong>Gợi ý:</strong></p>
+                            <p class="text-dark font-sm">
+                                {{ $tips['suggestion'] }}
+                            </p>
                         </div>
                     </div>
                 @endif
@@ -200,6 +243,36 @@
     <script>
         $(document).ready(function() {
 
+            function showDefaultAdditionalField() {
+                const defaultChecked = $('input[name="answer_id"]:checked');
+                if (defaultChecked.length) {
+                    const answerId = defaultChecked.val();
+
+                    // Highlight label
+                    $(`label[for="answer${answerId}"]`).addClass('active');
+
+                    // Hiện field bổ sung nếu có
+                    if (defaultChecked.data('has-additional') === true || defaultChecked.data('has-additional') ===
+                        'true') {
+                        $(`textarea[name="additional_field_${answerId}"]`).closest('.additional-field-container')
+                            .show();
+                    }
+
+                    // Hiện audio nếu có
+                    if (defaultChecked.data('has-audio') === true || defaultChecked.data('has-audio') === 'true') {
+                        $(`#audio-icon-${answerId}`).removeClass('d-none');
+                    }
+
+                    // Hiện cảnh báo nếu có
+                    $(`.warning-container[data-answer-id="${answerId}"]`).removeClass('d-none');
+
+                    // Bật nút Next
+                    $('#nextBtn').addClass('active');
+                }
+            }
+
+            showDefaultAdditionalField();
+
             $('#prevBtn').on('click', function(e) {
                 e.preventDefault(); // Ngăn hành vi mặc định (nếu có)
                 window.history.back(); // Quay lại trang trước
@@ -211,6 +284,16 @@
             //     console.log('speak', text);
             //     speakText(text);
             // });
+
+            // Phát âm nội dung field bổ sung
+            $(document).on('click', '.icon-textarea-additional', function() {
+                const answerId = $(this).data('answer-id');
+                const text = $(`textarea[name="additional_field_${answerId}"]`).val();
+
+                console.log('🔊 speak additional:', text);
+                speakText(text);
+            });
+
 
             // Audio câu hỏi
             $('.audio').on('click', function() {
@@ -231,6 +314,7 @@
                 console.log('speak', text);
                 speakText(text);
             });
+
 
             // Audio trả lời (tự luận)
             $('.icon-textarea').on('click', function() {
@@ -264,37 +348,31 @@
                     const $textInput = $('textarea[name="answer_text"]');
                     const rawValue = $textInput.val().trim();
 
+                    // Nếu không nhập gì thì đi tiếp trong category hiện tại
                     if (!rawValue) {
-                        alert('Vui lòng nhập câu trả lời!');
+                        const nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
+                        const nextPage = {{ $page + 1 }};
+                        const params = new URLSearchParams();
+                        params.set('page', nextPage);
+                        window.location.href = nextUrl + '?' + params.toString();
                         return;
                     }
 
                     const numericValue = Number(rawValue);
                     const isNumber = !isNaN(numericValue);
 
-                    // Lấy skip_to từ Blade
                     const skipToCategory = {{ $question->skip_to_category ?? 'null' }};
                     const skipToQuestion = {{ $question->skip_to_question ?? 'null' }};
 
                     let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
                     let nextPage = {{ $page + 1 }};
 
+                    // Chỉ skip nếu nhập đúng là số 0
                     if (isNumber && numericValue === 0) {
-                        // Chỉ skip nếu có giá trị hợp lệ
                         if (skipToCategory && skipToCategory !== 0) {
                             nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
                                 '__ID__', skipToCategory);
-                        }
-
-                        if (skipToQuestion && skipToQuestion !== 0) {
-                            nextPage = skipToQuestion;
-                        }
-
-                    } else if (!isNumber) {
-                        // Nếu là chữ → chỉ skip nếu có skip hợp lệ
-                        if (skipToCategory && skipToCategory !== 0) {
-                            nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
-                                '__ID__', skipToCategory);
+                            nextPage = 1;
                         }
 
                         if (skipToQuestion && skipToQuestion !== 0) {
@@ -314,10 +392,11 @@
             const radioInputs = $('input[name="answer_id"]');
 
             radioInputs.on('change', function() {
-                const selected = $(this);
-                const hasAdditional = selected.data('has-additional');
-                const answerId = selected.val();
+                const selected = $(this); // ✅ Khai báo đúng
 
+                const hasAdditional = selected.data('has-additional');
+                console.log('hasAdditional', hasAdditional)
+                const answerId = selected.val();
 
                 // Highlight label được chọn
                 $('.radio-label').removeClass('active');
@@ -333,14 +412,26 @@
                 $('#nextBtn').addClass('active');
 
                 // Ẩn toàn bộ các field bổ sung
-                $('.additional-field').hide();
+                $('.additional-field-container').hide();
 
                 // Hiện field bổ sung nếu đáp án cần
                 if (hasAdditional) {
-                    const inputName = `additional_field_${selected.val()}`;
-                    $(`textarea[name="${inputName}"]`).show();
+                    $(`textarea[name="additional_field_${selected.val()}"]`)
+                        .closest('.additional-field-container')
+                        .show();
+                }
+
+                // THÊM đoạn xử lý has_audio:
+                $('.audio-answer').addClass('d-none');
+
+                if (selected.data('has-audio') === true || selected.data('has-audio') === 'true') {
+                    const answerText = selected.data('answer');
+                    const answerId = selected.val();
+
+                    $(`#audio-icon-${answerId}`).removeClass('d-none');
                 }
             });
+
 
             $('#nextBtn').on('click', function(e) {
                 const selected = $('input[name="answer_id"]:checked').val();
