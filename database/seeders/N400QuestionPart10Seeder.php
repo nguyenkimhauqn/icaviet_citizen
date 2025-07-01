@@ -17,7 +17,7 @@ class N400QuestionPart10Seeder extends Seeder
     {
         $question_1 = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER claimed to be a U.S. citizen (in writing or any other way)?',
+            'content' => 'Have you EVER <strong>claimed</strong> to be a <strong>U.S. citizen</strong> (in writing or any other way)?',
             'translation' => 'Bạn đã từng tự nhận mình là công dân Mỹ chưa (bằng văn bản hoặc bằng bất kỳ cách nào khác)?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -41,6 +41,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Tự nhận” là gì?',
             'type' => 'text',
             'default_answers' => 'To say something is true',
+            'default_answers_translation' => 'Nói điều gì đó là đúng',
             'default_answers_pronunciation' => 'tu say sâm-thing i-(s) tru'
         ]);
 
@@ -50,12 +51,13 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Tự nhận là công dân Mỹ” là gì?',
             'type' => 'text',
             'default_answers' => 'To state you are a U.S. citizen',
+            'default_answers_translation' => 'Tự khai mình là công dân Mỹ',
             'default_answers_pronunciation' => 'tu s-tay-(t) diu a ờ diu-ét-(s) si-ti-giần'
         ]);
 
         $question_4 = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER registered to vote or voted in any Federal, state, or local election in the United States?',
+            'content' => 'Have you EVER registered to <strong>vote</strong> or <strong>voted</strong> in any Federal, state, or local <strong>election</strong> in the United States?',
             'translation' => 'Bạn đã từng đăng ký để bỏ phiếu hoặc đi bỏ phiếu trong bất kỳ cuộc bầu cử Liên bang, tiểu bang, hay địa phương nào ở Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -79,6 +81,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Bỏ phiếu” có nghĩa là gì?',
             'type' => 'text',
             'default_answers' => 'To choose new leaders.',
+            'default_answers_translation' => 'Chọn ra lãnh đạo mới',
             'default_answers_pronunciation' => 'tu chu-(s) niu li-dờ-(s)',
             'tips' => json_encode([
                 'another_answer_way' => [
@@ -89,7 +92,7 @@ class N400QuestionPart10Seeder extends Seeder
 
         $question_6 = Question::create([
             'category_id' => 11,
-            'content' => 'Do you owe any overdue Federal, state, or local taxes?',
+            'content' => 'Do you <strong>owe</strong> any <strong>overdue</strong> Federal, state, or local <strong>taxes</strong>?',
             'translation' => 'Bạn có đang nợ thuế quá hạn ở cấp liên bang, tiểu bang hoặc địa phương không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -113,6 +116,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Nợ” có nghĩa là gì?',
             'type' => 'text',
             'default_answers' => 'To not pay yet.',
+            'default_answers_translation' => 'Là chưa trả',
             'default_answers_pronunciation' => 'tu nót pay dét-(t)',
             'tips' => json_encode([
                 'another_answer_way' => [
@@ -127,6 +131,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => 'Bạn có biết “nợ thuế” là gì không?',
             'type' => 'text',
             'default_answers' => 'To not pay money to the government yet.',
+            'default_answers_translation' => 'Là chưa trả tiền cho chính phủ.',
             'default_answers_pronunciation' => 'tu nót pay mân-ni tu đờ gỏ-vơ-mần-(t) dét-(t)',
             'tips' => json_encode([
                 'another_answer_way' => [
@@ -141,6 +146,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Quá hạn” là gì?',
             'type' => 'text',
             'default_answers' => 'To past a deadline.',
+            'default_answers_translation' => 'Là đã trễ so với thời hạn được yêu cầu.',
             'default_answers_pronunciation' => 'tu pát-s-(t) ờ đét-lai',
         ]);
 
@@ -169,7 +175,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 4
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Since you became a lawful permanent resident, have you called yourself a “nonresident alien” on a Federal, state, or local tax return or decided not to file a tax return because you considered yourself to be a nonresident?',
+            'content' => 'Since you became a lawful permanent resident, have you called yourself a “<strong>nonresident alien</strong>” on a Federal, state, or local tax return or decided not to file a tax return because you considered yourself to be a nonresident?',
             'translation' => 'Kể từ khi bạn trở thành thường trú nhân, bạn có từng khai mình là “người không cư trú” trong hồ sơ thuế liên bang, tiểu bang, địa phương, hoặc quyết định không khai thuế vì nghĩ mình không cư trú không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -193,6 +199,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'Can you explain what “file a tax return” means?',
             'translation' => 'Bạn có thể giải thích “nộp hồ sơ khai thuế” là gì không?',
             'default_answers' => 'To send tax paperwork to the government',
+            'default_answers_translation' => 'Là gửi hồ sơ thuế cho chính phủ.',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu sen-(d) tát-(s) pay-pờ-quớt-(k) tu đờ gó-vơ-mần-(t)',
         ]);
@@ -200,7 +207,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 5
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been a member of, or in any way associated with The Communist Party, any other totalitarian party anywhere in the world?',
+            'content' => 'Have you EVER been a member of, or in any way associated with The <strong>Communist Party</strong>, any other <strong>totalitarian party</strong> anywhere in the world?',
             'translation' => 'Bạn đã từng là thành viên hoặc có liên hệ với Đảng Cộng sản hoặc bất kỳ đảng toàn trị nào trên thế giới chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -223,6 +230,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'Can you explain what “Communist Party” means?',
             'translation' => 'Bạn có thể giải thích “Đảng Cộng sản” là gì không?',
             'default_answers' => 'Like China, North Korea',
+            'default_answers_translation' => 'Là giống như Trung Quốc, Triều Tiên.',
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) chai-nờ, no-th cờ-ri-à'
         ]);
@@ -233,6 +241,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “totalitarian”?',
             'translation' => '“Chế độ độc tài toàn trị” là gì?',
             'default_answers' => 'The government controls everything and people have no power.',
+            'default_answers_translation' => 'Chính phủ kiểm soát mọi thứ và người dân không có quyền lực.',
             'type' => 'text',
             'default_answers_pronunciation' => 'đờ gó-vơ-mần-(t) cần-trô-(s) e-v-ri-thinh èn pi-pồ ha-(v) nâu pao-quờ'
         ]);
@@ -240,7 +249,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER advocated opposition to all organized governments?',
+            'content' => 'Have you EVER advocated <strong>opposition</strong> to all organized <strong>governments</strong>?',
             'translation' => 'Bạn đã từng kêu gọi chống lại tất cả các chính phủ có tổ chức chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -260,7 +269,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6.a
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in world communism?',
+            'content' => 'Have you EVER been involved in world <strong>communism</strong>?',
             'translation' => 'Bạn đã từng tham gia vào phong trào cộng sản quốc tế chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -280,7 +289,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6.b
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in the establishment in the United States of a totalitarian dictatorship?',
+            'content' => 'Have you EVER been involved in the establishment in the United States of a <strong>totalitarian</strong> dictatorship?',
             'translation' => 'Bạn đã từng tham gia việc thiết lập một chế độ độc tài toàn trị tại Hoa Kỳ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -300,7 +309,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6.c
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER supported the overthrow of the U.S. government by force or violence or other unconstitutional means?',
+            'content' => 'Have you EVER supported the <strong>overthrow</strong> of the U.S. government by force or violence or other unconstitutional means?',
             'translation' => 'Bạn đã từng ủng hộ việc lật đổ chính phủ Hoa Kỳ bằng vũ lực, bạo lực, hoặc bằng các cách trái hiến pháp chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -323,6 +332,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “overthrow”?',
             'translation' => '“Lật đổ chính quyền” là gì?',
             'default_answers' => 'To remove a government from power',
+            'default_answers_translation' => 'Là làm cho một chính phủ mất quyền lực',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu ri-mu-(v) a gó-vơ-mần-(t) ph-rom pao-quờ'
         ]);
@@ -330,7 +340,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6.e
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER supported the unlawful assaulting or killing of any officer or officers of the Government because of their official character?',
+            'content' => 'Have you EVER supported the unlawful <strong>assaulting</strong> or <strong>killing</strong> of any officer or officers of the Government because of their official character?',
             'translation' => 'Bạn đã từng ủng hộ việc hành hung hoặc giết người làm việc cho chính phủ chỉ vì họ là nhân viên chính phủ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -353,6 +363,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “assault”?',
             'translation' => '“Hành hung” có nghĩa là gì?',
             'default_answers' => 'To hurt someone',
+            'default_answers_translation' => 'Là làm hại người khác',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu hớt-(t) sâm-quan'
         ]);
@@ -360,7 +371,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6.g
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in unlawful damage or destruction of property?',
+            'content' => 'Have you EVER been involved in unlawful <strong>damage</strong> or <strong>destruction</strong> of property?',
             'translation' => 'Bạn đã từng tham gia phá hoại hoặc tàn phá tài sản một cách bất hợp pháp chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -380,7 +391,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 6.h
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER committed or supported sabotage?',
+            'content' => 'Have you EVER committed or supported <strong>sabotage</strong>?',
             'translation' => 'Bạn đã từng thực hiện hoặc ủng hộ hành vi phá hoại có chủ đích chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -403,6 +414,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What does “sabotage” mean?',
             'translation' => '“Phá hoại có chủ đích” là gì?',
             'default_answers' => 'To destroy something on purpose.',
+            'default_answers_translation' => 'Cố tình phá hoại thứ gì đó.',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu đì-s-troi sâm-thinh on pơ-pợt-(s)'
         ]);
@@ -410,7 +422,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 7
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER used a weapon or explosive with intent to harm another person or cause damage to property?',
+            'content' => 'Have you EVER used a <strong>weapon</strong> or <strong>explosive</strong> with intent to harm another person or cause damage to property?',
             'translation' => 'Bạn đã từng sử dụng vũ khí hoặc chất nổ với mục đích làm hại người khác hoặc phá hoại tài sản chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -433,6 +445,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is a “weapon”?',
             'translation' => '“Vũ khí” là gì?',
             'default_answers' => 'Like a knife or gun',
+            'default_answers_translation' => 'Như dao hoặc súng',
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) ờ k-nai-(ph) o gân'
         ]);
@@ -443,6 +456,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “explosive”?',
             'translation' => '“Chất nổ” là gì?',
             'default_answers' => 'Like bomb or TNT',
+            'default_answers_translation' => 'Như bom hoặc TNT',
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) bom-(b) o ti-en-ti'
         ]);
@@ -450,7 +464,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 8
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER engaged in kidnapping, assassination, or hijacking or sabotage of an airplane, ship, vehicle, or other mode of transportation?',
+            'content' => 'Have you EVER engaged in <strong>kidnapping</strong>, <strong>assassination</strong>, or <strong>hijacking</strong> or sabotage of an airplane, ship, vehicle, or other mode of transportation?',
             'translation' => 'Bạn đã từng tham gia bắt cóc, ám sát, cướp, phá hoại máy bay, tàu, phương tiện giao thông chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -473,6 +487,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “kidnapping”?',
             'translation' => '“Bắt cóc” là gì?',
             'default_answers' => 'To take someone away by force.',
+            'default_answers_translation' => 'Bắt ai đó bằng vũ lực.',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu tay-(k) sâm-quan ờ-quay bai phót-(s)'
         ]);
@@ -483,6 +498,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “assassination”?',
             'translation' => '“Ám sát” là gì?',
             'default_answers' => 'To kill someone important, like a president or a leader.',
+            'default_answers_translation' => 'Giết một người quan trọng, như Tổng thống hoặc một vị lãnh đạo..',
             'type' => 'text',
             'default_answers_pronunciation' => 'Tu kiu sâm-quan im-pó-tần-(t), lai-(k) a p-ré-gi-đềnh-(t) o ờ li-đờ'
         ]);
@@ -493,6 +509,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “hijacking”?',
             'translation' => '“Cướp phương tiện” là gì?',
             'default_answers' => 'To take control of a vehicle by force.',
+            'default_answers_translation' => 'Chiếm quyền điều khiển phương tiện bằng vũ lực.',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu tay-(k) cân-trô-(l) ọp ờ vi-hi-cồ bai phót-(s)'
         ]);
@@ -500,7 +517,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in torture?',
+            'content' => 'Have you EVER been involved in <strong>torture</strong>?',
             'translation' => 'Bạn đã từng liên quan hoặc tham gia vào hành vi tra tấn chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -523,6 +540,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What does “torture” mean?',
             'translation' => '“Tra tấn” nghĩa là gì?',
             'default_answers' => 'To hurt someone',
+            'default_answers_translation' => 'Là làm đau người khác',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu hớt-(t) sâm-quan'
         ]);
@@ -530,7 +548,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9.b
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in genocide?',
+            'content' => 'Have you EVER been involved in <strong>genocide</strong>?',
             'translation' => 'Bạn có bao giờ từng liên quan đến tội diệt chủng không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -553,6 +571,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What does “genocide” mean?',
             'translation' => '“Diệt chủng” là gì?',
             'default_answers' => 'To kill a whole race',
+            'default_answers_translation' => 'Là giết cả chủng tộc',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu kiu a hâu ray-(s)'
         ]);
@@ -560,7 +579,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9.d
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in killing or trying to kill any person?',
+            'content' => 'Have you EVER been involved in <strong>killing</strong> or trying to <strong>kill</strong> any person?',
             'translation' => 'Bạn có bao giờ từng liên quan đến việc giết người hoặc cố gắng giết người không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -580,7 +599,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9.e
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in badly hurting or trying to hurt a person on purpose?',
+            'content' => 'Have you EVER been involved in badly <strong>hurting</strong> or trying to <strong>hurt</strong> a person on purpose?',
             'translation' => 'Bạn có bao giờ từng cố ý làm bị thương nặng hoặc cố gắng làm bị thương người khác không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -592,7 +611,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9.f
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in forcing or trying to force someone to have any kind of sexual contact?',
+            'content' => 'Have you EVER been involved in forcing or trying to force someone to have any kind of <strong>sexual contact</strong>?',
             'translation' => 'Bạn có bao giờ từng ép buộc hoặc cố gắng ép buộc ai đó tiếp xúc tình dục dưới bất kỳ hình thức nào không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -616,7 +635,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9.h
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been involved in causing harm or suffering to any person because of their race, religion, national origin, membership in a particular social group, or political opinion?',
+            'content' => 'Have you EVER been involved in <strong>causing harm</strong> or <strong>suffering</strong> to any person because of their race, religion, national origin, membership in a particular social group, or political opinion?',
             'translation' => 'Bạn đã từng làm hại hay tổn thương người khác vì họ khác chủng tộc, tôn giáo, quốc tịch hoặc ý kiến chính trị chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -628,7 +647,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 10
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted (helped), or participated in any military or police unit?',
+            'content' => 'Have you EVER served in, been a member of, assisted (helped), or participated in any <strong>military</strong> or <strong>police</strong> unit?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ hoặc tham gia vào quân đội hoặc đơn vị cảnh sát nào chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -655,7 +674,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 11
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a paramilitary unit?',
+            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>paramilitary unit</strong>?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào đơn vị bán quân sự?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -670,6 +689,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is a “paramilitary unit”?',
             'translation' => '“Đơn vị bán quân sự” là gì?',
             'default_answers' => 'Not official army',
+            'default_answers_translation' => 'Là quân đội không chính thức',
             'type' => 'text',
             'default_answers_pronunciation' => 'nót óp-phi-sồ a-r-mi'
         ]);
@@ -677,7 +697,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 11.b
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a self-defense unit?',
+            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>self-defense unit</strong>?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào đơn vị tự vệ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -689,7 +709,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 11.c
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a vigilante unit?',
+            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>vigilante unit</strong>?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào đơn vị dân phòng tự phát?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -701,7 +721,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 11.d (trùng nội dung 11.c)
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a vigilante unit?',
+            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>vigilante unit</strong>?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào đơn vị dân phòng tự phát?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -713,7 +733,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 11.e
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a rebel group?',
+            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>rebel group</strong>?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào nhóm nổi loạn không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -725,7 +745,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 11.f
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a guerrilla group?',
+            'content' => 'Have you EVER served in, been a member of, assisted, or participated in a <strong>guerrilla group</strong>?',
             'translation' => 'Bạn đã từng phục vụ, là thành viên, hỗ trợ, hay tham gia vào nhóm du kích không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -757,6 +777,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “prison or jail”?',
             'translation' => '“Trại giam, nhà tù” là gì?',
             'default_answers' => 'A place where prisoners are kept.',
+            'default_answers_translation' => 'Nơi phạm nhân bị giữ lại.',
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ p-lay-(s) que p-ri-sân-nờ-(s) a kép-(t)',
         ]);
@@ -767,6 +788,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “detained”?',
             'translation' => '“Bị giam giữ” là gì?',
             'default_answers' => 'Kept in a place by police',
+            'default_answers_translation' => 'Bị cảnh sát giữ lại ở một nơi',
             'type' => 'text',
             'default_answers_pronunciation' => 'kép-(t) in ờ p-lay-(s) bai po-li-(s)',
             'tips' => json_encode([
@@ -871,6 +893,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'Can you explain what “weapon training” is?',
             'translation' => '“Huấn luyện sử dụng vũ khí” là gì?',
             'default_answers' => 'To learn how to use guns',
+            'default_answers_translation' => 'Là học cách sử dụng súng',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu lơn hao tu diu gân-(s)'
         ]);
@@ -881,6 +904,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What does “military-type training” mean?',
             'translation' => '“Huấn luyện kiểu quân sự” là gì?',
             'default_answers' => 'To train like soldiers',
+            'default_answers_translation' => 'Là huấn luyện như quân lính',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu tren lai-(k) sâu-chờ-(s'
         ]);
@@ -906,6 +930,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is an “armed group”?',
             'translation' => '“Nhóm vũ trang” là gì?',
             'default_answers' => 'A group of people with weapons.',
+            'default_answers_translation' => 'Một nhóm người trang bị vũ khí.',
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ g-rúp ợp pi-pồ quít-(th) que-pần-(s)'
         ]);
@@ -932,6 +957,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is the meaning of “combat”?',
             'translation' => '“Chiến đấu” là gì?',
             'default_answers' => 'To fight in a war',
+            'default_answers_translation' => 'Đánh nhau trong chiến tranh',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu phai-(t) in ờ quo-(r)'
         ]);
@@ -962,6 +988,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “crime”?',
             'translation' => '“Tội phạm” là gì?',
             'default_answers' => 'The action that breaks the law',
+            'default_answers_translation' => 'Hành động vi phạm pháp luật',
             'type' => 'text',
             'default_answers_pronunciation' => 'đì ác-sần đát-(t) b-rây-(k) đờ lo'
         ]);
@@ -972,6 +999,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “commit a crime”?',
             'translation' => '“Phạm tội” là gì?',
             'default_answers' => 'To do something that breaks the law',
+            'default_answers_translation' => 'Làm điều gì đó trái pháp luật',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu đu sâm-thinh đát b-ray-k-(s) đờ lo'
         ]);
@@ -982,6 +1010,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What does “arrested” mean?',
             'translation' => '“Bị bắt” là gì?',
             'default_answers' => 'Kept in custody by the police',
+            'default_answers_translation' => 'Bi cảnh sát giam giữ',
             'type' => 'text',
             'default_answers_pronunciation' => 'kép-(t) in cớt-s-tơ-đi bai đờ po-li-(s)'
         ]);
@@ -992,6 +1021,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is the meaning of “offense”?',
             'translation' => '“Hành vi phạm tội nhẹ” là gì?',
             'default_answers' => 'A minor crime',
+            'default_answers_translation' => 'Một tội nhẹ',
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ mai-nờ c-ram'
         ]);
@@ -1023,6 +1053,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is the meaning of “cited”?',
             'translation' => '“Bị vé phạt” là gì?',
             'default_answers' => 'Given a ticket by police',
+            'default_answers_translation' => 'Bị cảnh sát ghi giấy phạt',
             'type' => 'text',
             'default_answers_pronunciation' => 'gi-vân ờ tít-kịt bai po-li-(s)'
         ]);
@@ -1033,6 +1064,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is the meaning of “confined”?',
             'translation' => '“Bị giam giữ/bị giới hạn trong một khu vực” là gì?',
             'default_answers' => 'Locked in a place',
+            'default_answers_translation' => 'Bị giữ lại ở một nơi',
             'type' => 'text',
             'default_answers_pronunciation' => 'lót-k-(t) in ờ p-lay-(s)',
             'tips' => json_encode([
@@ -1088,6 +1120,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is a “prostitute”?',
             'translation' => '“Người bán dâm” là gì?',
             'default_answers' => 'A person who has sex for money.',
+            'default_answers_translation' => 'Người làm tình để lấy tiền.',
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ pơ-sần hu ha-(s) sét-(s) pho mân-ni'
         ]);
@@ -1098,6 +1131,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is a “procure”?',
             'translation' => '“Môi giới” là gì?',
             'default_answers' => 'To find a prostitute for someone',
+            'default_answers_translation' => 'Tìm người bán dâm cho ai đó',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu phai-(d) ờ p-ró-s-ti-tiu-(t) pho sâm-quan'
         ]);
@@ -1127,6 +1161,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “illegal drug and narcotics”?',
             'translation' => '“Chất cấm, ma túy” là gì?',
             'default_answers' => 'Like heroin',
+            'default_answers_translation' => 'Như heroin',
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) he-râu-in'
         ]);
@@ -1137,6 +1172,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “drug paraphernalia”?',
             'translation' => '“Đồ dùng ma túy” là gì?',
             'default_answers' => 'Things used for illegal drugs',
+            'default_answers_translation' => 'Dụng cụ dùng cho ma túy',
             'type' => 'text',
             'default_answers_pronunciation' => 'thinh-(s) diu-s-(d) pho ì-li-gồ d-rớt-(s)'
         ]);
@@ -1188,6 +1224,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is the meaning of “immigration benefit”?',
             'translation' => '“Quyền lợi di trú” là gì?',
             'default_answers' => 'Like a visa, green card or citizenship',
+            'default_answers_translation' => 'Như là visa, thẻ xanh, quốc tịch',
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) ờ vi-sờ, g-rin ca-(d), o si-ti-giần-síp'
         ]);
@@ -1225,6 +1262,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Đánh bạc” là gì?',
             'type' => 'text',
             'default_answers' => 'To play games for money',
+            'default_answers_translation' => 'Là chơi trò chơi để kiếm tiền',
             'default_answers_pronunciation' => 'tu p-lay gem-(s) pho mân-ni',
         ]);
 
@@ -1247,6 +1285,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '”Trả tiền cấp dưỡng” là gì?',
             'type' => 'text',
             'default_answers' => 'To give money to ex-spouse after divorce',
+            'default_answers_translation' => 'Là trả tiền cấp dưỡng cho vợ/chồng cũ sau ly hôn',
             'default_answers_pronunciation' => 'tu gi-(v) mân-ni tu ịt-s-pao-(s)',
         ]);
 
@@ -1272,6 +1311,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Phúc lợi công cộng” là gì?',
             'type' => 'text',
             'default_answers' => 'Government helps like money and food stamps.',
+            'default_answers_translation' => 'Chính phủ giúp đỡ như tiền, phiếu ăn.',
             'default_answers_pronunciation' => 'go-vơ-mân-(t) hép-(s) lai-(k) mân-ni èn phu-(d) s-tem-p-(s)',
         ]);
 
@@ -1297,6 +1337,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => 'Bạn có biết “sai” là gì không?',
             'type' => 'text',
             'default_answers' => 'Not true',
+            'default_answers_translation' => 'Là không đúng',
             'default_answers_pronunciation' => 'nót tru',
         ]);
 
@@ -1307,6 +1348,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => 'Bạn có biết “gian lận” là gì không?',
             'type' => 'text',
             'default_answers' => 'To lie',
+            'default_answers_translation' => 'Nói dối',
             'default_answers_pronunciation' => 'tu lai',
         ]);
 
@@ -1346,6 +1388,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Thủ tục trục xuất” là gì?',
             'type' => 'text',
             'default_answers' => 'Process of sending someone out of the U.S.',
+            'default_answers_translation' => 'Quy trình đưa một người ra khỏi Mỹ.',
             'default_answers_pronunciation' => 'p-ró-sẹt-(s) ọp sen-đinh sâm-quan ao-(t) of đờ diu-ét-(s)',
         ]);
 
@@ -1425,6 +1468,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Gọi nhập ngũ” là gì?',
             'type' => 'text',
             'default_answers' => 'Being selected as a soldier',
+            'default_answers_translation' => 'Được chọn vào quân đội',
             'default_answers_pronunciation' => 'bi-inh si-lét-tịt át-(s) ờ sâu-chờ'
         ]);
 
@@ -1606,6 +1650,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Tước vị thừa kế” là gì?',
             'type' => 'text',
             'default_answers' => 'A royal title, like prince or princess',
+            'default_answers_translation' => 'Danh hiệu quý tộc như hoàng tử, công chúa',
             'default_answers_pronunciation' => 'ờ roi-ồ tai-tồ, lai-(k) p-rin-(s) or p-rin-sẹt-(s)'
         ]);
 
@@ -1664,6 +1709,7 @@ class N400QuestionPart10Seeder extends Seeder
             'translation' => '“Lời Tuyên thệ Trung thành” là gì?',
             'type' => 'text',
             'default_answers' => 'A promise to be loyal to the United states',
+            'default_answers_translation' => 'Lời hứa trung thành với Mỹ',
             'default_answers_pronunciation' => 'ờ p-ró-mịt-(s) tu bi loi-ồ tu đờ diu-nai-tịt s-tây-(s)'
         ]);
 
@@ -1742,6 +1788,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is “bear arm”?',
             'translation' => '“Cầm vũ khí” là gì?',
             'default_answers' => 'To own or use a gun',
+            'default_answers_translation' => 'Như sở hữu và sử dụng súng',
             'type' => 'text',
             'default_answers_pronunciation' => 'tu on o diu-(s) ờ gân'
         ]);
@@ -1749,7 +1796,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 55
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'If the law requires it, are you willing to perform noncombatant services (do something that does not include fighting in a war) in the U.S. armed forces?',
+            'content' => 'If the law requires it, are you willing to perform <strong>noncombatant services</strong> (do something that does not include fighting in a war) in the U.S. armed forces?',
             'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng thực hiện các nhiệm vụ không chiến đấu trong quân đội Mỹ không?',
             'type' => 'multiple_choice',
             'tips' => '{"Noncombatant services": "nhiệm vụ không chiến đấu", "U.S. armed forces": "quân đội Mỹ"}'
@@ -1772,6 +1819,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What does “noncombatant service” mean?',
             'translation' => '“Nhiệm vụ không chiến đấu” là gì?',
             'default_answers' => 'Support the army, but no fighting.',
+            'default_answers_translation' => 'Hỗ trợ quân đội, nhưng không chiến đấu trực tiếp.',
             'type' => 'text',
             'default_answers_pronunciation' => 'sờ-pót-(t) đì a-r-mi, bớt nâu phai-đinh'
         ]);
@@ -1779,7 +1827,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 56
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'If the law requires it, are you willing to perform work of national importance under civilian direction?',
+            'content' => 'If the law requires it, are you willing to <strong>perform work of national importance</strong> under civilian direction?',
             'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng thực hiện công việc có tầm quan trọng quốc gia dưới sự chỉ đạo của cơ quan dân sự không?',
             'type' => 'multiple_choice',
             'tips' => '{"Perform work of national importance": "công việc phục vụ lợi ích quốc gia", "Under civilian direction": "dưới sự chỉ đạo của cơ quan dân sự"}'

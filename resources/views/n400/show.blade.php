@@ -36,6 +36,13 @@
                             placeholder="{{ isset($question->answer_note) ? e($question->answer_note) : 'Nhập ở đây' }}">{{ e($question->default_answers) }}</textarea>
                     </div>
 
+                    @if (isset($question->default_answers_pronunciation))
+                        <div class="position-relative">
+                            <label class="pronunciation-title font-bold-italic">Phát âm dễ nhớ:</label>
+                            <textarea name="answer_text" class="instruction-text form-control mt-4 ps-5">{{ e($question->default_answers_pronunciation) }}</textarea>
+                        </div>
+                    @endif
+
                 </div>
             </form>
         @endif
@@ -46,7 +53,7 @@
                 <div class="quiz-container">
                     <div class="audio">
                         <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
-                        <input class="questionText hidden" type="hidden" value="{{ $question->question_text }}"></input>
+                        <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
 
                     <span class="font-sm text-center">{!! $question->content !!}</span>
@@ -55,16 +62,26 @@
                         @foreach ($question->answers as $answer)
                             <div class="form-check mb-2 d-flex justify-content-center gap-2 align-items-start">
                                 <div class="d-flex flex-column" style="width: 100%;">
-                                    <div class="d-flex gap-2 justify-content-start align-items-center">
-                                        <input class="form-check-input toggle-additional" type="radio" name="answer_id"
-                                            id="answer{{ $answer->id }}" value="{{ $answer->id }}"
-                                            data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}"
-                                            @if (trim($answer->content) === trim($question->default_answers)) checked @endif>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex gap-2 justify-content-start align-items-center">
+                                            <input class="form-check-input toggle-additional" type="radio"
+                                                name="answer_id" id="answer{{ $answer->id }}"
+                                                value="{{ $answer->id }}"
+                                                data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}"
+                                                @if (trim($answer->content) === trim($question->default_answers)) checked @endif>
 
-                                        <label class="form-check-label radio-label font-sm"
-                                            for="answer{{ $answer->id }}">
-                                            {{ $answer->content }}
-                                        </label>
+                                            <label class="form-check-label radio-label font-sm"
+                                                for="answer{{ $answer->id }}">
+                                                {{ $answer->content }}
+                                            </label>
+                                        </div>
+
+                                        <div class="audio-answer" data-answer="{{ $answer->content }}">
+                                            <img src="{{ asset('icon/mockTests/audio.svg') }}" style="width: 10px;"
+                                                alt="Play audio" />
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -99,27 +116,7 @@
             $tips = json_decode($question->tips, true);
         @endphp
 
-        @if (isset($question->tips) && !isset($tips['another_answer_way']))
-            <div class="container-tips">
-                <div class="tips-box">
-                    <strong>
-                        <p class="d-block font-sm font-bold">Mẹo ghi nhớ:</p>
-                    </strong>
-                    <div class="d-flex flex-wrap gap-2">
-                        @foreach ($tips as $label => $value)
-                            <div class="answer-tips">
 
-                                <span class="tag">
-                                    <span class="tag-key">{{ $label . ':' }} </span> <span class="tag-value">
-                                        {{ $value }} </span>
-                                </span>
-                            </div>
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
-        @endif
 
 
         <div class="hint-container">
@@ -135,7 +132,32 @@
             <div id="hintText" style="display: none; width: 100%;">
                 <div class="translate-box mt-3 text-start">
                     <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
+                    @if ($question->default_answers_translation)
+                        - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
+                    @endif
                 </div>
+                @if (isset($question->tips) && !isset($tips['another_answer_way']))
+                    <div class="container-tips">
+                        <div class="tips-box">
+                            <strong>
+                                <p class="d-block font-sm font-bold">Mẹo ghi nhớ:</p>
+                            </strong>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                @foreach ($tips as $label => $value)
+                                    <div class="answer-tips">
+
+                                        <span class="tag">
+                                            <span class="tag-key">{{ $label . ':' }} </span> <span class="tag-value">
+                                                {{ $value }} </span>
+                                        </span>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 @if (isset($question->tips) && isset($tips['another_answer_way']))
                     <div class="another-section">
                         <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm another-way"
@@ -184,12 +206,33 @@
             });
 
             // Audio click (text-to-speech)
+            // $('.audio').on('click', function() {
+            //     const text = $('.questionText').val();
+            //     console.log('speak', text);
+            //     speakText(text);
+            // });
+
+            // Audio câu hỏi
             $('.audio').on('click', function() {
-                const text = $('.questionText').val();
+                let rawHtml = $(this).find('.questionText').val();
+
+                // Tạo một thẻ ảo để loại bỏ các thẻ HTML
+                let tempDiv = document.createElement("div");
+                tempDiv.innerHTML = rawHtml;
+                let plainText = tempDiv.textContent || tempDiv.innerText || "";
+
+                console.log('speak', plainText); // Output: How long have you been in the United States?
+                speakText(plainText);
+            });
+
+            // Audio trả lời (trắc nghiệm)
+            $('.audio-answer').on('click', function() {
+                const text = $(this).data('answer');
                 console.log('speak', text);
                 speakText(text);
             });
 
+            // Audio trả lời (tự luận)
             $('.icon-textarea').on('click', function() {
                 const text = $('textarea[name="answer_text"]').val();
                 console.log('✅ speak:', text);

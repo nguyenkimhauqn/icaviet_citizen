@@ -51,10 +51,11 @@ class N400QuestionSeeder extends Seeder
         // 3
         Question::create([
             'category_id' => 1,
-            'content' => 'Please stand up.',
+            'content' => 'Please remain standing. / Please stand up.',
             'translation' => 'Vui lòng đứng lên.',
             'type' => 'text',
             'default_answers' => 'Yes',
+            'default_answers_translation' => 'Vâng',
         ]);
 
         // 4
@@ -64,6 +65,7 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Vui lòng giơ tay phải lên.',
             'type' => 'text',
             'default_answers' => 'Yes',
+            'default_answers_translation' => 'Vâng',
         ]);
 
         // 5
@@ -103,6 +105,7 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Bạn có cam đoan rằng những lời bạn sắp nói ra sẽ là sự thật, toàn bộ sự thật và không gì ngoài sự thật không?',
             'type' => 'text',
             'default_answers' => 'Yes, I do.',
+            'default_answers_translation' => 'Có, tôi hứa',
             'tips' => json_encode([
                 'another_answer_way' => [
                     ['en' => 'Yes, I do.', 'vi' => 'Có, tôi hứa', 'is_best_answer' => true],
@@ -284,7 +287,8 @@ class N400QuestionSeeder extends Seeder
             'content' => '<strong>How long</strong> have you been in the <strong>United States</strong>?',
             'translation' => 'Bạn đã sống ở Mỹ bao lâu rồi?',
             'type' => 'text',
-            'default_answers' => '3 years',
+            'default_answers' => '3 years / 5 years',
+            'default_answers_translation' => '3 năm / 5 năm',
             'tips' => json_encode([
                 'How long' => 'bao lâu',
                 'United States' => 'Mỹ',
@@ -298,6 +302,7 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Bạn có trên 18 tuổi không?',
             'type' => 'text',
             'default_answers' => 'Yes, I am.',
+            'default_answers_translation' => 'Đúng',
             'tips' => json_encode([
                 'Over 18 years old' => 'trên 18 tuổi',
             ]),
@@ -346,7 +351,8 @@ class N400QuestionSeeder extends Seeder
             'content' => '<strong>How long</strong> have you been a <strong>permanent resident</strong>?',
             'translation' => 'Bạn là thường trú nhân bao lâu rồi?',
             'type' => 'text',
-            'default_answers' => '3 years',
+            'default_answers' => '3 years / 5 years',
+            'default_answers_translation' => '3 năm / 5 năm',
             'tips' => json_encode([
                 'How long' => 'bao lâu',
                 'Permanent resident' => 'thường trú nhân',
@@ -1007,12 +1013,14 @@ class N400QuestionSeeder extends Seeder
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'I am currently employed.',
+            'explanation' => 'Tôi hiện đang đi làm',
             'is_correct' => true,
         ]);
 
         Answer::create([
             'question_id' => $question1->id,
             'content' => 'I am attending school.',
+            'explanation' => 'Tôi hiện đang đi học',
             'is_correct' => true,
             'skip_to_question' => 7,
         ]);
@@ -1276,5 +1284,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
         ]);
         // ----- END: PART 11 ----
+
+        Question::whereNull('topic_id')->update(['topic_id' => 4]);
     }
 }
