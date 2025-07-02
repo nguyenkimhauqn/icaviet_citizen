@@ -10,6 +10,7 @@ use App\Http\Controllers\RepresentativeController;
 use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
+use App\Http\Controllers\N400Controller;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Category;
@@ -65,7 +66,13 @@ Route::middleware(['auth'])->group(function () {
     // === * N400 * ===
     Route::prefix('n400')->group(function () {
         Route::get('/categories', [CategoryController::class, 'index'])->name('n400.categories.index');
-        Route::get('/category/{id}/question/{index?}', [CategoryController::class, 'show'])->name('n400.category.show');
+
+        // Route::get('/category/{id}/question/{index?}', [CategoryController::class, 'show'])->name('n400.category.show');
+        Route::get('/category/{id}/question', [N400Controller::class, 'show'])->name('n400.category.show');
+        Route::post('/questions', [N400Controller::class, 'store'])->name('n400.store');
+        Route::delete('/n400/{id}/delete', [N400Controller::class, 'destroy'])->name('n400.destroy');
+
+
         Route::get('/category/{id}/prev', [CategoryController::class, 'prevCategory'])->name('n400.category.prev');
         Route::get('/category/{id}/next', [CategoryController::class, 'nextCategory'])->name('n400.category.next');
         Route::post('update-answer', [CategoryController::class, 'updateAnswer'])->name('n400.updateAnswer');

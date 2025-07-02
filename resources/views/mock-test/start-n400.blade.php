@@ -59,7 +59,7 @@
                                     <div class="d-flex gap-2 justify-content-center align-items-center">
                                         <input class="form-check-input toggle-additional" type="radio" name="answer_id"
                                             id="answer{{ $answer->id }}" value="{{ $answer->id }}"
-                                            data-has-additional="{{ $answer->has_additional_answer ? 'true' : 'false' }}">
+                                            data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}">
 
                                         <label class="form-check-label radio-label font-sm"
                                             for="answer{{ $answer->id }}">
@@ -69,7 +69,7 @@
 
                                     {{-- Field bổ sung --}}
                                     <textarea type="text" name="additional_field_{{ $answer->id }}"
-                                        class="form-control mt-2 additional-field questionText" placeholder="Nhập thông tin bổ sung..."
+                                        class="form-control mt-2 additional-field questionText" placeholder="{{ $answer->additional_answer_placeholder }}"
                                         style="display: none;"></textarea>
                                 </div>
                             </div>
