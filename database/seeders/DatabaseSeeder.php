@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
 
         // ]);
 
+        // 0. Thêm slug vào topics
+        $this->call([
+            TopicSlugSeeder::class,
+        ]);
+
         // 1.1 data thi công dân test 1
         $this->call([
             CivicTest1Seeder::class,
@@ -37,9 +42,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ReadingTestSeeder::class);
 
         // 4.1. danh mục N400
-        // $this->call(CategorySeeder::class);
+        $this->call(CategorySeeder::class);
 
         // 4.2. data N400
-        // $this->call(N400Seeder::class);
+        $this->call(N400QuestionSeeder::class);
     }
 }

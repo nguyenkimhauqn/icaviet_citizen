@@ -132,7 +132,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers' => 'To not pay money to the government yet.',
             'default_answers_translation' => 'Là chưa trả tiền cho chính phủ.',
-            'default_answers_pronunciation' => 'tu nót pay mân-ni tu đờ gỏ-vơ-mần-(t) dét-(t)',
+            'default_answers_pronunciation' => 'tu nót pay mân-ni tu đờ gó-vơ-mần-(t) dét-(t)',
             'tips' => json_encode([
                 'another_answer_way' => [
                     ['en' => 'To owe the government money.', 'vi' => 'Là nợ tiền chính phủ']
@@ -906,7 +906,7 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'To train like soldiers',
             'default_answers_translation' => 'Là huấn luyện như quân lính',
             'type' => 'text',
-            'default_answers_pronunciation' => 'tu tren lai-(k) sâu-chờ-(s'
+            'default_answers_pronunciation' => 'tu tren lai-(k) sâu-chờ-(s)'
         ]);
 
         // Câu 18
@@ -1077,7 +1077,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 22
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER received a suspended sentence, been placed on probation, or been paroled?',
+            'content' => 'Have you EVER received a <strong>suspended sentence</strong>, been placed on <strong>probation</strong>, or been <strong>paroled</strong>?',
             'translation' => 'Bạn đã từng nhận án treo, bị quản chế, hoặc được tạm tha chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1098,7 +1098,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 23
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER engaged in prostitution, attempted to procure or import prostitutes or persons for the purpose of prostitution, or received any proceeds or money from prostitution?',
+            'content' => 'Have you EVER engaged in <strong>prostitution</strong>, attempted to procure or import prostitutes or persons for the purpose of prostitution, or received any proceeds or money from prostitution?',
             'translation' => 'Bạn đã từng hành nghề mại dâm, từng cố gắng môi giới hoặc đưa người vào Mỹ để hành nghề mại dâm, hoặc từng nhận tiền hay lợi ích từ hoạt động mại dâm chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1139,7 +1139,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 24
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER manufactured, cultivated, produced, distributed, dispensed, sold, or smuggled (trafficked) any controlled substances, illegal drugs, narcotics, or drug paraphernalia in violation of any law or regulation of a U.S. state, the United States, or a foreign country?',
+            'content' => 'Have you EVER manufactured, cultivated, produced, distributed, dispensed, sold, or smuggled (trafficked) any controlled substances, <strong>illegal drugs, narcotics</strong>, or drug paraphernalia in violation of any law or regulation of a U.S. state, the United States, or a foreign country?',
             'translation' => 'Bạn đã từng sản xuất, trồng, chế biến, phân phối, phát tán, buôn bán, hoặc buôn lậu bất kỳ chất bị kiểm soát, ma túy, chất gây nghiện, hoặc dụng cụ dùng cho ma túy nào vi phạm luật của tiểu bang, chính phủ Mỹ, hoặc của một quốc gia khác chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1180,7 +1180,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 25
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been married to more than one person at the same time?',
+            'content' => 'Have you EVER been <strong>married</strong> to <strong>more than one person</strong> <strong>at the same time</strong>?',
             'translation' => 'Bạn đã từng kết hôn với nhiều hơn một người trong cùng một lúc chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1201,7 +1201,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 26
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER married someone in order to obtain an immigration benefit?',
+            'content' => 'Have you EVER <strong>married</strong> someone in order to obtain an <strong>immigration benefit</strong>?',
             'translation' => 'Bạn đã bao giờ kết hôn với ai đó với mục đích nhận quyền lợi di trú chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1232,7 +1232,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 27
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER helped anyone to enter, or try to enter, the United States illegally?',
+            'content' => 'Have you EVER helped anyone to enter, or try to <strong>enter, the United States illegally</strong>?',
             'translation' => 'Bạn đã từng giúp đỡ ai đó vào hoặc cố gắng vào nước Mỹ bất hợp pháp chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1246,7 +1246,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 28
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER gambled illegally or received income from illegal gambling?',
+            'content' => 'Have you EVER <strong>gambled</strong> illegally or received income from illegal gambling?',
             'translation' => 'Bạn đã từng đánh bạc bất hợp pháp hoặc từng nhận thu nhập từ hoạt động đánh bạc bất hợp pháp chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1269,7 +1269,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 29
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER failed to support your dependents (pay child support) or to pay alimony (court-ordered financial support after divorce or separation)?',
+            'content' => 'Have you EVER failed to support your dependents (pay child support) or to <strong>pay alimony</strong> (court-ordered financial support after divorce or separation)?',
             'translation' => 'Bạn đã từng không chu cấp cho người phụ thuộc của mình (không trả tiền nuôi con), hoặc không trả tiền trợ cấp theo phán quyết của tòa sau khi ly hôn hoặc ly thân chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1292,7 +1292,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 30
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER made any misrepresentation to obtain any public benefit in the United States?',
+            'content' => 'Have you EVER made any <strong>misrepresentation</strong> to obtain any <strong>public benefit</strong> in the United States?',
             'translation' => 'Bạn đã từng khai gian hoặc cung cấp thông tin sai sự thật để nhận bất kỳ phúc lợi công cộng nào ở Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1318,7 +1318,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 31
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER given any U.S. Government officials any information or documentation that was false, fraudulent, or misleading?',
+            'content' => 'Have you EVER given any U.S. Government officials any information or documentation that was <strong>false</strong>, <strong>fraudulent</strong>, or misleading?',
             'translation' => 'Bạn đã từng cung cấp cho viên chức chính phủ Mỹ bất kỳ thông tin hoặc giấy tờ nào sai sự thật, gian lận, hoặc gây hiểu lầm chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1355,7 +1355,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 32
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER lied to any U.S. Government officials to gain entry or admission into the United States or to gain immigration benefits while in the United States?',
+            'content' => 'Have you EVER <Strong>lied</strong> to any U.S. Government officials to gain entry or admission into the United States or to gain <strong>immigration benefits</strong> while in the United States?',
             'translation' => 'Bạn đã từng nói dối với bất kỳ viên chức chính phủ nào để được vào Mỹ, hoặc để nhận quyền lợi di trú khi đang ở Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1370,7 +1370,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 33
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been placed in removal, rescission, or deportation proceedings?',
+            'content' => 'Have you EVER been placed in removal, rescission, or <strong>deportation proceedings</strong>?',
             'translation' => 'Bạn đã từng bị đưa vào thủ tục thu hồi tình trạng di trú hoặc thủ tục trục xuất khỏi Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1395,7 +1395,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 34
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been removed or deported from the United States?',
+            'content' => 'Have you EVER been <strong>removed or deported</strong> from the United States?',
             'translation' => 'Bạn đã từng bị trục xuất hoặc bị buộc rời khỏi Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1409,7 +1409,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 35
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you a male who lived in the United States at any time between your 18th and 26th birthdays?',
+            'content' => 'Are you a <strong>male</strong> who lived in the United States at any time between your <strong>18th and 26th birthdays</strong>?',
             'translation' => 'Bạn có phải là nam giới đã từng sống tại Mỹ vào bất kỳ thời điểm nào trong khoảng từ 18 đến 26 tuổi?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1423,7 +1423,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 36
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Did you register for the Selective Service?',
+            'content' => 'Did you register for the <strong>Selective Service</strong>?',
             'translation' => 'Bạn đã đăng ký với Quân vụ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
@@ -1449,7 +1449,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 38
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER left the United States to avoid being drafted in the U.S. armed forces?',
+            'content' => 'Have you EVER left the United States to <strong>avoid</strong> <strong>being drafted in the U.S. armed forces</strong>?',
             'translation' => 'Bạn đã từng rời khỏi Mỹ để tránh bị gọi nhập ngũ vào quân đội chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1475,7 +1475,7 @@ class N400QuestionPart10Seeder extends Seeder
         // 39
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER applied for and received exemption from military service in the U.S. armed forces?',
+            'content' => 'Have you EVER applied for and received <strong>exemption</strong> from <strong>military service</strong> in the <strong>U.S. armed forces</strong>?',
             'translation' => 'Bạn đã từng nộp đơn và được miễn nghĩa vụ quân sự trong quân đội chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1491,7 +1491,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 40
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER served in the U.S. armed forces?',
+            'content' => 'Have you EVER <strong>served</strong> in the <strong>U.S. armed forces</strong>?',
             'translation' => 'Bạn đã từng phục vụ trong quân đội Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1506,7 +1506,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 41
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you currently a member of the U.S. armed forces?',
+            'content' => 'Are you <strong>currently</strong> a <strong>member</strong> of the <strong>U.S. armed forces</strong>?',
             'translation' => 'Hiện tại, bạn có phải là thành viên của quân đội Mỹ không?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1521,7 +1521,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 42
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you scheduled to deploy outside the United States, including to a vessel, within the next 3 months?',
+            'content' => 'Are you scheduled to <strong>deploy</strong> <strong>outside the United States</strong>, including to a vessel, within the <strong>next 3 months</strong>?',
             'translation' => 'Bạn có lịch trình được điều động ra ngoài Hoa Kỳ, bao gồm lên tàu quân sự, trong vòng 3 tháng tới không?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1536,7 +1536,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 43
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you currently stationed outside the United States?',
+            'content' => 'Are you <strong>currently</strong> <strong>stationed</strong> <strong>outside the United States</strong>?',
             'translation' => 'Hiện tại, bạn có đang đóng quân ở ngoài nước Mỹ không?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1551,7 +1551,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 44
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you a former U.S. military service member who is currently residing outside of the U.S.?',
+            'content' => 'Are you a <strong>former U.S. military service member</strong> who is <strong>currently</strong> <strong>residing</strong> <strong>outside of the U.S.</strong>?',
             'translation' => 'Bạn có phải là cựu quân nhân Mỹ hiện đang sinh sống ở ngoài nước Mỹ không?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1567,7 +1567,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 45
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been court-martialed or have you received a discharge characterized as other than honorable, bad conduct, or dishonorable, while in the U.S. armed forces?',
+            'content' => 'Have you EVER been court-martialed or have you received a <strong>discharge</strong> characterized as other than honorable, <strong>bad conduct</strong>, or <strong>dishonorable</strong>, while in the U.S. armed forces?',
             'translation' => 'Bạn đã từng bị tòa án quân sự xét xử, hoặc từng nhận quyết định xuất ngũ với hình thức không danh dự, hạnh kiểm xấu, hoặc xuất ngũ không danh dự trong thời gian phục vụ quân đội Mỹ chưa?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1581,7 +1581,7 @@ class N400QuestionPart10Seeder extends Seeder
 
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER been discharged from training or service in the U.S. armed forces because you were an alien?',
+            'content' => 'Have you EVER been <strong>discharged</strong> from training or service in the <strong>U.S. armed forces</strong> because you were an <strong>alien</strong>?',
             'translation' => 'Bạn đã từng bị cho xuất ngũ khỏi chương trình huấn luyện hoặc phục vụ trong quân đội Hoa Kỳ vì lý do bạn là người nước ngoài chưa?',
             'type' => 'multiple_choice',
             'tips' => json_encode([
@@ -1596,7 +1596,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 47
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER deserted from the U.S. armed forces?',
+            'content' => 'Have you EVER <strong>deserted</strong> from the <strong>U.S. armed forces</strong>?',
             'translation' => 'Bạn đã từng đào ngũ khỏi quân đội Mỹ chưa?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1611,7 +1611,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 48
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Do you now have, or did you EVER have, a hereditary title or an order of nobility in any foreign country?',
+            'content' => 'Do you now have, or did you EVER have, a <strong>hereditary title</strong> or an <strong>order of nobility</strong> in any foreign country?',
             'translation' => 'Hiện tại bạn có, hoặc trước đây bạn đã từng có, tước vị thừa kế hoặc danh hiệu quý tộc ở bất kỳ quốc gia nào khác ngoài Mỹ không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1631,7 +1631,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 49
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you willing to give up any inherited titles or orders of nobility that you have in a foreign country at your naturalization ceremony?',
+            'content' => 'Are you willing to <strong>give up</strong> any inherited titles or <strong>orders of nobility</strong> that you have in a foreign country at your naturalization ceremony?',
             'translation' => 'Bạn có sẵn sàng từ bỏ bất kỳ tước vị thừa kế hoặc danh hiệu quý tộc nào mà bạn có ở quốc gia khác trong buổi lễ nhập quốc tịch không?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
@@ -1657,7 +1657,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 50
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Do you support the Constitution and form of Government of the United States?',
+            'content' => 'Do you <strong>support</strong> the <strong>Constitution</strong> and form of Government of the United States?',
             'translation' => 'Bạn có ủng hộ Hiến pháp và hình thức chính quyền của Mỹ không?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
@@ -1681,7 +1681,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 51
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Do you understand the full Oath of Allegiance to the United States?',
+            'content' => 'Do you <strong>understand</strong> the full <strong>Oath of Allegiance</strong> to the United States?',
             'translation' => 'Bạn có hiểu đầy đủ nội dung Lời tuyên thệ trung thành với Mỹ không?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
@@ -1716,7 +1716,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 52
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you unable to take the Oath of Allegiance because of a physical or developmental disability or mental impairment?',
+            'content' => 'Are you unable to take the <strong>Oath of Allegiance</strong> because of a <strong>physical or developmental disability</strong> or mental impairment?',
             'translation' => 'Bạn không thể thực hiện Lời Tuyên thệ Trung thành vì bị khuyết tật thể chất, khuyết tật phát triển, hoặc suy giảm năng lực tâm thần đúng không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -1740,7 +1740,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 53
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Are you willing to take the full Oath of Allegiance to the United States?',
+            'content' => 'Are you <strong>willing to take</strong> the full <strong>Oath of Allegiance</strong> to the United States?',
             'translation' => 'Bạn có sẵn sàng thực hiện đầy đủ Lời Tuyên thệ Trung thành với Mỹ không?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
@@ -1764,7 +1764,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 54
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'If the law requires it, are you willing to bear arms (carry weapons) on behalf of the United States?',
+            'content' => 'If the law requires it, are you willing to <strong>bear arms (carry weapons)</strong> <strong>on behalf of the United States</strong>?',
             'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng cầm vũ khí vì nước Mỹ không?',
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
@@ -1797,7 +1797,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 55
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'If the law requires it, are you willing to perform <strong>noncombatant services</strong> (do something that does not include fighting in a war) in the U.S. armed forces?',
+            'content' => 'If the law requires it, are you willing to perform <strong>noncombatant services</strong> (do something that does not include fighting in a war) in the <strong>U.S. armed forces</strong>?',
             'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng thực hiện các nhiệm vụ không chiến đấu trong quân đội Mỹ không? (Tức là làm những việc không liên quan đến tham gia chiến tranh)',
             'type' => 'multiple_choice',
             'tips' => '{"Noncombatant services": "nhiệm vụ không chiến đấu (như y tế, hậu cần, kỹ thuật, thông tin...)", "U.S. armed forces": "quân đội Mỹ"}'
@@ -1829,7 +1829,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 56
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'If the law requires it, are you willing to <strong>perform work of national importance</strong> under civilian direction?',
+            'content' => 'If the law requires it, are you willing to <strong>perform work of national importance</strong> <strong>under civilian direction</strong>?',
             'translation' => 'Nếu được yêu cầu, bạn có sẵn sàng thực hiện công việc có tầm quan trọng quốc gia dưới sự chỉ đạo của cơ quan dân sự không?',
             'type' => 'multiple_choice',
             'tips' => '{"Perform work of national importance": "công việc phục vụ lợi ích quốc gia", "Under civilian direction": "dưới sự chỉ đạo của cơ quan dân sự"}'

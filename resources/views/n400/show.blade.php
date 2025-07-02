@@ -128,7 +128,11 @@
                     @if (isset($question->default_answers_pronunciation))
                         <div class="">
                             <p class="font-bold-italic text-start mt-2">Phát âm dễ nhớ:</p>
-                            <textarea name="answer_text" class="instruction-text form-control mt-1">{{ e($question->default_answers_pronunciation) }}</textarea>
+                            @php
+                                $length = strlen($question->default_answers_pronunciation ?? '');
+                                $rows = $length > 80 ? 3 : 2;
+                            @endphp
+                            <textarea name="answer_text" class="instruction-text form-control mt-1" rows="{{ $rows }}">{{ e($question->default_answers_pronunciation) }}</textarea>
                         </div>
                     @endif
 
@@ -149,10 +153,10 @@
 
                     <div class="radio-options bg-light p-4 rounded text-start mt-4">
                         @foreach ($question->answers as $answer)
-                            <div class="form-check mb-2 d-flex justify-content-center gap-2 align-items-start">
+                            <div class="mb-2">
                                 <div class="d-flex flex-column" style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex gap-2 justify-content-start align-items-center">
+                                    <div class="d-flex">
+                                        <div class="d-flex gap-2 justify-content-center align-items-center">
                                             <input class="form-check-input toggle-additional" type="radio"
                                                 name="answer_id" id="answer{{ $answer->id }}"
                                                 value="{{ $answer->id }}" data-answer="{{ $answer->content }}"
@@ -191,11 +195,22 @@
                             <div class="position-relative additional-field-container" style="display: none;">
                                 <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
                                     src="{{ asset('icon/n400/sound.svg') }}" alt="Audio"
-                                    style="position: absolute; top: 12px; left: 10px; width: 20px; cursor: pointer;">
+                                    style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;">
+
+                                @php
+                                    $length = strlen($answer->additional_answer_placeholder ?? '');
+                                    if ($length > 160) {
+                                        $rows = 4;
+                                    } elseif ($length > 80) {
+                                        $rows = 3;
+                                    } else {
+                                        $rows = 2;
+                                    }
+                                @endphp
 
                                 <textarea type="text" name="additional_field_{{ $answer->id }}"
                                     class="form-control mt-2 ps-5 additional-field questionText"
-                                    placeholder="{{ $answer->additional_answer_placeholder }}" rows="3"></textarea>
+                                    placeholder="{{ $answer->additional_answer_placeholder }}" rows="{{ $rows }}"></textarea>
                             </div>
 
                             {{-- Box cảnh báo --}}
