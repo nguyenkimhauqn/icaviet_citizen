@@ -1,0 +1,94 @@
+@font-face {
+    font-family: 'Linux Libertine';
+    src: url('/fonts/SVN-Linux\ Libertine\ regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Linux Libertine';
+    src: url('/fonts/SVN-Linux\ Libertine\ bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Linux Libertine';
+    src: url('/fonts/SVN-Linux\ Libertine\ italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Linux Libertine';
+    src: url('/fonts/SVN-Linux\ Libertine\ bold\ italic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+body {
+    font-family: 'Linux Libertine', serif !important;
+}
+
+/* Đặt style tổng thể cho khung trang */
+.wp-content {
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 980px;
+    box-sizing: border-box;
+}
+
+.wp-header {
+    border-bottom: solid 2px #C8E2F9;
+}
+
+.heading-module {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0px !important;
+}
+
+/* Responsive cho thiết bị nhỏ hơn */
+@media (max-width: 440px) {
+    .wp-content {
+        max-width: 440px;
+        padding: 0px;
+    }
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url('../icon/align-justify.svg') !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.navbar-light .navbar-toggler {
+    border: none !important;
+    color: black !important;
+}
+
+input::placeholder {
+    font-size: 18px;
+    color: #7F909F;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1247BB !important;
+    border-color: #1247BB !important;
+}

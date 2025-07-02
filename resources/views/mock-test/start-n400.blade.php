@@ -1,5 +1,9 @@
 @extends('layouts.base-test')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('public/css/n400.css') }}">
+@endpush
+
 @section('title', $testType->title)
 
 @section('content')
@@ -20,9 +24,10 @@
 
     <main class="main-content">
         @if ($question && $question->type == 'text')
-            <form method="POST" action="{{ route('submit.answer', [$testType->slug, 'page' => $page]) }}" id="questionForm">
+            <form method="POST" action="{{ route('submit.answer', [$testType->slug, 'page' => $page]) }}"
+                id="questionForm">
                 @csrf
-                <input type="hidden" name="question_id" value="{{ $question->id }}">
+                {{-- <input type="hidden" name="question_id" value="{{ $question->id }}">
 
                 <div class="quiz-container">
                     <div class="audio">
@@ -32,7 +37,20 @@
 
                     <textarea type="text" name="answer_text" class="instruction-text form-control mt-3" placeholder="Nhập ở đây">
                         </textarea>
+                </div> --}}
+
+                <input type="hidden" name="question_id" value="{{ $question->id }}">
+
+                <div class="quiz-container" style="margin-top: 20px;">
+                    <div class="audio">
+                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
+                        <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
+                    </div>
+                    {{-- <span class="font-sm text-center">{!! $question->content !!}</span> --}}
+
+                    <textarea name="answer_text" class="instruction-text form-control mt-4 ps-5" placeholder="'Nhập ở đây"></textarea>
                 </div>
+
             </form>
         @endif
 
@@ -45,37 +63,93 @@
                 <input type="hidden" name="answer_id" id="answer_id">
                 <input type="hidden" name="additional_field" id="additional_field" value="">
 
-
-                <div class="quiz-container">
+                <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
-                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
-                        <input class="questionText hidden" type="hidden" value="{{ $question->question_text }}"></input>
+                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
+                        <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
 
-                    <div class="radio-options bg-light p-4 rounded">
+                    <span class="font-sm text-center hidden">{!! $question->content !!}</span>
+
+                    <div class="radio-options bg-light p-4 rounded text-start mt-4">
                         @foreach ($question->answers as $answer)
-                            <div class="form-check mb-2 d-flex justify-content-center gap-2 align-items-start">
+                            <div class="mb-2">
                                 <div class="d-flex flex-column" style="width: 100%;">
-                                    <div class="d-flex gap-2 justify-content-center align-items-center">
-                                        <input class="form-check-input toggle-additional" type="radio" name="answer_id"
-                                            id="answer{{ $answer->id }}" value="{{ $answer->id }}"
-                                            data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}">
+                                    <div class="d-flex">
+                                        <div class="d-flex gap-2 justify-content-center align-items-center">
+                                            <input class="form-check-input toggle-additional" type="radio"
+                                                name="answer_id" id="answer{{ $answer->id }}"
+                                                value="{{ $answer->id }}" data-answer="{{ $answer->content }}"
+                                                data-has-audio="{{ $answer->has_audio ? 'true' : 'false' }}"
+                                                data-has-additional="{{ $answer->additional_answer_placeholder ? 'true' : 'false' }}">
 
-                                        <label class="form-check-label radio-label font-sm"
-                                            for="answer{{ $answer->id }}">
-                                            {{ $answer->content }}
-                                        </label>
+                                            <label class="form-check-label radio-label font-sm"
+                                                for="answer{{ $answer->id }}">
+                                                {{ $answer->content }}
+                                            </label>
+                                        </div>
+
+                                        {{-- @if ($answer->has_audio)
+                                            <div class="audio-answer" data-answer="{{ $answer->content }}">
+                                                <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 10px;"
+                                                    alt="Play audio" />
+                                            </div>
+                                        @endif --}}
+
+                                        <div class="audio-answer d-none" id="audio-icon-{{ $answer->id }}"
+                                            data-answer="{{ $answer->content }}">
+                                            <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 25px;"
+                                                alt="Play audio" />
+                                        </div>
+
                                     </div>
-
-                                    {{-- Field bổ sung --}}
-                                    <textarea type="text" name="additional_field_{{ $answer->id }}"
-                                        class="form-control mt-2 additional-field questionText" placeholder="{{ $answer->additional_answer_placeholder }}"
-                                        style="display: none;"></textarea>
                                 </div>
                             </div>
+
+                            {{-- Field bổ sung --}}
+                            {{-- <textarea type="text" name="additional_field_{{ $answer->id }}"
+                                class="form-control mt-2 additional-field questionText" placeholder="{{ $answer->additional_answer_placeholder }}"
+                                style="display: none;"></textarea> --}}
+
+                            <div class="position-relative additional-field-container" style="display: none;">
+                                <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
+                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio" <<<<<<< HEAD
+                                    style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;">
+
+                                @php
+                                    $length = strlen($answer->additional_answer_placeholder ?? '');
+                                    if ($length > 160) {
+                                        $rows = 4;
+                                    } elseif ($length > 80) {
+                                        $rows = 3;
+                                    } else {
+                                        $rows = 2;
+                                    }
+                                @endphp
+                                <textarea type="text" name="additional_field_{{ $answer->id }}"
+                                    class="form-control mt-2 ps-5 additional-field questionText"
+                                    placeholder="{{ $answer->additional_answer_placeholder }}" rows="{{ $rows }}"></textarea>
+                            </div>
+
+                            {{-- Box cảnh báo --}}
+                            @if ($answer->warning)
+                                <div class="warning-container mb-2 d-none" data-answer-id="{{ $answer->id }}">
+                                    <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
+                                        style="background: #f9f9fc; border-left: 4px solid #FF3363;">
+                                        <p class="d-flex align-center gap-2 mb-2 text-dark font-sm" style="color: #FF3363;">
+                                            <img src="{{ asset('public/icon/n400/warning.svg') }}" alt="Warning">
+                                            <strong>Cảnh báo:</strong>
+                                        </p>
+                                        <ul class="m-0 p-0 text-dark font-sm" style="list-style: none;">
+                                            <li>{{ $answer->warning }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
+
             </form>
         @endif
     </main>
@@ -97,9 +171,15 @@
 
             // Audio click (text-to-speech)
             $('.audio').on('click', function() {
-                const text = $('.questionText').val();
-                console.log('speak', text);
-                speakText(text);
+                let rawHtml = $(this).find('.questionText').val();
+
+                // Tạo một thẻ ảo để loại bỏ các thẻ HTML
+                let tempDiv = document.createElement("div");
+                tempDiv.innerHTML = rawHtml;
+                let plainText = tempDiv.textContent || tempDiv.innerText || "";
+
+                console.log('speak', plainText); // Output: How long have you been in the United States?
+                speakText(plainText);;
             });
 
 
@@ -145,8 +225,9 @@
 
                 // Hiện field bổ sung nếu đáp án cần
                 if (hasAdditional) {
-                    const inputName = `additional_field_${selected.val()}`;
-                    $(`textarea[name="${inputName}"]`).show();
+                    $(`textarea[name="additional_field_${selected.val()}"]`)
+                        .closest('.additional-field-container')
+                        .show();
                 }
             });
 
