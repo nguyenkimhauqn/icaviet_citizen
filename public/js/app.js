@@ -1,30 +1,30 @@
 // Text to speech by Hau Nguyen
 
 // Text to speech by Hau Nguyen
-function speakText(text) {
-    const speak = () => {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";
-        utterance.rate = 0.7;
+// function speakText(text) {
+//     const speak = () => {
+//         const utterance = new SpeechSynthesisUtterance(text);
+//         utterance.lang = "en-US";
+//         utterance.rate = 0.7;
 
-        // Gán giọng đọc ưu tiên
-        const voices = speechSynthesis.getVoices();
-        const preferred = ["Google US English", "Samantha", "Zira", "Karen"];
-        const matched = voices.find((v) => preferred.includes(v.name));
-        utterance.voice = matched || fallback || null;
+//         // Gán giọng đọc ưu tiên
+//         const voices = speechSynthesis.getVoices();
+//         const preferred = ["Google US English", "Samantha", "Zira", "Karen"];
+//         const matched = voices.find((v) => preferred.includes(v.name));
+//         utterance.voice = matched || fallback || null;
 
-        speechSynthesis.speak(utterance);
+//         speechSynthesis.speak(utterance);
 
-        if (speechSynthesis.getVoices().length === 0) {
-            speechSynthesis.onvoiceschanged = () => {
-                speak();
-                speechSynthesis.onvoiceschanged = null;
-            };
-        } else {
-            speak();
-        }
-    };
-}
+//         if (speechSynthesis.getVoices().length === 0) {
+//             speechSynthesis.onvoiceschanged = () => {
+//                 speak();
+//                 speechSynthesis.onvoiceschanged = null;
+//             };
+//         } else {
+//             speak();
+//         }
+//     };
+// }
 
 // Tốt trên Iphone
 // function speakText(text) {
@@ -59,3 +59,28 @@ function speakText(text) {
 //     }
 // }
 // [END] - Tex to speech
+
+function speakText(text) {
+    const speak = () => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        utterance.rate = 0.7;
+
+        const voices = speechSynthesis.getVoices();
+        const preferred = ["Google US English", "Samantha", "Zira", "Karen"];
+        const matched = voices.find((v) => preferred.includes(v.name));
+        utterance.voice = matched || null;
+
+        speechSynthesis.speak(utterance);
+    };
+
+    // Nếu chưa có voice, đợi sự kiện onvoiceschanged rồi mới gọi speak
+    if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.onvoiceschanged = () => {
+            speak();
+            speechSynthesis.onvoiceschanged = null; // gỡ bỏ sau khi gọi
+        };
+    } else {
+        speak(); // Gọi luôn nếu đã có voice
+    }
+}
