@@ -46,5 +46,6 @@ class DatabaseSeeder extends Seeder
 
         // 5.1. data topic
         $this->call(UpdateCivicsTopicTypeSeeder::class);
+
     }
 }
