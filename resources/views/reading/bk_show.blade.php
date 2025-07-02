@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/reading.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/reading.css') }}">
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
         <div class="wp-header d-flex align-items-end mb-4">
@@ -30,7 +30,7 @@
             <div class="wp-question fl-item flex justify-center items-center my-6">
                 {{-- Icon Loa --}}
                 <img class="img-fluid img-loudspeaker play-audio-btn" src="{{ url('public/icon/loudspeaker.png') }}"
-                    data-audio="{{ asset('audio/reading/' . $question->audio_path) }}" alt="icon_loudspeaker">
+                    data-audio="{{ asset('publicaudio/reading/' . $question->audio_path) }}" alt="icon_loudspeaker">
 
                 {{-- Nội dung câu hỏi --}}
                 <p id="writing-answer" class=" italic text-center mt-2">

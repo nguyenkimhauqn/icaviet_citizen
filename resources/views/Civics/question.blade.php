@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('/public/css/civics.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/public/css/civics.css') }}">
 
     <div class="container mt-4">
         {{-- Header --}}
@@ -285,7 +285,7 @@
 
                                 // 🔊 Phát âm thanh đúng
                                 const correctSound = new Audio(
-                                    '{{ asset('/public/audio/civics/correct-answer.mp3') }}'
+                                    '{{ asset('public/public/audio/civics/correct-answer.mp3') }}'
                                 );
                                 correctSound.play();
 

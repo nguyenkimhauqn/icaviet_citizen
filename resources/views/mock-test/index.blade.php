@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="header">
         <a href="{{ route('home') }}">
-            <img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" />
+            <img src="{{ asset('publicicon/mockTests/home.svg') }}" alt="Home" />
         </a>
         <h1 class="header-title" style="margin-bottom: 0px;">
             THI THỬ
@@ -20,7 +20,7 @@
 
         @foreach ($mockTest as $test)
             <div class="test-card">
-                <img src="{{ asset('icon/mockTests/' . $test['slug'] . '.svg') }}" alt="{{ $test['name'] }}"
+                <img src="{{ asset('publicicon/mockTests/' . $test['slug'] . '.svg') }}" alt="{{ $test['name'] }}"
                     class="test-icon" />
                 <div class="test-content">
                     <div class="flex gap-sm">
@@ -39,7 +39,7 @@
         <!-- Warning Section -->
         <div class="warning-section">
             <div class="warning-content">
-                <img src="{{ asset('icon/mockTests/warning.svg') }}" alt="Warning" class="warning-icon" />
+                <img src="{{ asset('publicicon/mockTests/warning.svg') }}" alt="Warning" class="warning-icon" />
                 <p class="warning-text">
                     Phần thi thử được thiết kế nhằm mô phỏng gần nhất với kỳ thi thật nên sẽ không hỗ trợ tiếng Việt.
                 </p>

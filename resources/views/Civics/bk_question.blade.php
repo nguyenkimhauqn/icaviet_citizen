@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('/public/css/civics.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/public/css/civics.css') }}">
 
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
@@ -35,7 +35,7 @@
                 <div class="highlight-title"> {{ $question->content }} </div>
                 <div class="flex space-x-3 ">
                     <button class="text-blue-500 text-xl play-audio-btn"
-                        data-audio="{{ asset('audio/civics/questions/' . $question->audio_path) }}">🔊</button>
+                        data-audio="{{ asset('publicaudio/civics/questions/' . $question->audio_path) }}">🔊</button>
                     <button class="toggle-star-btn {{ $isStarred ? 'stared' : '' }} " data-question-id={{ $question->id }}
                         data-active={{ $isStarred ? '1' : '0' }}>⭐</button>
                 </div>
@@ -51,7 +51,7 @@
                 </div>
                 @if ($answer->is_correct)
                     <span class="text-blue-500 text-xl play-audio-answer" data-answer-id="{{ $answer->id }}"
-                        data-audio="{{ asset('audio/civics/answers/' . $answer->audio_path) }}">
+                        data-audio="{{ asset('publicaudio/civics/answers/' . $answer->audio_path) }}">
                         🔊
                     </span>
                 @endif

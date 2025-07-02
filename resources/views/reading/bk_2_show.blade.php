@@ -223,7 +223,8 @@
                     $iconClose.addClass('d-none');
                     $btnNext.addClass('btn-next-correct');
                     $btnNext.find('i').css('color', 'white');
-                    const correctSound = new Audio('{{ asset('/public/audio/civics/correct-answer.mp3') }}');
+                    const correctSound = new Audio(
+                        '{{ asset('public/public/audio/civics/correct-answer.mp3') }}');
                     correctSound.play();
                 } else {
                     // ❌ Kết quả sai
@@ -258,7 +259,7 @@
             // [END] 03. - Speech to Text
 
             // === * 04. Xử lý Toogle đáp án * ===
-            // doing 
+            // doing
             $('#icon-show').on('click', function(e) {
                 e.preventDefault();
                 const boxTranslateTip = $('#boxTranslateTip');

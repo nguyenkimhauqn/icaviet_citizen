@@ -13,7 +13,8 @@
     <!-- Nhúng file CSS -->
     <link rel="stylesheet" href="{{ asset('public/css/home.css') }}">
     <div class="banner">
-        <img src="{{ url('public/banners/banner-vi-nguoi-viet.png') }}" id="banner-home" class="img-fluid w-100" alt="banner-home">
+        <img src="{{ url('public/banners/banner-vi-nguoi-viet.png') }}" id="banner-home" class="img-fluid w-100"
+            alt="banner-home">
     </div>
     <div class="wp-menu">
         <div class="row justify-content-center">

@@ -1,14 +1,14 @@
 @extends('layouts.base-test')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/n400.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/n400.css') }}">
 @endpush
 
 @section('content')
     {{-- Header --}}
     <div class="header-inner">
         <div class="header">
-            <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('publicicon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 N-400 & NÓI<br>
             </h1>
@@ -29,7 +29,7 @@
                     <div class="col-2 col-md-6 text-end">
                         {{-- Nút chuyển đến chuyên mục --}}
                         <a href="{{ route('n400.category.show', $category->id) }}" class="btn">
-                            <img src="{{ asset('icon/n400/arrow-right-light.svg') }}" alt="Arrow">
+                            <img src="{{ asset('publicicon/n400/arrow-right-light.svg') }}" alt="Arrow">
                         </a>
                     </div>
                 </div>
