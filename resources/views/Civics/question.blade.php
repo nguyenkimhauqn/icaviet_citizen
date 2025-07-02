@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('public/public/css/civics.css') }}">
+    <link rel="stylesheet" href="{{ asset('/public/css/civics.css') }}">
 
     <div class="container mt-4">
         {{-- Header --}}
@@ -30,7 +30,7 @@
                 <div class="highlight-title"> {!! $question->content !!} </div>
                 <div class="flex space-x-3 ">
                     <span class="d-block text-blue-500 text-xl play-audio-btn"
-                        data-audio="{{ asset('public/audio/civics/questions/' . $question->audio_path) }}"> <img
+                        data-audio="{{ asset('/audio/civics/questions/' . $question->audio_path) }}"> <img
                             src="{{ url('public/icon/Speaker.svg') }}" alt="icon_speaker"> </span>
                     <span class="d-block toggle-star-btn {{ $isStarred ? 'stared' : '' }} "
                         data-question-id={{ $question->id }} data-active={{ $isStarred ? '1' : '0' }}> <img
@@ -83,7 +83,7 @@
                     @if ($answer->is_correct)
                         <span id="play-audio-answer" class="text-blue-500 text-xl play-audio-answer"
                             data-answer-id="{{ $answer->id }}"
-                            data-audio="{{ asset('public/audio/civics/answers/' . $answer->audio_path) }}">
+                            data-audio="{{ asset('/audio/civics/answers/' . $answer->audio_path) }}">
                             <img src="{{ url('public/icon/Icon_Speaker_answer.svg') }}" alt="icon_speaker">
                         </span>
                     @endif
@@ -270,7 +270,7 @@
 
                                 // 🔊 Phát âm thanh sai
                                 const wrongAudio = new Audio(
-                                    '{{ asset('public/audio/civics/Wrong-answer.mp3') }}'
+                                    '{{ asset('/audio/civics/Wrong-answer.mp3') }}'
                                 );
                                 wrongAudio.play();
                             }
@@ -285,7 +285,7 @@
 
                                 // 🔊 Phát âm thanh đúng
                                 const correctSound = new Audio(
-                                    '{{ asset('public/public/audio/civics/correct-answer.mp3') }}'
+                                    '{{ asset('/public/audio/civics/correct-answer.mp3') }}'
                                 );
                                 correctSound.play();
 

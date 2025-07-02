@@ -5,7 +5,7 @@
 @section('content')
     <div class="header-inner">
         <div class="header">
-            <a href="{{ route('home') }}"><img src="{{ asset('publicicon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 THI THỬ<br>
                 {{-- <span class="header-subtitle">{{ $currentTest->title }}</span>
@@ -19,7 +19,7 @@
 
     <main class="main-content">
         <div class="prepare-card">
-            <img src="{{ asset('publicicon/n400/n400-completed.svg') }}" alt="N400 Completed" class="prepare-icon" />
+            <img src="{{ asset('icon/n400/n400-completed.svg') }}" alt="N400 Completed" class="prepare-icon" />
 
             <p class="text-center text-muted mb-2 font-sm">Bạn đã hoàn thành các câu hỏi trong phần N-400</p>
 

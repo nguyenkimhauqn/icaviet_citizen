@@ -192,7 +192,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => 'Okay.',
             'tips' => json_encode([
-                'suggestion' => 'Được → và đưa giấy hẹn thi quốc tịch'
+                'suggestion' => 'Okay. (Được → và đưa giấy hẹn thi quốc tịch)'
             ]),
         ]);
 
@@ -204,7 +204,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'text',
             'default_answers' => 'Okay.',
             'tips' => json_encode([
-                'suggestion' => 'Được -> và đưa các giấy tờ theo yêu cầu',
+                'suggestion' => 'Okay. (Được → và đưa các giấy tờ theo yêu cầu)',
             ]),
         ]);
 
