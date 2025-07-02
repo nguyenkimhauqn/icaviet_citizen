@@ -15,6 +15,13 @@ use App\Models\User;
 
 class CivicsController extends Controller
 {
+    public function form()
+    {
+        // Xóa session bài quiz nếu tồn tại
+        Session::forget('civics.quiz');
+        return view('civics.form');
+    }
+
     // Hiển thị câu hỏi thứ N trong bài viết kiểm tra (Lấy từ model và render ra view)
     public function show(Request $request)
     {

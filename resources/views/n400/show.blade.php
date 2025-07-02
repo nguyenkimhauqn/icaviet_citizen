@@ -196,7 +196,7 @@
 
                             <div class="position-relative additional-field-container" style="display: none;">
                                 <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
-                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio"
+                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio" <<<<<<< HEAD
                                     style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;">
 
                                 @php
@@ -209,6 +209,9 @@
                                         $rows = 2;
                                     }
                                 @endphp
+                                =======
+                                style="position: absolute; top: 12px; left: 10px; width: 20px; cursor: pointer;">
+                                >>>>>>> 0c6e47dbbcc015760241d45c69061cb08f804e82
 
                                 <textarea type="text" name="additional_field_{{ $answer->id }}"
                                     class="form-control mt-2 ps-5 additional-field questionText"

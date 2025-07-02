@@ -42,7 +42,7 @@ Route::get('/civics/demo', function () {
 
 Route::middleware(['auth'])->group(function () {
     // === * CIVICS * ===
-    Route::view('/civics/form', 'civics.form')->name('civics.form');
+    Route::get('/civics/form', [CivicsController::class, 'form'])->name('civics.form');
     Route::get('/civics', [CivicsController::class, 'show'])->name('civics.show');
     Route::post('/civics/answer/{question}', [CivicsController::class, 'checkAnswer'])->name('civics.ajaxAnswer');
     Route::post('civics/finish-quiz', [CivicsController::class, 'finishQuiz'])->name('civics.finishQuiz');

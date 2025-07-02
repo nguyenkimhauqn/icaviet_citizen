@@ -16,6 +16,7 @@ class MockTestController extends Controller
     public function show()
     {
         $mockTest = Topic::orderBy('num_order', 'asc')->take(4)->get();
+        // dd($mockTest);
         return view('mock-test.index', compact('mockTest'));
     }
 

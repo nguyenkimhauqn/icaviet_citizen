@@ -152,8 +152,8 @@
 
             // ====== [03] Speech To Text ======
             // Xử lý âm thanh
-            const correctAudio = new Audio('{{ asset('public/public/audio/civics/correct-answer.mp3') }}');
-            const wrongAudio = new Audio('{{ asset('public/public/audio/civics/Wrong-answer.mp3') }}');
+            const correctAudio = new Audio('{{ asset('public/audio/civics/correct-answer.mp3') }}');
+            const wrongAudio = new Audio('{{ asset('public/audio/civics/Wrong-answer.mp3') }}');
             // Gán sẵn để iOS ghi nhận hành vi người dùng
             document.addEventListener('click', function() {
                 correctAudio.load(); // pre-load
@@ -226,7 +226,7 @@
                     $resultContent.text(transcript);
                     $resultBox.removeClass('bg-light answer-wrong').addClass('answer-correct');
                     iconCorrect.classList.remove('d-none');
-                    new Audio('{{ asset('public/public/audio/civics/correct-answer.mp3') }}')
+                    new Audio('{{ asset('public/audio/civics/correct-answer.mp3') }}')
                         .play();
 
                 } else {
@@ -234,7 +234,7 @@
                     $resultContent.text(transcript);
                     $resultBox.removeClass('bg-light answer-correct').addClass('answer-wrong');
                     // alertContent.textContent('Chưa đúng, hãy thử lại');
-                    new Audio('{{ asset('public/public/audio/civics/Wrong-answer.mp3') }}')
+                    new Audio('{{ asset('public/audio/civics/Wrong-answer.mp3') }}')
                         .play();
                 }
             };

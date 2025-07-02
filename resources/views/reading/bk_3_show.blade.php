@@ -244,7 +244,7 @@
                     $btnNext.addClass('btn-next-correct');
                     $btnNext.find('i').css('color', 'white');
                     const correctSound = new Audio(
-                        '{{ asset('public/public/audio/civics/correct-answer.mp3') }}');
+                        '{{ asset('public/audio/civics/correct-answer.mp3') }}');
                     correctSound.play();
                 } else {
                     $resultBox.removeClass('bg-light correct-answer').addClass('wrong-answer');
