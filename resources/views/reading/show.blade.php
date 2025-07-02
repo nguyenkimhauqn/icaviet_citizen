@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('/css/reading.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/reading.css') }}">
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
         <div class="wp-header d-flex align-items-center mb-4">
@@ -29,7 +29,7 @@
                 <div class="wp-question fl-item flex justify-center items-center my-6">
                     {{-- Icon Loa --}}
                     <img class="img-fluid img-loudspeaker play-audio-btn" src="{{ url('public/icon/loudspeaker.png') }}"
-                        data-audio="{{ asset('/audio/reading/' . $question->audio_path) }}" alt="icon_loudspeaker">
+                        data-audio="{{ asset('public/audio/reading/' . $question->audio_path) }}" alt="icon_loudspeaker">
 
                     {{-- Nội dung câu hỏi --}}
                     <p id="writing-answer" class=" italic text-center mt-2">
@@ -152,8 +152,8 @@
 
             // ====== [03] Speech To Text ======
             // Xử lý âm thanh
-            const correctAudio = new Audio('{{ asset('/public/audio/civics/correct-answer.mp3') }}');
-            const wrongAudio = new Audio('{{ asset('/public/audio/civics/Wrong-answer.mp3') }}');
+            const correctAudio = new Audio('{{ asset('public/public/audio/civics/correct-answer.mp3') }}');
+            const wrongAudio = new Audio('{{ asset('public/public/audio/civics/Wrong-answer.mp3') }}');
             // Gán sẵn để iOS ghi nhận hành vi người dùng
             document.addEventListener('click', function() {
                 correctAudio.load(); // pre-load
@@ -226,7 +226,7 @@
                     $resultContent.text(transcript);
                     $resultBox.removeClass('bg-light answer-wrong').addClass('answer-correct');
                     iconCorrect.classList.remove('d-none');
-                    new Audio('{{ asset('/public/audio/civics/correct-answer.mp3') }}')
+                    new Audio('{{ asset('public/public/audio/civics/correct-answer.mp3') }}')
                         .play();
 
                 } else {
@@ -234,7 +234,7 @@
                     $resultContent.text(transcript);
                     $resultBox.removeClass('bg-light answer-correct').addClass('answer-wrong');
                     // alertContent.textContent('Chưa đúng, hãy thử lại');
-                    new Audio('{{ asset('/public/audio/civics/Wrong-answer.mp3') }}')
+                    new Audio('{{ asset('public/public/audio/civics/Wrong-answer.mp3') }}')
                         .play();
                 }
             };

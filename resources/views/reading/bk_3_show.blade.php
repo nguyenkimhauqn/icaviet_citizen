@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('/css/reading.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/reading.css') }}">
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
         <div class="wp-header d-flex align-items-center mb-4">
@@ -29,7 +29,7 @@
                 <div class="wp-question fl-item flex justify-center items-center my-6">
                     {{-- Icon Loa --}}
                     <img class="img-fluid img-loudspeaker play-audio-btn" src="{{ url('public/icon/loudspeaker.png') }}"
-                        data-audio="{{ asset('/audio/reading/' . $question->audio_path) }}" alt="icon_loudspeaker">
+                        data-audio="{{ asset('public/audio/reading/' . $question->audio_path) }}" alt="icon_loudspeaker">
 
                     {{-- Nội dung câu hỏi --}}
                     <p id="writing-answer" class=" italic text-center mt-2">
@@ -244,13 +244,13 @@
                     $btnNext.addClass('btn-next-correct');
                     $btnNext.find('i').css('color', 'white');
                     const correctSound = new Audio(
-                        '{{ asset('/public/audio/civics/correct-answer.mp3') }}');
+                        '{{ asset('public/public/audio/civics/correct-answer.mp3') }}');
                     correctSound.play();
                 } else {
                     $resultBox.removeClass('bg-light correct-answer').addClass('wrong-answer');
                     $iconCorrect.removeClass('d-block').addClass('d-none');
                     $iconClose.removeClass('d-none');
-                    const wrongAudio = new Audio('{{ asset('/audio/civics/Wrong-answer.mp3') }}');
+                    const wrongAudio = new Audio('{{ asset('public/audio/civics/Wrong-answer.mp3') }}');
                     wrongAudio.play();
                 }
             };

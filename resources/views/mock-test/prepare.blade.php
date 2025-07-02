@@ -5,7 +5,7 @@
 @section('content')
     <div class="header-inner">
         <div class="header">
-            <a href="{{ route('home') }}"><img src="{{ asset('icon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 THI THỬ<br>
                 <span class="header-subtitle">{{ $currentTest->title }}</span>
@@ -19,7 +19,7 @@
 
     <main class="main-content">
         <div class="prepare-card">
-            <img src="{{ asset('icon/mockTests/' . $currentTest->slug . '.svg') }}" alt="{{ $currentTest->name }}"
+            <img src="{{ asset('public/icon/mockTests/' . $currentTest->slug . '.svg') }}" alt="{{ $currentTest->name }}"
                 class="prepare-icon" />
 
             <h2 class="font-md text-center">{{ $currentTest->name }}</h2>
