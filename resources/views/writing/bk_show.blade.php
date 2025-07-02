@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('public/public/css/writing.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/writing.css') }}">
 
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}

@@ -5,7 +5,7 @@
 @section('content')
     <div class="header-inner">
         <div class="header">
-            <a href="{{ route('home') }}"><img src="{{ asset('publicicon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 THI THỬ<br>
                 <span class="header-subtitle">{{ $testType->name }}</span>
@@ -27,7 +27,7 @@
 
                 <div class="quiz-container">
                     <div class="audio">
-                        <img src="{{ asset('publicicon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
+                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
                         {{-- <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input> --}}
                     </div>
                     <audio id="questionAudio" src="{{ asset('publicaudio/writing/' . $question->audio_path) }}"></audio>
@@ -49,10 +49,10 @@
     <div class="test-footer">
         {{-- <a href="{{ $page > 1 ? route('start.mock-test', $testType->slug) . '?page=' . ($page - 1) : '#' }}"
                     class="btn btn-round {{ $page <= 1 ? 'disabled' : '' }}" id="prevBtn">
-                    <img src="{{ asset('publicicon/mockTests/arrow-left.svg') }}" alt="Prev" />
+                    <img src="{{ asset('public/icon/mockTests/arrow-left.svg') }}" alt="Prev" />
                 </a> --}}
         <a href="#" class="btn-round" id="nextBtn">
-            <img src="{{ asset('publicicon/mockTests/arrow-right.svg') }}" alt="Next" />
+            <img src="{{ asset('public/icon/mockTests/arrow-right.svg') }}" alt="Next" />
         </a>
     </div>
 

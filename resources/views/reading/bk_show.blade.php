@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('publiccss/reading.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/reading.css') }}">
     <div class="container max-w-2xl mx-auto px-4 py-6">
         {{-- Header --}}
         <div class="wp-header d-flex align-items-end mb-4">

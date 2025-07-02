@@ -36,10 +36,12 @@ class DatabaseSeeder extends Seeder
         // 3. data kiểm tra đọc
         $this->call(ReadingTestSeeder::class);
 
-        // 4.1. danh mục N400
-        // $this->call(CategorySeeder::class);
+        // 4.1. data N400
+        $this->call(N400QuestionSeeder::class);
 
-        // 4.2. data N400
-        // $this->call(N400Seeder::class);
+        // 5.1. data topic
+        $this->call(UpdateCivicsTopicTypeSeeder::class);
+        
+
     }
 }

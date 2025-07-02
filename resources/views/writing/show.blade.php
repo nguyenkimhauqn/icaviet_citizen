@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('public/public/css/writing.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/writing.css') }}">
 
     <div class="container mt-4">
         {{-- Header --}}
@@ -31,11 +31,11 @@
                 <div class="wp-question fl-item flex justify-center items-center my-6">
                     {{-- Icon Loa --}}
                     <img class="img-fluid img-loudspeaker play-audio-btn" src="{{ url('public/icon/loudspeaker.png') }}"
-                        data-audio="{{ asset('public/public/audio/writing/' . $question->audio_path) }}"
+                        data-audio="{{ asset('public/audio/writing/' . $question->audio_path) }}"
                         alt="icon_loudspeaker">
                     {{-- Audio element ẩn --}}
                     <audio id="audio-player"
-                        src="{{ asset('public/public/audio/writing/' . $question->audio_path) }}"></audio>
+                        src="{{ asset('public/audio/writing/' . $question->audio_path) }}"></audio>
 
                     {{-- Nội dung câu hỏi - ẩn mặc định --}}
                     <p id="writing-answer" class="d-none hidden italic text-center mt-2">{!! $question->content !!}</p>
@@ -208,14 +208,14 @@
                             $btnNext.addClass('btn-next-correct');
                             $btnNext.find('i').css('color', 'white');
                             new Audio(
-                                    '{{ asset('public/public/audio/civics/correct-answer.mp3') }}'
+                                    '{{ asset('public/audio/civics/correct-answer.mp3') }}'
                                     )
                                 .play();
                         } else {
                             $textarea.removeClass('correct-answer').addClass('wrong-answer');
                             $('#clear-answer-btn').show();
                             new Audio(
-                                    '{{ asset('public/public/audio/civics/Wrong-answer.mp3') }}'
+                                    '{{ asset('public/audio/civics/Wrong-answer.mp3') }}'
                                     )
                                 .play();
 
@@ -245,7 +245,7 @@
                 // #3. Đổi màu icon bên trong nút "Next" thành trắng
                 $btnNext.find('i').css('color', 'white');
                 // #4. Phát âm thanh đúng
-                const correctSound = new Audio('{{ asset('public/public/audio/civics/correct-answer.mp3') }}');
+                const correctSound = new Audio('{{ asset('public/audio/civics/correct-answer.mp3') }}');
                 correctSound.play();
             @elseif (session('result') === false && !empty(session('input_answer')))
                 // #1. add class sai

@@ -62,14 +62,14 @@
 
                     <!-- 4. Mock Test -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{route('mock-test.list')}}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-moctest.svg') }}" alt="icon-mocktest">
                                 </div>
                                 <span class="title_en">Mock Test</span>
                                 <span class="title_vn">Thi thử</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                                <span class="title_vn bage bage-primary"> </span>
                             </div>
                         </a>
                     </div>

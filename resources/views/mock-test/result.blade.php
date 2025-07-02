@@ -58,7 +58,7 @@
                                             </p>
                                         @elseif ($detail['is_correct'])
                                             <div class="d-flex align-items-center gap-2 font-sm">
-                                                <img src="{{ asset('publicicon/mockTests/success.svg') }}" alt="Success">
+                                                <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
                                                 <p class="text-success m-0">{{ $detail['user_answer'] }}</p>
                                             </div>
                                             @if ($detail['vietnamese_correct_answer'])
@@ -73,12 +73,12 @@
                                             @endif
                                         @else
                                             <div class="d-flex align-items-center gap-2 mb-2 font-sm">
-                                                <img src="{{ asset('publicicon/mockTests/error.svg') }}" alt="Error">
+                                                <img src="{{ asset('public/icon/mockTests/error.svg') }}" alt="Error">
                                                 <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
                                             </div>
 
                                             <div class="d-flex align-items-center gap-2 font-sm">
-                                                <img src="{{ asset('publicicon/mockTests/success.svg') }}" alt="Success">
+                                                <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
                                                 <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
                                             </div>
                                             @if ($detail['vietnamese_correct_answer'])

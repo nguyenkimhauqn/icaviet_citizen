@@ -3,7 +3,7 @@
 @section('title', 'N-400')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('publiccss/n400.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/n400.css') }}">
 @endpush
 
 @section('content')
@@ -72,7 +72,7 @@
 
     <div class="header-inner">
         <div class="header">
-            <a href="{{ route('home') }}"><img src="{{ asset('publicicon/mockTests/home.svg') }}" alt="Home" /></a>
+            <a href="{{ route('home') }}"><img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
                 N-400 & NÓI<br>
                 <span class="header-subtitle">{{ $category->title_en }}</span>
@@ -85,15 +85,15 @@
 
     <main class="main-content">
         <div class="add-question-container mt-4">
-            <a href="{{ route('n400.categories.index') }}"><img src="{{ asset('publicicon/n400/menu.svg') }}"
+            <a href="{{ route('n400.categories.index') }}"><img src="{{ asset('public/icon/n400/menu.svg') }}"
                     alt="Menu"></a>
             <div class="d-flex">
                 <div class="add-btn" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
                     data-category-id="{{ $category->id }}">
                     <span>Thêm câu hỏi</span>
-                    <img src="{{ asset('publicicon/n400/plus.svg') }}" alt="Thêm câu hỏi">
+                    <img src="{{ asset('public/icon/n400/plus.svg') }}" alt="Thêm câu hỏi">
                 </div>
-                {{-- <img src="{{ asset('publicicon/n400/star.svg') }}" alt="Thêm câu hỏi"> --}}
+                {{-- <img src="{{ asset('public/icon/n400/star.svg') }}" alt="Thêm câu hỏi"> --}}
             </div>
         </div>
 
@@ -115,13 +115,13 @@
                 id="questionForm">
                 <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
-                        <img src="{{ asset('publicicon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
+                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
                     <span class="font-sm text-center">{!! $question->content !!}</span>
 
                     <div class="position-relative">
-                        <img class="icon-textarea" src="{{ asset('publicicon/n400/sound.svg') }}" alt="Audio">
+                        <img class="icon-textarea" src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio">
                         <textarea name="answer_text" class="instruction-text form-control mt-4 ps-5"
                             placeholder="{{ isset($question->answer_note) ? e($question->answer_note) : 'Nhập ở đây' }}">{{ e($question->default_answers) }}</textarea>
                     </div>
@@ -142,7 +142,7 @@
                 id="questionForm">
                 <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
-                        <img src="{{ asset('publicicon/mockTests/audio.svg') }}" style="width: 70px;"
+                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 70px;"
                             alt="Play audio" />
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
@@ -170,14 +170,14 @@
 
                                         {{-- @if ($answer->has_audio)
                                             <div class="audio-answer" data-answer="{{ $answer->content }}">
-                                                <img src="{{ asset('publicicon/mockTests/audio.svg') }}" style="width: 10px;"
+                                                <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 10px;"
                                                     alt="Play audio" />
                                             </div>
                                         @endif --}}
 
                                         <div class="audio-answer d-none" id="audio-icon-{{ $answer->id }}"
                                             data-answer="{{ $answer->content }}">
-                                            <img src="{{ asset('publicicon/mockTests/audio.svg') }}" style="width: 25px;"
+                                            <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 25px;"
                                                 alt="Play audio" />
                                         </div>
 
@@ -192,7 +192,7 @@
 
                             <div class="position-relative additional-field-container" style="display: none;">
                                 <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
-                                    src="{{ asset('publicicon/n400/sound.svg') }}" alt="Audio"
+                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio"
                                     style="position: absolute; top: 12px; left: 10px; width: 20px; cursor: pointer;">
 
                                 <textarea type="text" name="additional_field_{{ $answer->id }}"
@@ -207,7 +207,7 @@
                                         style="background: #f9f9fc; border-left: 4px solid #FF3363;">
                                         <p class="d-flex align-center gap-2 mb-2 text-dark font-sm"
                                             style="color: #FF3363;">
-                                            <img src="{{ asset('publicicon/n400/warning.svg') }}" alt="Warning">
+                                            <img src="{{ asset('public/icon/n400/warning.svg') }}" alt="Warning">
                                             <strong>Cảnh báo:</strong>
                                         </p>
                                         <ul class="m-0 p-0 text-dark font-sm" style="list-style: none;">
@@ -322,10 +322,10 @@
 
     <div class="test-footer">
         <button class="btn btn-round" id="prevBtn">
-            <img src="{{ asset('publicicon/mockTests/arrow-left.svg') }}" alt="Prev" />
+            <img src="{{ asset('public/icon/mockTests/arrow-left.svg') }}" alt="Prev" />
         </button>
         <button class="btn btn-round" id="nextBtn">
-            <img src="{{ asset('publicicon/mockTests/arrow-right.svg') }}" alt="Next" />
+            <img src="{{ asset('public/icon/mockTests/arrow-right.svg') }}" alt="Next" />
         </button>
 
     </div>
