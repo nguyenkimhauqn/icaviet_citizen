@@ -23,14 +23,14 @@
 
     <div class="main-content">
         <div class="btn-group">
-            <button class="btn-outlined">Kết quả luyện tập</button>
-            <span class="btn-none">Kết quả thi thử</span>
+            <button class="btn-none">Kết quả luyện tập</button>
+            <button class="btn-outlined">Kết quả thi thử</button>
         </div>
 
         <div class="accordion custom-accordion" id="resultsAccordion">
             @foreach ($resultsByAttempt as $attemptIndex => $attempt)
-                <div class="mb-4 p-3 rounded shadow-sm bg-white">
-                    <h5 class="result-title-box">
+                <div class="mb-4 p-2 rounded shadow-sm bg-white">
+                    <h5 class="result-title-box-index">
                         <img src="{{ asset('public/icon/result/result.svg') }}" style="width: 32px;" alt="ICon">
                         <strong>Lần thi {{ count($resultsByAttempt) - $attemptIndex }}</strong>
                     </h5>
@@ -59,15 +59,4 @@
         </div>
     </div>
 
-
-    <div class="test-footer">
-        <div class="text-center mt-5">
-            <a href="{{ route('mock-test.list') }}" class="btn btn-normal px-5 py-2">
-                Tiếp tục làm bài thi thử
-            </a>
-            <div class="mt-2">
-                <a class="text-decoration-none font-md home-link" href="{{ route('home') }}">Về trang chủ</a>
-            </div>
-        </div>
-    </div>
 @endsection

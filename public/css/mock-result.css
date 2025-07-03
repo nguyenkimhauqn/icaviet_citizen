@@ -23,6 +23,7 @@
     font-weight: 400px;
     outline: none;
     border: none;
+    background: transparent;
 }
 
 /* Card */
@@ -114,7 +115,7 @@
     color: #028b64;
 }
 
-.result-title-box {
+.result-title-box-index {
     display: flex;
     align-items: center;
     gap: 10px;

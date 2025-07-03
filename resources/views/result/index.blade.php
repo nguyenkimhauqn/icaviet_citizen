@@ -24,8 +24,8 @@
 
     <main class="main-content">
         <div class="btn-group">
-            <button class="btn-outlined">Kết quả luyện tập</button>
-            <span class="btn-none">Kết quả thi thử</span>
+            <button class="btn-none">Kết quả luyện tập</button>
+            <button class="btn-outlined">Kết quả thi thử</button>
         </div>
 
         <div class="result-box">
