@@ -47,8 +47,15 @@
                                     {{ $result['correct'] }}/{{ $result['total'] }}
                                 </span>
                             @else
-                                <a href="{{ route('result.detail', ['attemptId' => $attempt['attempt_id']]) }}"
-                                    class="result-link">
+                                @php
+                                    $numberOfTest = count($resultsByAttempt) - $attemptIndex;
+                                    $url =
+                                        route('result.detail', ['attemptId' => $attempt['attempt_id']]) .
+                                        '?numberOfTest=' .
+                                        $numberOfTest;
+                                @endphp
+
+                                <a href="{{ $url }}" class="result-link">
                                     Xem lại câu
                                 </a>
                             @endif

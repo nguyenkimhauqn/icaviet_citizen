@@ -37,7 +37,7 @@
                                 <div class="result-title-box-inner">
                                     <img src="{{ asset('public/icon/result/result.svg') }}" style="width: 32px;"
                                         alt="ICon">
-                                    <strong>Lần thi 1</strong>
+                                    <strong>Lần thi {{ request()->query('numberOfTest', 1) }}</strong>
                                 </div>
                             </h5>
                             @if (!empty($result['details']))
