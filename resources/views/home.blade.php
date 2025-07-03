@@ -89,14 +89,13 @@
 
                     <!-- 6. Results -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('result.mock-test') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-result.svg') }}" alt="icon-result">
                                 </div>
                                 <span class="title_en">Results</span>
                                 <span class="title_vn">Kết quả</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>

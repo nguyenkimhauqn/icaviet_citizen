@@ -1,0 +1,73 @@
+@extends('layouts.base-test')
+
+@section('title', 'Kết quả')
+
+@push('styles')
+    {{-- TODO: public --}}
+    <link rel="stylesheet" href="{{ asset('css/mock-result.css') }}">
+@endpush
+
+@section('content')
+
+    <!-- Header -->
+    <div class="header-inner">
+        <div class="header">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" />
+            </a>
+            <h1 class="header-title" style="margin-bottom: 0px;">
+                KẾT QUẢ
+            </h1>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="btn-group">
+            <button class="btn-outlined">Kết quả luyện tập</button>
+            <span class="btn-none">Kết quả thi thử</span>
+        </div>
+
+        <div class="accordion custom-accordion" id="resultsAccordion">
+            @foreach ($resultsByAttempt as $attemptIndex => $attempt)
+                <div class="mb-4 p-3 rounded shadow-sm bg-white">
+                    <h5 class="result-title-box">
+                        <img src="{{ asset('public/icon/result/result.svg') }}" style="width: 32px;" alt="ICon">
+                        <strong>Lần thi {{ count($resultsByAttempt) - $attemptIndex }}</strong>
+                    </h5>
+
+                    @foreach ($attempt['results'] as $index => $result)
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                            <div class="d-flex align-items-center">
+                                <div class="ms-3">
+                                    <div class="test-title">{!! $result['title'] !!}</div>
+                                </div>
+                            </div>
+                            @if ($result['slug'] !== 'n400')
+                                <span class="mx-2 font-md {{ $result['is_passed'] ? 'text-success' : 'text-danger' }}">
+                                    {{ $result['correct'] }}/{{ $result['total'] }}
+                                </span>
+                            @else
+                                <a href="{{ route('result.detail', ['attemptId' => $attempt['attempt_id']]) }}"
+                                    class="result-link">
+                                    Xem lại câu
+                                </a>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+
+    <div class="test-footer">
+        <div class="text-center mt-5">
+            <a href="{{ route('mock-test.list') }}" class="btn btn-normal px-5 py-2">
+                Tiếp tục làm bài thi thử
+            </a>
+            <div class="mt-2">
+                <a class="text-decoration-none font-md home-link" href="{{ route('home') }}">Về trang chủ</a>
+            </div>
+        </div>
+    </div>
+@endsection

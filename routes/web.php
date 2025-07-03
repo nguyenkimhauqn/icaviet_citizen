@@ -11,6 +11,7 @@ use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\N400Controller;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Storage;
@@ -100,7 +101,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/mock-test/{slug}/submit', [MockTestController::class, 'submitAnswer'])->name('submit.answer');
     Route::get('/mock-test/{slug}/prepare', [MockTestController::class, 'prepare'])->name('mock-test.prepare');
     Route::get('/mock-test/result', [MockTestController::class, 'showResult'])->name('mock-test.result');
-    // [END] === * Kết quả * ===
+    // [END] === * Mock Test * ===
+    Route::get('/result', [ResultController::class, 'index'])->name('result.index');
+    Route::get('/result/mock-test', [ResultController::class, 'show'])->name('result.mock-test');
+    Route::get('/result/detail/{attemptId}', [ResultController::class, 'showDetail'])->name('result.detail');
 
     // === * FAQ * ===
     Route::get('/faq', function () {
