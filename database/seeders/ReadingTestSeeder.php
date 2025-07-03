@@ -19,14 +19,14 @@ class ReadingTestSeeder extends Seeder
         DB::table('questions')->where('topic_id', 3)->delete();
 
         // 2. Tạo topic Reading test (id = 3)
-        DB::table('topics')->updateOrInsert(
-            ['id' => 3],
-            [
-                'name' => 'Reading Test',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-        );
+        // DB::table('topics')->updateOrInsert(
+        //     ['id' => 3],
+        //     [
+        //         'name' => 'Reading Test',
+        //         'created_at' => now(),
+        //         'updated_at' => now(),
+        //     ]
+        // );
 
         // 3. Danh sách câu hỏi với dịch và tips
 
