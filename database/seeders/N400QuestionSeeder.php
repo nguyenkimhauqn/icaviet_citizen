@@ -1475,6 +1475,6 @@ class N400QuestionSeeder extends Seeder
         ]);
 
         // ----- END: PART 11 ----
-
+        Question::whereNull('topic_id')->update(['topic_id' => 4]);
     }
 }

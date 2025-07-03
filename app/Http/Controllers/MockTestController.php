@@ -113,6 +113,37 @@ class MockTestController extends Controller
                 ->take(1)
                 ->first();
 
+            // Kiểm tra nếu category_id = 7 mà chưa được enabled thì skip qua câu tiếp theo
+            if ($question && $question->category_id == 7 && !session()->has('enabled_category')) {
+                // Lấy toàn bộ danh sách câu hỏi trong bộ đề này
+                $questions = Question::whereIn('id', $questionIds)
+                    ->orderBy('id')
+                    ->get()
+                    ->values(); // Đảm bảo index từ 0
+
+                // Xác định index hiện tại
+                $currentIndex = $questions->search(fn($q) => $q->id === $question->id);
+
+                $totalCategory7 = $questions->where('category_id', 7)->count();
+                // Tìm index kế tiếp có category_id khác 7
+                $nextIndex = $questions->slice($currentIndex + 1)->search(fn($q) => $q->category_id != 7);
+
+                $debugQ = $questions->where('category_id', 7);
+
+                // Nếu tìm thấy, redirect đến page tương ứng
+                if ($nextIndex !== false) {
+                    return redirect()->route('start.mock-test', [
+                        'slug' => $slug,
+                        'page' => $nextIndex + $totalCategory7, // cộng vì slice bỏ qua phần đầu
+                        'set_number' => $setNumber,
+                    ]);
+                }
+
+                // Nếu không có câu nào khác category_id != 7 -> chuyển sang kết quả
+                return redirect()->route('mock-test.result');
+            }
+
+
             if ($question) {
                 // $question->setRelation('answers', $question->answers->shuffle());
             }

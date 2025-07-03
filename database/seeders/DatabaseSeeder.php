@@ -19,16 +19,15 @@ class DatabaseSeeder extends Seeder
         // $this->call(CitizenshipQuizSeeder::class);
         // $this->call(CitizenshipQuestionsSeeder::class);
         // 0. Thêm topics
-        $this->call([
-            TopicSeeder::class,
-        ]);
-        $this->call([
-            TopicSlugSeeder::class,
-        ]);
+        // $this->call([
+        //     TopicSeeder::class,
+        // ]);
+        // $this->call([
+        //     TopicSlugSeeder::class,
+        // ]);
 
         $this->call([
             CitizenshipQuestionsFullSeeder::class,
-
         ]);
 
 
@@ -45,7 +44,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReadingTestSeeder::class);
 
         // 4. data N400
-        $this->call(CategorySeeder::class);
+        // $this->call(CategorySeeder::class);
 
         // 4.1. data N400
         $this->call(N400QuestionSeeder::class);

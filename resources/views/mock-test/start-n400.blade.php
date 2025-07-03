@@ -76,7 +76,7 @@
                     <span class="font-sm text-center hidden">{!! $question->content !!}</span>
 
                     <span class="font-sm">
-                        Show cho chị Trang dễ debug:
+                        Show cho chị dễ debug:
                         <strong>{{ strip_tags($question->content) }}</strong>
                     </span>
 
@@ -116,15 +116,11 @@
                             </div>
 
                             {{-- Field bổ sung --}}
-                            {{-- <textarea type="text" name="additional_field_{{ $answer->id }}"
+                            <textarea type="text" name="additional_field_{{ $answer->id }}"
                                 class="form-control mt-2 additional-field questionText" placeholder="{{ $answer->additional_answer_placeholder }}"
-                                style="display: none;"></textarea> --}}
+                                style="display: none;" rows="3"></textarea>
 
-                            <div class="position-relative additional-field-container" style="display: none;">
-                                {{-- <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
-                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio"
-                                    style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;"> --}}
-
+                            {{-- <div class="additional-field-container" style="display: none;">
                                 @php
                                     $length = strlen($answer->additional_answer_placeholder ?? '');
                                     if ($length > 160) {
@@ -138,7 +134,7 @@
                                 <textarea type="text" name="additional_field_{{ $answer->id }}"
                                     class="form-control mt-2 ps-5 additional-field questionText"
                                     placeholder="{{ $answer->additional_answer_placeholder }}" rows="{{ $rows }}"></textarea>
-                            </div>
+                            </div> --}}
 
                             {{-- Box cảnh báo --}}
                             @if ($answer->warning)
@@ -235,7 +231,6 @@
                 // Hiện field bổ sung nếu đáp án cần
                 if (hasAdditional) {
                     $(`textarea[name="additional_field_${selected.val()}"]`)
-                        .closest('.additional-field-container')
                         .show();
                 }
             });
