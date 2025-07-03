@@ -18,12 +18,6 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         // $this->call(CitizenshipQuizSeeder::class);
         // $this->call(CitizenshipQuestionsSeeder::class);
-        // 1. data thi công dân
-        // $this->call([
-        //     CitizenshipQuestionsFullSeeder::class,
-
-        // ]);
-
         // 0. Thêm topics
         $this->call([
             TopicSeeder::class,
@@ -31,6 +25,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TopicSlugSeeder::class,
         ]);
+
+        $this->call([
+            CitizenshipQuestionsFullSeeder::class,
+
+        ]);
+
 
         // 1.1 data thi công dân test 1
         // $this->call([
@@ -51,6 +51,6 @@ class DatabaseSeeder extends Seeder
         $this->call(N400QuestionSeeder::class);
 
         // 5.1. data topic
-        // $this->call(UpdateCivicsTopicTypeSeeder::class);
+        $this->call(UpdateCivicsTopicTypeSeeder::class);
     }
 }

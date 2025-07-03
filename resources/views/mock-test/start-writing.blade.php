@@ -27,7 +27,7 @@
 
                 <div class="quiz-container">
                     <div class="audio">
-                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 40px;" alt="Play audio" />
+                        <img src="{{ asset('public/icon/mockTests/audio.svg') }}" style="width: 70px;" alt="Play audio" />
                         {{-- <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input> --}}
                     </div>
                     <audio id="questionAudio" src="{{ asset('public/audio/writing/' . $question->audio_path) }}"></audio>

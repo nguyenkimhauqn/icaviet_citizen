@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Answer;
 use App\Models\Question;
+use App\Models\QuestionSet;
 use Illuminate\Database\Seeder;
 
 class N400QuestionPart10Seeder extends Seeder
@@ -23,6 +24,9 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Claim": "tự nhận, khẳng định", "U.S. citizen": "công dân Mỹ"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $question_1->id]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $question_1->id]);
+
         Answer::create([
             'question_id' => $question_1->id,
             'content' => 'No',
@@ -35,7 +39,7 @@ class N400QuestionPart10Seeder extends Seeder
             'warning' => 'Nếu tự nhận là công dân Mỹ, thường trú nhân có thể vi phạm luật di trú.'
         ]);
 
-        Question::create([
+        $question_1 = Question::create([
             'category_id' => 11,
             'content' => 'What is “claim”?',
             'translation' => '“Tự nhận” là gì?',
@@ -44,8 +48,10 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers_translation' => 'Nói điều gì đó là đúng',
             'default_answers_pronunciation' => 'tu say sâm-thing i-(s) tru'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $question_1->id]);
 
-        Question::create([
+
+        $question_1 = Question::create([
             'category_id' => 11,
             'content' => 'What is “claim to be a U.S. citizen”?',
             'translation' => '“Tự nhận là công dân Mỹ” là gì?',
@@ -54,6 +60,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers_translation' => 'Tự khai mình là công dân Mỹ',
             'default_answers_pronunciation' => 'tu s-tay-(t) diu a ờ diu-ét-(s) si-ti-giần'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $question_1->id]);
+
 
         $question_4 = Question::create([
             'category_id' => 11,
@@ -63,6 +71,7 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Vote": "bỏ phiếu", "Election": "bầu cử"}'
         ]);
+
         Answer::create([
             'question_id' => $question_4->id,
             'content' => 'No',
@@ -98,6 +107,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Owe": "nợ", "Overdue": "quá hạn", "Tax": "thuế"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $question_6->id]);
+
         Answer::create([
             'question_id' => $question_6->id,
             'content' => 'No',
@@ -110,7 +121,7 @@ class N400QuestionPart10Seeder extends Seeder
             'warning' => 'Nếu không có lý do hợp lý, thường trú nhân nợ thuế quá hạn mà chưa giải quyết có thể ảnh hưởng đến việc xin quốc tịch.'
         ]);
 
-        Question::create([
+        $question_6 = Question::create([
             'category_id' => 11,
             'content' => 'What is “owe”?',
             'translation' => '“Nợ” có nghĩa là gì?',
@@ -124,6 +135,7 @@ class N400QuestionPart10Seeder extends Seeder
                 ]
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $question_6->id]);
 
         Question::create([
             'category_id' => 11,
@@ -157,8 +169,9 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'multiple_choice',
             'default_answers' => 'Yes',
             'tips' => '{"Always": "luôn luôn", "File your taxes": "khai thuế"}'
-
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -213,6 +226,9 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Communist Party": "Đảng Cộng sản", "Totalitarian party": "đảng toàn trị"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -234,6 +250,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) chai-nờ, no-th cờ-ri-à'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
 
         // Câu 5.b
         $q = Question::create([
@@ -245,6 +262,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'đờ gó-vơ-mần-(t) cần-trô-(s) e-v-ri-thinh èn pi-pồ ha-(v) nâu pao-quờ'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 6
         $q = Question::create([
@@ -428,6 +446,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Weapon": "vũ khí", "Explosive": "chất nổ"}'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -449,6 +469,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) ờ k-nai-(ph) o gân'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 7.b
         $q = Question::create([
@@ -460,6 +481,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) bom-(b) o ti-en-ti'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 8
         $q = Question::create([
@@ -523,6 +545,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Torture": "tra tấn"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -544,6 +568,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'tu hớt-(t) sâm-quan'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
 
         // Câu 9.b
         $q = Question::create([
@@ -554,6 +579,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Genocide": "diệt chủng"}'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -575,6 +602,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'tu kiu a hâu ray-(s)'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 9.d
         $q = Question::create([
@@ -670,6 +698,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ g-rúp ọp sâu-chờ-(s)'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
 
         // Câu 11
         $q = Question::create([
@@ -680,6 +709,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Paramilitary unit": "đơn vị bán quân sự"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -739,6 +770,9 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Rebel group": "nhóm nổi loạn"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -751,6 +785,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Guerrilla group": "nhóm du kích"}'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -763,6 +799,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => '{"Prison, jail": "trại giam, nhà tù"}'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create([
             'question_id' => $q->id,
@@ -781,6 +819,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ p-lay-(s) que p-ri-sân-nờ-(s) a kép-(t)',
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 12.b
         $q = Question::create([
@@ -921,6 +960,9 @@ class N400QuestionPart10Seeder extends Seeder
                 'Armed group' => 'nhóm vũ trang'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -934,6 +976,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ g-rúp ợp pi-pồ quít-(th) que-pần-(s)'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
 
         // Câu 19
         $q = Question::create([
@@ -961,6 +1004,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'tu phai-(t) in ờ quo-(r)'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 20
         $q = Question::create([
@@ -974,6 +1018,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Arrested' => 'bị bắt'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create([
             'question_id' => $q->id,
@@ -1003,6 +1049,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'tu đu sâm-thinh đát b-ray-k-(s) đờ lo'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
 
         // Câu 20.c
         $q = Question::create([
@@ -1039,6 +1086,9 @@ class N400QuestionPart10Seeder extends Seeder
                 'Confined' => 'bị giam giữ, bị giới hạn trong một khu vực'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create([
             'question_id' => $q->id,
@@ -1057,6 +1107,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'gi-vân ờ tít-kịt bai po-li-(s)'
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
 
         // Câu 21.b
         $q = Question::create([
@@ -1073,6 +1124,8 @@ class N400QuestionPart10Seeder extends Seeder
                 ]
             ])
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
 
         // Câu 22
         $q = Question::create([
@@ -1147,6 +1200,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Illegal drugs, narcotics' => 'chất cấm, ma túy'
             ])
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create([
             'question_id' => $q->id,
@@ -1165,6 +1220,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'lai-(k) he-râu-in'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 24.b
         $q = Question::create([
@@ -1176,6 +1232,7 @@ class N400QuestionPart10Seeder extends Seeder
             'type' => 'text',
             'default_answers_pronunciation' => 'thinh-(s) diu-s-(d) pho ì-li-gồ d-rớt-(s)'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 25
         $q = Question::create([
@@ -1240,6 +1297,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Enter the United States illegally' => 'vào Mỹ bất hợp pháp'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true, 'warning' => 'Thường trú nhân có liên quan đến các hành vi trên có thể bị xem là vi phạm luật di trú.']);
 
@@ -1252,6 +1311,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'No',
             'tips' => json_encode(['Gamble' => 'đánh bạc'])
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true, 'warning' => 'Thường trú nhân có liên quan đến các hành vi trên có thể bị đánh giá là không có tư cách đạo đức tốt.']);
 
@@ -1265,6 +1326,7 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers_translation' => 'Là chơi trò chơi để kiếm tiền',
             'default_answers_pronunciation' => 'tu p-lay gem-(s) pho mân-ni',
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 29
         $q = Question::create([
@@ -1364,6 +1426,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Immigration benefit' => 'quyền lợi di trú'
             ])
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -1378,6 +1442,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Deportation proceedings' => 'thủ tục trục xuất'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -1429,6 +1495,8 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers' => 'Yes',
             'tips' => json_encode(['Selective Service' => 'Quân vụ'])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -1515,6 +1583,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'U.S. armed forces' => 'quân đội Mỹ'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'skip_to_question' => 107]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -1561,6 +1631,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Outside of the U.S.' => 'bên ngoài Mỹ'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
 
@@ -1640,6 +1712,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Order of nobility' => 'danh hiệu quý tộc'
             ])
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create(['question_id' => $q->id, 'content' => 'Yes', 'is_correct' => true]);
         Answer::create(['question_id' => $q->id, 'content' => 'No', 'is_correct' => true, 'warning' => 'Thường trú nhân không sẵn sàng từ bỏ tước vị ở quốc gia khác có thể bị cho là không trung thành với Mỹ.']);
 
@@ -1666,6 +1740,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Constitution' => 'Hiến pháp'
             ]),
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -1690,6 +1766,8 @@ class N400QuestionPart10Seeder extends Seeder
                 'Oath of Allegiance' => 'Lời Tuyên thệ Trung thành'
             ]),
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
+
         Answer::create([
             'question_id' => $q->id,
             'content' => 'No',
@@ -1712,6 +1790,7 @@ class N400QuestionPart10Seeder extends Seeder
             'default_answers_translation' => 'Lời hứa trung thành với Mỹ',
             'default_answers_pronunciation' => 'ờ p-ró-mịt-(s) tu bi loi-ồ tu đờ diu-nai-tịt s-tây-(s)'
         ]);
+        QuestionSet::create(['set_number' => 2, 'question_id' => $q->id]);
 
         // Câu 52
         $q = Question::create([

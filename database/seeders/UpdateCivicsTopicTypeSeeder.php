@@ -34,10 +34,10 @@ class UpdateCivicsTopicTypeSeeder extends Seeder
                 ->update(['type' => 'text']);
         }
 
-        $n400Topic = Topic::where('slug', 'n400')->first();
-        if ($n400Topic) {
-            Question::where('topic_id', $n400Topic->id)
-                ->update(['type' => 'multiple_choice']);
-        }
+        // $n400Topic = Topic::where('slug', 'n400')->first();
+        // if ($n400Topic) {
+        //     Question::where('topic_id', $n400Topic->id)
+        //         ->update(['type' => 'multiple_choice']);
+        // }
     }
 }

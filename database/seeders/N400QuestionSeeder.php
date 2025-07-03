@@ -865,6 +865,8 @@ class N400QuestionSeeder extends Seeder
             'tips' => '{"Spouse": "vợ/chồng", "U.S. armed forces": "quân đội Mỹ"}',
         ]);
 
+        QuestionSet::create(['set_number' => 1, 'question_id' => $question2->id,]);
+
 
         Answer::create([
             'question_id' => $q75->id,
@@ -888,6 +890,7 @@ class N400QuestionSeeder extends Seeder
             'default_answers' => '',
             'tips' => '{"How many times": "mấy lần", "Married": "kết hôn"}',
         ]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $question3->id,]);
 
         // ----- END: PART 6 ----
 

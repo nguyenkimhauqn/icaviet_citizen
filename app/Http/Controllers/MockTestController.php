@@ -129,6 +129,7 @@ class MockTestController extends Controller
         } else {
             $question = $testType->questions()->with('answers')->skip($page - 1)->take(1)->first();
 
+
             if ($question) {
                 $question->setRelation('answers', $question->answers->shuffle());
             }
@@ -271,28 +272,21 @@ class MockTestController extends Controller
 
     public function submitAnswer(Request $request, $slug)
     {
-
         $request->validate([
             'question_id' => 'required|exists:questions,id',
             'answer_id' => 'nullable|exists:answers,id',
             'answer_text' => 'nullable|string',
         ]);
 
-
-
         $questionId = $request->question_id;
         $answerId = $request->answer_id;
         $answerText = $request->answer_text;
         $questionContent = $request->question_content;
 
-
-
         $additionalField = $request->additional_field;
         $attemptId = session()->get('mock_test_attempt_id');
         $currentPage = (int) $request->query('page', 1);
         $setNumber = (int) $request->query('set_number', 1);
-
-
 
         if (!$attemptId) {
             return redirect()->route('start.mock-test', $slug)->with('error', 'Bài thi chưa được khởi tạo.');
@@ -312,7 +306,7 @@ class MockTestController extends Controller
         $testType = Topic::where('slug', $slug)->firstOrFail();
         $maxAttempts = $testType->max_attempts ?? 1;
 
-        // Check nếu đã có câu trả lời trước đó thì update
+        // Lưu lại câu trả lời
         $userAnswer = UserAnswerQuestion::where('attempt_id', $attemptId)
             ->where('question_id', $questionId)
             ->first();
@@ -352,17 +346,34 @@ class MockTestController extends Controller
             }
         }
 
-        // Logic riêng cho n400
+        // Logic skip cho n400
         if ($slug === 'n400') {
+            // Nếu có skip logic từ đáp án
+            if ($answerId) {
+                $answer = Answer::find($answerId);
+                if ($answer && ($answer->skip_to_question || $answer->skip_to_category || $answer->enabled_category)) {
+                    return $this->handleSkip($slug, $answer, $setNumber);
+                }
+            }
+
+            // Nếu là câu text có skip_to_question
+            if ($question->type === 'text' && $answerText && is_numeric($answerText)) {
+                if ((int) $answerText === 0 && ($question->skip_to_question || $question->skip_to_category)) {
+                    return $this->handleSkip($slug, $question, $setNumber);
+                }
+            }
+
+            // Mặc định: sang câu tiếp theo
             $questionIds = QuestionSet::where('set_number', $setNumber)->pluck('question_id');
             $total = $questionIds->count();
 
+            // Kiểm tra nếu đã trả lời câu cuối cùng
+            $lastQuestionId = $questionIds->last();
+            $lastAnswered = UserAnswerQuestion::where('attempt_id', $attemptId)
+                ->where('question_id', $lastQuestionId)
+                ->exists();
 
-            $answeredCount = UserAnswerQuestion::where('attempt_id', $attemptId)
-                ->whereIn('question_id', $questionIds)
-                ->count();
-
-            if ($answeredCount >= $total) {
+            if ($lastAnswered) {
                 return redirect()->route('mock-test.result');
             }
 
@@ -373,7 +384,7 @@ class MockTestController extends Controller
             ]);
         }
 
-        // Các bài thi khác
+        // Các bài thi còn lại
         $total = $testType->questions()->count();
 
         if ($currentPage >= $total) {
@@ -389,6 +400,83 @@ class MockTestController extends Controller
         }
 
         return redirect()->route('start.mock-test', [$slug, 'page' => $currentPage + 1]);
+    }
+
+    protected function handleSkip(string $slug, $object, int $setNumber)
+    {
+        // Skip logic chỉ dùng cho n400
+        if ($slug !== 'n400') {
+            return null;
+        }
+
+        // Gán enabled_category nếu có
+        if (isset($object->enabled_category)) {
+            if ($object->enabled_category == -1) {
+                session()->forget('enabled_category');
+            } elseif ($object->enabled_category > 0) {
+                session()->put('enabled_category', $object->enabled_category);
+            }
+        }
+
+        // Nếu skip_to_category thì chuyển đề
+        if (isset($object->skip_to_category) && $object->skip_to_category > 0) {
+            $questionIds = QuestionSet::where('set_number', $setNumber)
+                ->orderBy('id')
+                ->pluck('question_id')
+                ->toArray();
+
+            // Lấy danh sách các câu hỏi ứng với category cần skip đến
+            $targetQuestionId = Question::whereIn('id', $questionIds)
+                ->where('category_id', $object->skip_to_category)
+                ->orderBy('id')
+                ->value('id'); // Lấy câu hỏi đầu tiên thuộc category đó
+
+            if ($targetQuestionId) {
+                $targetIndex = array_search($targetQuestionId, $questionIds);
+
+                if ($targetIndex !== false) {
+                    return redirect()->route('start.mock-test', [
+                        'slug' => $slug,
+                        'page' => $targetIndex + 1,
+                        'set_number' => $setNumber
+                    ]);
+                }
+            }
+        }
+
+
+        // Nếu chỉ skip trong set hiện tại
+        if (isset($object->skip_to_question) && $object->skip_to_question > 0) {
+            $questionIds = QuestionSet::where('set_number', $setNumber)
+                ->orderBy('id')
+                ->pluck('question_id')
+                ->toArray();
+
+            // Tìm index của current_question_id trong mảng
+            $currentIndex = array_search($object->question_id, $questionIds);
+
+            if ($currentIndex !== false) {
+                // Tính index cần tới
+                $targetIndex = $currentIndex + ($object->skip_to_question - 1);
+
+                // Kiểm tra index tồn tại
+                if (isset($questionIds[$targetIndex])) {
+                    return redirect()->route('start.mock-test', [
+                        'slug' => $slug,
+                        'page' => $targetIndex + 1,
+                        'set_number' => $setNumber
+                    ]);
+                }
+            }
+        }
+
+
+        // Nếu không có skip rõ ràng thì sang câu tiếp theo
+        return redirect()->route('start.mock-test', [
+            'slug' => $slug,
+            'page' => request()->query('page', 1) + 1,
+            'set_number' => $setNumber
+        ]);
     }
 
 
@@ -455,12 +543,16 @@ class MockTestController extends Controller
 
         foreach ($testTypes as $testType) {
             $slug = $testType->slug;
+            $setNumber = $request->query('set_number', 1);
 
             if ($slug === 'n400') {
-                // Xử lý đặc biệt cho N-400
-                $setNumber = $request->query('set_number', 1);
-                $questionIds = QuestionSet::where('set_number', $setNumber)->pluck('question_id');
-                $questions = Question::whereIn('id', $questionIds)->with('answers')->get();
+                $questionIds = QuestionSet::where('set_number', $setNumber)
+                    ->orderBy('id')
+                    ->pluck('question_id');
+
+                $questions = Question::whereIn('id', $questionIds)
+                    ->with('answers')
+                    ->get();
             } else {
                 $questions = $testType->questions()->with('answers')->get();
                 $questionIds = $questions->pluck('id');
@@ -484,7 +576,6 @@ class MockTestController extends Controller
 
             foreach ($questions as $question) {
                 $userAnswer = $userAnswers->get($question->id);
-
                 if (!$userAnswer) continue;
 
                 $correctAnswer = $question->answers->firstWhere('is_correct', true);
@@ -505,8 +596,14 @@ class MockTestController extends Controller
                 }
             }
 
-            // Tổng số câu
-            if ($slug === 'civics') {
+            // Tính totalQuestions
+            if ($slug === 'n400') {
+                $answeredIds = $userAnswers->keys();
+                $lastAnsweredId = $answeredIds->max();
+                $orderedQuestionIds = $questionIds->values()->toArray();
+                $lastIndex = array_search($lastAnsweredId, $orderedQuestionIds);
+                $totalQuestions = $lastIndex !== false ? $lastIndex + 1 : $userAnswers->count();
+            } elseif ($slug === 'civics') {
                 $totalQuestions = $userAnswers->filter(function ($ua) {
                     return !empty($ua->answer_text) || !empty($ua->answer_id);
                 })->count();
@@ -520,8 +617,6 @@ class MockTestController extends Controller
                         break;
                     }
                 }
-            } elseif ($slug === 'n400') {
-                $totalQuestions = $questionIds->count();
             } else {
                 $totalQuestions = $questions->count();
             }

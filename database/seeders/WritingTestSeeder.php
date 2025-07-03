@@ -19,14 +19,6 @@ class WritingTestSeeder extends Seeder
         // DB::table('questions')->where('topic_id', 2)->delete();
 
         // 2. Cập nhật topic writing test
-        DB::table('topics')->updateOrInsert(
-            ['id' => 2],
-            [
-                'name' => 'Writing Test',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-        );
 
         // 3. Danh sách câu hỏi với dịch và tips
         $questions = require database_path('data/writing.php');

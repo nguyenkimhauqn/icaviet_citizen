@@ -47,6 +47,10 @@
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
                     {{-- <span class="font-sm text-center">{!! $question->content !!}</span> --}}
+                    <span class="font-sm">
+                        Show cho chị dễ debug:
+                        <strong>{{ strip_tags($question->content) }}</strong>
+                    </span>
 
                     <textarea name="answer_text" class="instruction-text form-control mt-4 ps-5" placeholder="'Nhập ở đây"></textarea>
                 </div>
@@ -70,6 +74,11 @@
                     </div>
 
                     <span class="font-sm text-center hidden">{!! $question->content !!}</span>
+
+                    <span class="font-sm">
+                        Show cho chị Trang dễ debug:
+                        <strong>{{ strip_tags($question->content) }}</strong>
+                    </span>
 
                     <div class="radio-options bg-light p-4 rounded text-start mt-4">
                         @foreach ($question->answers as $answer)
@@ -112,9 +121,9 @@
                                 style="display: none;"></textarea> --}}
 
                             <div class="position-relative additional-field-container" style="display: none;">
-                                <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
-                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio" <<<<<<< HEAD
-                                    style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;">
+                                {{-- <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
+                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio"
+                                    style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;"> --}}
 
                                 @php
                                     $length = strlen($answer->additional_answer_placeholder ?? '');

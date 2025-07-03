@@ -27,7 +27,7 @@
 
                 <div class="quiz-container">
                     <h1 class="font-sm">
-                        {{ $question->content }}
+                        {{ strip_tags($question->content) }}
                     </h1>
 
                     <input type="text" name="answer_text" readonly class="instruction-text form-control mt-3"
