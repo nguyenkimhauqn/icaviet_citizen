@@ -11,7 +11,10 @@ use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\N400Controller;
+use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Storage;
+
 
 use App\Models\Category;
 use App\Models\Representative;
@@ -105,6 +108,10 @@ Route::middleware(['auth'])->group(function () {
     });
     // [END] === * FAQ  * ===
 
+    // === * PROFILE * ===
+    Route::get('/user/profile/', [UserController::class, 'show'])->name('user.profile');
+    Route::post('/user/delete-learned-data', [UserController::class, 'deleteLearnedData'])->name('user.deleteLearnedData');
+    // [END] === * PROFILE * ===
 
     // === * Representaive * ===
     Route::get('/testapi', [RepresentativeController::class, 'getRepresentative'])->name('representative.test');
@@ -127,25 +134,6 @@ Route::middleware(['auth'])->group(function () {
     // TEST API Google
     Route::post('/google', [GoogleSpeechController::class, 'transcribe'])->name('google.transcribe');
     Route::view('/google-form', 'google_form');
-
-    Route::get('/download-audio/{filename}', function ($filename) {
-        $path = 'whisper_temp/' . $filename;
-
-        if (!Storage::exists($path)) {
-            abort(404);
-        }
-        return Storage::download($path);
-    });
-
-    Route::get('/download/{filename}', function ($filename) {
-        // dd($filename);
-        $path = 'audios/' . $filename;
-
-        if (!Storage::exists($path)) {
-            abort(404);
-        }
-        return Storage::download($path);
-    });
 });
 
 Auth::routes();
