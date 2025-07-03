@@ -157,7 +157,7 @@
                         @foreach ($question->answers as $answer)
                             <div class="mb-2">
                                 <div class="d-flex flex-column" style="width: 100%;">
-                                    <div class="d-flex">
+                                    <div class="d-flex justify-content-between">
                                         <div class="d-flex gap-2 justify-content-center align-items-center">
                                             <input class="form-check-input toggle-additional" type="radio"
                                                 name="answer_id" id="answer{{ $answer->id }}"
@@ -196,7 +196,7 @@
 
                             <div class="position-relative additional-field-container" style="display: none;">
                                 <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
-                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio" <<<<<<< HEAD
+                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio"
                                     style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;">
 
                                 @php
@@ -209,9 +209,6 @@
                                         $rows = 2;
                                     }
                                 @endphp
-                                =======
-                                style="position: absolute; top: 12px; left: 10px; width: 20px; cursor: pointer;">
-                                >>>>>>> 0c6e47dbbcc015760241d45c69061cb08f804e82
 
                                 <textarea type="text" name="additional_field_{{ $answer->id }}"
                                     class="form-control mt-2 ps-5 additional-field questionText"
@@ -262,8 +259,22 @@
                 <div class="translate-box mt-3 text-start">
                     <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
                     @if ($question->default_answers_translation)
-                        - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
+                        @if (Str::contains($question->default_answers_translation, [
+                                '<p>',
+                                '<div>',
+                                '<span>',
+                                '<strong>',
+                                '<em>',
+                                '<ul>',
+                                '<ol>',
+                                '<br>',
+                            ]))
+                            {!! $question->default_answers_translation !!}
+                        @else
+                            - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
+                        @endif
                     @endif
+
 
                     @foreach ($question->answers as $answer)
                         @if ($answer->explanation)

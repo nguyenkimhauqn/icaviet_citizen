@@ -651,7 +651,7 @@ class N400QuestionPart10Seeder extends Seeder
         // Câu 9.g
         $q = Question::create([
             'category_id' => 11,
-            'content' => 'Have you EVER not let someone practice his or her religion?',
+            'content' => 'Have you EVER not let someone <strong>practice</strong> his or her <strong>religion</strong>?',
             'translation' => 'Bạn có bao giờ từng ngăn cản người khác thực hành tôn giáo của họ không?',
             'type' => 'multiple_choice',
             'default_answers' => 'No',
@@ -695,6 +695,7 @@ class N400QuestionPart10Seeder extends Seeder
             'content' => 'What is a “military unit”?',
             'translation' => '“Đơn vị quân đội” là gì?',
             'default_answers' => 'A group of soldiers.',
+            'default_answers_translation' => 'Một nhóm quân lính',
             'type' => 'text',
             'default_answers_pronunciation' => 'ờ g-rúp ọp sâu-chờ-(s)'
         ]);

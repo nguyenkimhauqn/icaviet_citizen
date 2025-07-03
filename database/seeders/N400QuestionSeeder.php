@@ -646,6 +646,12 @@ class N400QuestionSeeder extends Seeder
             'translation' => 'Giới tính của bạn là gì?',
             'type' => 'multiple_choice',
             'default_answers' => 'Male',
+            'default_answers_translation' => "
+                <ul style='list-style-type: none; padding-left: 1em;'>
+                    <li style='text-indent: -0.7em;'>- <strong>Male</strong>: nam</li>
+                    <li style='text-indent: -0.7em;'>- <strong>Female</strong>: nữ</li>
+                </ul>
+            ",
             'tips' => '{"Your sex": "giới tính"}',
         ]);
         QuestionSet::create(['set_number' => 1,            'question_id' => $q54->id,]);
