@@ -114,7 +114,7 @@ Route::middleware(['auth'])->group(function () {
     // [END] === * FAQ  * ===
 
     // === * Q & A * ===
-    Route::get('/q-and-a', [QAndAController::class, 'index']);
+    Route::get('/q-and-a', [QAndAController::class, 'index'])->name('qa.index');
 
     // === * PROFILE * ===
     Route::get('/user/profile/', [UserController::class, 'show'])->name('user.profile');

@@ -25,25 +25,34 @@
 
     <main class="main-content">
         <div class="btn-group">
-            <button class="btn-outlined">Câu hỏi thi quốc tịch</button>
-            <button class="btn-none">Câu hỏi về app</button>
+            <a class="{{ $type === 'normal_question' ? 'btn-outlined' : 'btn-none' }}"
+                href="{{ route('qa.index', ['type' => 'normal_question']) }}">
+                Câu hỏi thi quốc tịch
+            </a>
+            <a class="{{ $type === 'app_question' ? 'btn-outlined' : 'btn-none' }}"
+                href="{{ route('qa.index', ['type' => 'app_question']) }}">
+                Câu hỏi về app
+            </a>
         </div>
 
-        <div class="warning-container mb-2">
-            <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
-                style="background: #f9f9fc; border-left: 4px solid #BF0C2C;">
-                <div class="d-flex align-center gap-2 text-dark font-sm" style="color: #BF0C2C;">
-                    <img src="{{ asset('public/icon/q-and-a/warning.svg') }}" alt="Warning">
+        @if ($type === 'normal_question')
+            <div class="warning-container mb-2">
+                <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
+                    style="background: #f9f9fc; border-left: 4px solid #BF0C2C;">
+                    <div class="d-flex align-center gap-2 text-dark font-sm" style="color: #BF0C2C;">
+                        <img src="{{ asset('public/icon/q-and-a/warning.svg') }}" alt="Warning">
 
-                    <span>
-                        <span class="note-title" style="color: #BF0C2C; flex-shrink: 0;">Lưu ý:</span>
-                        <span class="note-text"> Các thông tin có thể thay đổi. Vui lòng xem cập nhật mới nhất tại
-                            <a href="https://uscis.gov">uscis.gov</a>
+                        <span>
+                            <span class="note-title" style="color: #BF0C2C; flex-shrink: 0;">Lưu ý:</span>
+                            <span class="note-text"> Các thông tin có thể thay đổi. Vui lòng xem cập nhật mới nhất tại
+                                <a href="https://uscis.gov">uscis.gov</a>
+                            </span>
                         </span>
-                    </span>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+
 
         @foreach ($categories as $category)
             <h2 class="condition-title">{{ $category->name }}</h2>

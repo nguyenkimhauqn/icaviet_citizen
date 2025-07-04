@@ -118,5 +118,7 @@ TEXT)
                 ]);
             }
         }
+
+        $this->call(QaAppSeeder::class);
     }
 }
