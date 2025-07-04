@@ -182,3 +182,18 @@
 .custom-accordion {
     margin-top: 40px !important;
 }
+
+.btn-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+}
+
+.btn-top span {
+    font-family: Inter;
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 18px;
+    color: #000;
+}

@@ -27,6 +27,13 @@
             <button class="btn-outlined">Kết quả thi thử</button>
         </div>
 
+        <a class="btn-top mt-3" href="{{ route('result.mock-test') }}">
+            <button class="btn btn-round active text-white">
+                <img src="{{ asset('public/icon/mockTests/arrow-left.svg') }}" alt="">
+            </button>
+            <span>Quay lại</span>
+        </a>
+
         <div class="accordion custom-accordion" id="resultsAccordion">
             @foreach ($results as $index => $result)
                 <div class="accordion-item mb-3">
