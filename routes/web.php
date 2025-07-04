@@ -14,7 +14,7 @@ use App\Http\Controllers\N400Controller;
 use App\Http\Controllers\QAndAController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\VocabularyController;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -116,6 +116,9 @@ Route::middleware(['auth'])->group(function () {
     // === * Q & A * ===
     Route::get('/q-and-a', [QAndAController::class, 'index'])->name('qa.index');
     Route::get('/a-and-a/form', [QAndAController::class, 'showForm'])->name('qa.show-form');
+
+    // === * Vocabulary * ===
+    Route::get('/vocabulary', [VocabularyController::class, 'index'])->name('vocabulary.index');
 
     // === * PROFILE * ===
     Route::get('/user/profile/', [UserController::class, 'show'])->name('user.profile');
