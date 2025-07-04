@@ -18,14 +18,15 @@ class VocabularySeeder extends Seeder
         $category = VocabularyCategory::firstOrCreate([
             'topic_id' => $topic->id,
             'name' => 'Tổng quan',
+            'slug' => 'general'
         ]);
 
         $vocabularies = [
             [
-                'word' => 'Advise',
-                'meaning' => 'khuyên',
+                'word' => 'Advice',
+                'meaning' => 'Khuyên',
                 'hint' => 'ợt-vai-(s)',
-                'example' => 'The Cabinet advises the President.',
+                'example' => 'The Cabinet <strong>advises</strong> the President.',
             ],
             [
                 'word' => 'Amendment',
@@ -794,6 +795,683 @@ class VocabularySeeder extends Seeder
                 'meaning' => 'Thế chiến thứ hai',
                 'hint' => null,
                 'example' => 'Franklin Roosevelt was President during the Great Depression and <strong>World War II</strong>.',
+            ],
+        ];
+
+        foreach ($vocabularies as $vocab) {
+            Vocabulary::create([
+                'category_id' => $category->id,
+                'word' => $vocab['word'],
+                'meaning' => $vocab['meaning'],
+                'hint' => $vocab['hint'],
+                'example' => $vocab['example'],
+            ]);
+        }
+
+        $category = VocabularyCategory::firstOrCreate([
+            'topic_id' => $topic->id,
+            'name' => '12 tháng',
+            'slug' => '12-months'
+        ]);
+
+        $vocabularies = [
+            [
+                'word' => 'January',
+                'meaning' => 'tháng 1',
+                'hint' => 'chen-niu-e-ri',
+                'example' => null,
+            ],
+            [
+                'word' => 'February',
+                'meaning' => 'tháng 2',
+                'hint' => 'phép-ru-e-ri',
+                'example' => null,
+            ],
+            [
+                'word' => 'March',
+                'meaning' => 'tháng 3',
+                'hint' => 'ma-r-(ch)',
+                'example' => null,
+            ],
+            [
+                'word' => 'April',
+                'meaning' => 'tháng 4',
+                'hint' => 'ây-p-rồ',
+                'example' => null,
+            ],
+            [
+                'word' => 'May',
+                'meaning' => 'tháng 5',
+                'hint' => 'mây',
+                'example' => null,
+            ],
+            [
+                'word' => 'June',
+                'meaning' => 'tháng 6',
+                'hint' => 'chun',
+                'example' => null,
+            ],
+            [
+                'word' => 'July',
+                'meaning' => 'tháng 7',
+                'hint' => 'chơ-lai',
+                'example' => null,
+            ],
+            [
+                'word' => 'August',
+                'meaning' => 'tháng 8',
+                'hint' => 'ó-gợt-s-(t)',
+                'example' => null,
+            ],
+            [
+                'word' => 'September',
+                'meaning' => 'tháng 9',
+                'hint' => 'sẹp-tem-bờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'October',
+                'meaning' => 'tháng 10',
+                'hint' => 'ọt-tô-bờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'November',
+                'meaning' => 'tháng 11',
+                'hint' => 'nâu-vém-bờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'December',
+                'meaning' => 'tháng 12',
+                'hint' => 'đì-xem-bờ',
+                'example' => null,
+            ],
+        ];
+
+        foreach ($vocabularies as $vocab) {
+            Vocabulary::create([
+                'category_id' => $category->id,
+                'word' => $vocab['word'],
+                'meaning' => $vocab['meaning'],
+                'hint' => $vocab['hint'],
+                'example' => $vocab['example'],
+            ]);
+        }
+
+        $category = VocabularyCategory::firstOrCreate([
+            'topic_id' => $topic->id,
+            'name' => 'Ngày lễ',
+            'slug' => 'holidays'
+        ]);
+
+        $vocabularies = [
+            [
+                'word' => 'Christmas',
+                'meaning' => 'Giáng sinh',
+                'hint' => 'k-rít-mợt-(s)',
+                'example' => '<strong>Christmas</strong> is a national U.S. holiday.',
+            ],
+            [
+                'word' => 'Columbus Day',
+                'meaning' => 'Ngày Columbus',
+                'hint' => 'cơ-lấm-bợt-(s) đay',
+                'example' => '<strong>Columbus Day</strong> is in October.',
+            ],
+            [
+                'word' => 'Flag Day',
+                'meaning' => 'Ngày Quốc kỳ',
+                'hint' => 'ph-lat-(g) đay',
+                'example' => '<strong>Flag Day</strong> is in June.',
+            ],
+            [
+                'word' => 'Independence Day',
+                'meaning' => 'Ngày Độc lập',
+                'hint' => 'in-đì-pen-đần-(s) đay',
+                'example' => '<strong>Independence Day</strong> is in July.',
+            ],
+            [
+                'word' => 'Labor Day',
+                'meaning' => 'Ngày Lao động',
+                'hint' => 'lay-bờ đay',
+                'example' => '<strong>Labor Day</strong> is in September.',
+            ],
+            [
+                'word' => 'Martin Luther King, Jr. Day',
+                'meaning' => 'Ngày Martin Luther King, Jr.',
+                'hint' => 'ma-đin lu-đờ kin chu-ni-ờ',
+                'example' => '<strong>Martin Luther King, Jr. Day</strong> is a national U.S. holiday.',
+            ],
+            [
+                'word' => 'Memorial Day',
+                'meaning' => 'Ngày Tưởng niệm',
+                'hint' => 'mờ-mó-ri-ồ đay',
+                'example' => '<strong>Memorial Day</strong> is in May.',
+            ],
+            [
+                'word' => 'New Year’s Day',
+                'meaning' => 'Tết Dương lịch',
+                'hint' => 'niu dia-s đay',
+                'example' => 'New Year\'s Day is in January.',
+            ],
+            [
+                'word' => 'Presidents’ Day',
+                'meaning' => 'Ngày Tổng thống',
+                'hint' => 'p-ré-gi-đềnh-(s) đay',
+                'example' => '<strong>Presidents’ Day</strong> is in February.',
+            ],
+            [
+                'word' => 'Thanksgiving',
+                'meaning' => 'Lễ Tạ ơn',
+                'hint' => 'thanh-s-gi-vin',
+                'example' => '<strong>Thanksgiving</strong> is in November.',
+            ],
+            [
+                'word' => 'Veterans Day',
+                'meaning' => 'Ngày Cựu chiến binh',
+                'hint' => 'vét-đơ-rần-(s) đay',
+                'example' => '<strong>Veterans Day</strong> is a national U.S. holiday.',
+            ],
+        ];
+
+        foreach ($vocabularies as $vocab) {
+            Vocabulary::create([
+                'category_id' => $category->id,
+                'word' => $vocab['word'],
+                'meaning' => $vocab['meaning'],
+                'hint' => $vocab['hint'],
+                'example' => $vocab['example'],
+            ]);
+        }
+
+        $category = VocabularyCategory::firstOrCreate([
+            'topic_id' => $topic->id,
+            'name' => 'Tên riêng',
+            'slug' => 'proper-nouns'
+        ]);
+
+        $vocabularies = [
+            [
+                'word' => 'George Washington',
+                'meaning' => 'Tổng thống đầu tiên, Người Cha của Đất nước',
+                'hint' => 'cho-(ch) qua-sing-tân',
+                'example' => '<strong>George Washington</strong> is the Father of our Country.',
+            ],
+            [
+                'word' => 'John Adams',
+                'meaning' => 'Tổng thống thứ hai',
+                'hint' => null,
+                'example' => '<strong>John Adams</strong> was the second President.',
+            ],
+            [
+                'word' => 'Thomas Jefferson',
+                'meaning' => 'Tổng thống thứ 3, một trong những người viết Tuyên ngôn Độc lập.',
+                'hint' => 'tho-mợt-(s) che-phơ-sần',
+                'example' => '<strong>Thomas Jefferson</strong> wrote the Declaration of Independence',
+            ],
+            [
+                'word' => 'Benjamin Franklin',
+                'meaning' => 'nhà ngoại giao Mỹ',
+                'hint' => 'ben-cha-min ph-răng-lin',
+                'example' => '<strong>Benjamin Franklin</strong> is a U.S. diplomat.',
+            ],
+            [
+                'word' => 'Abraham Lincoln',
+                'meaning' => 'Tổng thống thứ 16, người lãnh đạo nội chiến, giải phóng nô lệ',
+                'hint' => 'ây-brơ-ham lin-cần',
+                'example' => '<strong>Abraham Lincoln</strong> freed the slaves.',
+            ],
+            [
+                'word' => 'Woodrow Wilson',
+                'meaning' => 'Tổng thống Mỹ trong Thế chiến thứ nhất',
+                'hint' => 'wu-râu quiu-sân',
+                'example' => '<strong>Woodrow Wilson</strong> was President during World War I.',
+            ],
+            [
+                'word' => 'Franklin Roosevelt',
+                'meaning' => 'Tổng thống Mỹ trong Thế chiến thứ hai',
+                'hint' => 'ph-răng-k-lin râu-giơ-veo-(t)',
+                'example' => '<strong>Franklin Roosevelt</strong> was President during the Great Depression and World War II.',
+            ],
+            [
+                'word' => 'Eisenhower',
+                'meaning' => 'Tổng thống Mỹ trong Thế chiến thứ 2',
+                'hint' => 'ai-sần-hao-ờ',
+                'example' => 'Before he was President, <strong>Eisenhower</strong> was a general in World War II.',
+            ],
+            [
+                'word' => 'Donald Trump',
+                'meaning' => 'Tổng thống thứ 45 và 47',
+                'hint' => 'đo-nồ trâm',
+                'example' => '<strong>Donald Trump</strong> is the President of the United States now.',
+            ],
+            [
+                'word' => 'JD Vance',
+                'meaning' => 'Phó Tổng thống thứ 50',
+                'hint' => 'chây đi van-(s)',
+                'example' => '<strong>JD Vance</strong> is the Vice President now.',
+            ],
+            [
+                'word' => 'John Roberts',
+                'meaning' => 'Chánh án thứ 17',
+                'hint' => 'chon ro-bợt-(s)',
+                'example' => '<strong>John Roberts</strong> is the Chief Justice of the United States.',
+            ],
+            [
+                'word' => 'Mike Johnson',
+                'meaning' => 'Chủ tịch Hạ viện kể từ năm 2023',
+                'hint' => 'mai-(k) chon-sần',
+                'example' => '<strong>Mike Johnson</strong> is the name of the Speaker of the House of Representatives now.',
+            ],
+        ];
+
+        foreach ($vocabularies as $vocab) {
+            Vocabulary::create([
+                'category_id' => $category->id,
+                'word' => $vocab['word'],
+                'meaning' => $vocab['meaning'],
+                'hint' => $vocab['hint'],
+                'example' => $vocab['example'],
+            ]);
+        }
+
+        $category = VocabularyCategory::firstOrCreate([
+            'topic_id' => $topic->id,
+            'name' => '50 bang',
+            'slug' => '50-states'
+        ]);
+
+        $vocabularies = [
+            [
+                'word' => 'New Hampshire',
+                'meaning' => 'niu ham-sờ',
+                'hint' => 'niu ham-sờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Massachusetts',
+                'meaning' => 'ma-sờ-chu-sịt-(s)',
+                'hint' => 'ma-sờ-chu-sịt-(s)',
+                'example' => null,
+            ],
+            [
+                'word' => 'Rhode Island',
+                'meaning' => 'râu-(d) ai-lần-(d)',
+                'hint' => 'râu-(d) ai-lần-(d)',
+                'example' => null,
+            ],
+            [
+                'word' => 'Connecticut',
+                'meaning' => 'cờ-ne-đi-cợt-(t)',
+                'hint' => 'cờ-ne-đi-cợt-(t)',
+                'example' => null,
+            ],
+            [
+                'word' => 'New York',
+                'meaning' => 'niu dót-(k)',
+                'hint' => 'niu dót-(k)',
+                'example' => null,
+            ],
+            [
+                'word' => 'New Jersey',
+                'meaning' => 'niu chơ-si',
+                'hint' => 'niu chơ-si',
+                'example' => null,
+            ],
+            [
+                'word' => 'Pennsylvania',
+                'meaning' => 'pen-sồ-vay-ni-ờ',
+                'hint' => 'pen-sồ-vay-ni-ờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Delaware',
+                'meaning' => 'đe-lờ-que',
+                'hint' => 'đe-lờ-que',
+                'example' => null,
+            ],
+            [
+                'word' => 'Maryland',
+                'meaning' => 'mé-rơ-lần-(d)',
+                'hint' => 'mé-rơ-lần-(d)',
+                'example' => null,
+            ],
+            [
+                'word' => 'Virginia',
+                'meaning' => 'vơ-gin-ni-ờ',
+                'hint' => 'vơ-gin-ni-ờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'North Carolina',
+                'meaning' => 'no-(th) ca-rô-lai-nà',
+                'hint' => 'no-(th) ca-rô-lai-nà',
+                'example' => null,
+            ],
+            [
+                'word' => 'South Carolina',
+                'meaning' => 'sao-(th) ca-rô-lai-nà',
+                'hint' => 'sao-(th) ca-rô-lai-nà',
+                'example' => null,
+            ],
+            [
+                'word' => 'Georgia',
+                'meaning' => 'cho-chờ',
+                'hint' => 'cho-chờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Alabama',
+                'meaning' => 'a-lơ-ba-mà',
+                'hint' => 'a-lơ-ba-mà',
+                'example' => null,
+            ],
+            [
+                'word' => 'Alaska',
+                'meaning' => 'ờ-lát-s-ca',
+                'hint' => 'ờ-lát-s-ca',
+                'example' => null,
+            ],
+            [
+                'word' => 'Arizona',
+                'meaning' => 'e-ri-giốn-nà',
+                'hint' => 'e-ri-giốn-nà',
+                'example' => null,
+            ],
+            [
+                'word' => 'Arkansas',
+                'meaning' => 'a-cân-sa',
+                'hint' => 'a-cân-sa',
+                'example' => null,
+            ],
+            [
+                'word' => 'California',
+                'meaning' => 'ca-li-pho-nhờ',
+                'hint' => 'ca-li-pho-nhờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Colorado',
+                'meaning' => 'cơ-lờ-ra-đồ',
+                'hint' => null,
+                'example' => null,
+            ],
+            [
+                'word' => 'Florida',
+                'meaning' => 'ph-lo-ri-đờ',
+                'hint' => 'ph-lo-ri-đờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Hawaii',
+                'meaning' => 'hơ-quai-i',
+                'hint' => 'hơ-quai-i',
+                'example' => null,
+            ],
+            [
+                'word' => 'Idaho',
+                'meaning' => 'ai-đa-hâu',
+                'hint' => 'ai-đa-hâu',
+                'example' => null,
+            ],
+            [
+                'word' => 'Illinois',
+                'meaning' => 'i-li-noi',
+                'hint' => 'i-li-noi',
+                'example' => null,
+            ],
+            [
+                'word' => 'Indiana',
+                'meaning' => 'in-đi-an-nà',
+                'hint' => 'in-đi-an-nà',
+                'example' => null,
+            ],
+            [
+                'word' => 'Iowa',
+                'meaning' => 'ai-ờ-qua',
+                'hint' => 'ai-ờ-qua',
+                'example' => null,
+            ],
+            [
+                'word' => 'Kansas',
+                'meaning' => 'can-giợt-(s)',
+                'hint' => 'can-giợt-(s)',
+                'example' => null,
+            ],
+            [
+                'word' => 'Kentucky',
+                'meaning' => 'ken-tất-ki',
+                'hint' => 'ken-tất-ki',
+                'example' => null,
+            ],
+            [
+                'word' => 'Louisiana',
+                'meaning' => 'lu-i-si-an-na',
+                'hint' => 'lu-i-si-an-na',
+                'example' => null,
+            ],
+            [
+                'word' => 'Maine',
+                'meaning' => 'man',
+                'hint' => 'man',
+                'example' => null,
+            ],
+            [
+                'word' => 'Michigan',
+                'meaning' => 'mi-si-gân',
+                'hint' => 'mi-si-gân',
+                'example' => null,
+            ],
+            [
+                'word' => 'Minnesota',
+                'meaning' => 'mi-ni-sâu-đà',
+                'hint' => 'mi-ni-sâu-đà',
+                'example' => null,
+            ],
+            [
+                'word' => 'Mississippi',
+                'meaning' => 'mi-si-si-pi',
+                'hint' => 'mi-si-si-pi',
+                'example' => null,
+            ],
+            [
+                'word' => 'Missouri',
+                'meaning' => 'mi-giua-ri',
+                'hint' => 'mi-giua-ri',
+                'example' => null,
+            ],
+            [
+                'word' => 'Montana',
+                'meaning' => 'mon-tá-nơ',
+                'hint' => 'mon-tá-nơ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Nebraska',
+                'meaning' => 'nờ-b-rát-s-ka',
+                'hint' => 'nờ-b-rát-s-ka',
+                'example' => null,
+            ],
+            [
+                'word' => 'Nevada',
+                'meaning' => 'nờ-va-đà',
+                'hint' => 'nờ-va-đà',
+                'example' => null,
+            ],
+            [
+                'word' => 'New Mexico',
+                'meaning' => 'niu me-xi-cô',
+                'hint' => 'niu me-xi-cô',
+                'example' => null,
+            ],
+            [
+                'word' => 'North Dakota',
+                'meaning' => 'no-(th) đờ-câu-đà',
+                'hint' => 'no-(th) đờ-câu-đà',
+                'example' => null,
+            ],
+            [
+                'word' => 'Ohio',
+                'meaning' => 'âu-hai-âu',
+                'hint' => 'âu-hai-âu',
+                'example' => null,
+            ],
+            [
+                'word' => 'Oklahoma',
+                'meaning' => 'âu-k-lờ-hâu-mờ',
+                'hint' => 'âu-k-lờ-hâu-mờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Oregon',
+                'meaning' => 'o-ri-gần',
+                'hint' => 'o-ri-gần',
+                'example' => null,
+            ],
+            [
+                'word' => 'South Dakota',
+                'meaning' => 'sao-(th) đờ-câu-đờ',
+                'hint' => 'sao-(th) đờ-câu-đờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Tennessee',
+                'meaning' => 'ten-nờ-si',
+                'hint' => 'ten-nờ-si',
+                'example' => null,
+            ],
+            [
+                'word' => 'Texas',
+                'meaning' => 'tét-xợt-(s)',
+                'hint' => 'tét-xợt-(s)',
+                'example' => null,
+            ],
+            [
+                'word' => 'Utah',
+                'meaning' => 'diu-ta',
+                'hint' => 'diu-ta',
+                'example' => null,
+            ],
+            [
+                'word' => 'Vermont',
+                'meaning' => 'vơ-mon-(t)',
+                'hint' => 'vơ-mon-(t)',
+                'example' => null,
+            ],
+            [
+                'word' => 'Washington',
+                'meaning' => 'qua-sing-tân',
+                'hint' => 'qua-sing-tân',
+                'example' => null,
+            ],
+            [
+                'word' => 'West Virginia',
+                'meaning' => 'quét-(s) vờ-chin-nhờ',
+                'hint' => 'quét-(s) vờ-chin-nhờ',
+                'example' => null,
+            ],
+            [
+                'word' => 'Wisconsin',
+                'meaning' => 'qui-s-cón-sin',
+                'hint' => 'qui-s-cón-sin',
+                'example' => null,
+            ],
+            [
+                'word' => 'Wyoming',
+                'meaning' => 'quai-âu-ming',
+                'hint' => 'quai-âu-ming',
+                'example' => null,
+            ],
+        ];
+
+        foreach ($vocabularies as $vocab) {
+            Vocabulary::create([
+                'category_id' => $category->id,
+                'word' => $vocab['word'],
+                'meaning' => $vocab['meaning'],
+                'hint' => $vocab['hint'],
+                'example' => $vocab['example'],
+            ]);
+        }
+
+        $category = VocabularyCategory::firstOrCreate([
+            'topic_id' => $topic->id,
+            'name' => 'Số',
+            'slug' => 'number'
+        ]);
+
+        $vocabularies = [
+            [
+                'word' => 'Eighteen',
+                'meaning' => '18',
+                'hint' => 'ây-tin',
+                'example' => 'To vote for President, citizens must be 18 or older.',
+            ],
+            [
+                'word' => 'Twenty-seven',
+                'meaning' => '27',
+                'hint' => 'troen-đi se-vần',
+                'example' => 'The Constitution have 27 amendments.',
+            ],
+            [
+                'word' => 'Fifty',
+                'meaning' => '50',
+                'hint' => 'phíp-đi',
+                'example' => 'The United States has 50 states.',
+            ],
+            [
+                'word' => 'One hundred',
+                'meaning' => '100',
+                'hint' => 'quan hênh-rệt-(d)',
+                'example' => 'There are 100 U.S. Senators.',
+            ],
+            [
+                'word' => 'Four hundred thirty-five',
+                'meaning' => '435',
+                'hint' => 'pho hênh-rệt-(d) thơ-đi-phai-(v)',
+                'example' => 'There are 435 voting members in the House of Representatives.',
+            ],
+            [
+                'word' => 'First',
+                'meaning' => 'đầu tiên',
+                'hint' => 'phớt-(s)',
+                'example' => 'Washington is the <strong>First</strong> president.',
+            ],
+            [
+                'word' => 'Second',
+                'meaning' => 'thứ hai',
+                'hint' => null,
+                'example' => 'Who was the <strong>Second</strong> president?',
+            ],
+            [
+                'word' => 'Seventeen seventy-six',
+                'meaning' => '1776',
+                'hint' => 'se-vần-tin se-vần-đi sít-(s)',
+                'example' => 'The Declaration of Independence was adopted on July 4, 1776.',
+            ],
+            [
+                'word' => 'Seventeen eighty-seven',
+                'meaning' => '1787',
+                'hint' => null,
+                'example' => 'The Constitution was written in 1787.',
+            ],
+            [
+                'word' => 'Eighteen oh three',
+                'meaning' => '1803',
+                'hint' => 'ây-tin âu th-ri',
+                'example' => 'The United States bought Louisiana from France 1803.',
+            ],
+            [
+                'word' => 'The 1800s',
+                'meaning' => 'những năm 1800',
+                'hint' => 'đì ây-tin hênh-rệt-(s)',
+                'example' => 'The United States fought in the Civil War in <strong>The 1800s</strong>.',
+            ],
+            [
+                'word' => 'The 1900s những năm 1900',
+                'meaning' => 'đờ nai-tin-(s)',
+                'hint' => 'đờ nai-tin-(s)',
+                'example' => 'The United States fought in the Vietnam War in the 1900s.',
             ],
         ];
 

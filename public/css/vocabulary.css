@@ -152,12 +152,19 @@ input::placeholder {
     font-size: 14px;
     text-decoration: none;
     color: #888;
-    transition: 0.2s;
+
+    display: block;
+    padding: 4px 8px;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: all 0.2s;
 }
 
-.vocab-sidebar a:hover {
-    color: #2a4fff;
+.vocab-sidebar a.active {
+    color: #133985;
     font-weight: bold;
+    border-left: 4px solid #133985;
+    background-color: #f5f6fa;
 }
 
 .vocab-list {
@@ -187,7 +194,6 @@ input::placeholder {
 }
 
 .vocab-header {
-    font-weight: bold;
     display: flex;
     justify-content: space-between;
 }

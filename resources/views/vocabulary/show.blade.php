@@ -39,12 +39,12 @@
                 <div class="vocab-page">
                     <!-- Header tabs -->
                     <div class="vocab-tabs">
-                        <a href="#" class="active">Tổng quan</a>
-                        <a href="#">12 tháng</a>
-                        <a href="#">Ngày lễ</a>
-                        <a href="#">Tên gọi</a>
-                        <a href="#">Chính phủ</a>
-                        <!-- thêm tùy ý -->
+                        @foreach ($categories as $cat)
+                            <a href="{{ route('vocabulary.show') }}?category={{ $cat->slug }}"
+                                class="{{ $cat->id === $category->id ? 'active' : '' }}">
+                                {{ $cat->name }}
+                            </a>
+                        @endforeach
                     </div>
 
                     <!-- Info alert -->
@@ -74,11 +74,14 @@
                         <div class="vocab-list">
                             @foreach ($vocabulariesGroupedByLetter as $letter => $items)
                                 <div id="letter-{{ $letter }}">
-                                    <h2 class="vocab-letter">{{ $letter }}</h2>
+                                    <h2 class="vocab-letter" style="display: none;">{{ $letter }}</h2>
                                     @foreach ($items as $vocab)
                                         <div class="vocab-card">
                                             <div class="vocab-header">
-                                                <div><strong>{{ $vocab->word }}:</strong> {{ $vocab->meaning }}</div>
+                                                <div>
+                                                    <strong>{{ $vocab->word }}:</strong>
+                                                    <span>{{ $vocab->meaning }}</span>
+                                                </div>
                                                 <button class="speak-btn">
                                                     <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
                                                 </button>
@@ -87,7 +90,7 @@
                                                 <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i></div>
                                             @endif
                                             @if ($vocab->example)
-                                                <div class="vocab-example">Ví dụ: <em>{{ $vocab->example }}</em></div>
+                                                <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
                                             @endif
                                         </div>
                                     @endforeach
@@ -105,15 +108,58 @@
 
 @push('scripts')
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.vocab-list');
+            const sections = document.querySelectorAll('.vocab-list > div[id^="letter-"]');
+            const sidebarLinks = document.querySelectorAll('.vocab-sidebar a');
+
+            function getActiveLetterByScroll() {
+                let closestSection = null;
+                let minDistance = Infinity;
+
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs(rect.top - container.getBoundingClientRect().top);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestSection = section;
+                    }
+                });
+
+                if (closestSection) {
+                    const letter = closestSection.id.replace('letter-', '');
+                    sidebarLinks.forEach(link => {
+                        link.classList.toggle('active', link.textContent.trim() === letter);
+                    });
+                }
+            }
+
+            container.addEventListener('scroll', () => {
+                getActiveLetterByScroll();
+            });
+
+            // Chạy 1 lần khi load
+            getActiveLetterByScroll();
+        });
+
+
+
         function scrollToLetter(letter) {
             const container = document.querySelector('.vocab-list');
             const target = document.getElementById('letter-' + letter);
+
             if (container && target) {
                 container.scrollTo({
                     top: target.offsetTop - container.offsetTop,
                     behavior: 'smooth'
                 });
             }
+
+            document.querySelectorAll('.vocab-sidebar a').forEach(el => el.classList.remove('active'));
+
+            const clicked = Array.from(document.querySelectorAll('.vocab-sidebar a'))
+                .find(el => el.textContent.trim() === letter);
+            if (clicked) clicked.classList.add('active');
         }
     </script>
 @endpush

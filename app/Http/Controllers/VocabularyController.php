@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vocabulary;
+use App\Models\VocabularyCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class VocabularyController extends Controller
 {
@@ -11,40 +15,48 @@ class VocabularyController extends Controller
         return view('vocabulary.index');
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $vocabulariesGroupedByLetter = [
-            'A' => [
-                (object)[
-                    'word' => 'Advise',
-                    'meaning' => 'khuyên',
-                    'hint' => 'ợt-vai-(s)',
-                    'example' => 'The Cabinet advises the President.'
-                ],
-                (object)[
-                    'word' => 'Amendment',
-                    'meaning' => 'Tu chính án, một phần sửa đổi, bổ sung',
-                    'hint' => 'ờ-men-mân-(t)',
-                    'example' => 'An amendment is a change.'
-                ],
-            ],
-            'B' => [
-                (object)[
-                    'word' => 'Ballot',
-                    'meaning' => 'Lá phiếu',
-                    'hint' => null,
-                    'example' => 'The voters cast their ballot.'
-                ]
-            ],
-            'C' => [
-                (object)[
-                    'word' => 'Citizen',
-                    'meaning' => 'Công dân',
-                    'hint' => 'si-ti-zần',
-                    'example' => 'Every citizen has rights.'
-                ]
-            ],
-        ];
-        return view('vocabulary.show', compact('vocabulariesGroupedByLetter'));
+
+        // Danh sách tất cả categories thuộc topic "Từ vựng chung"
+        $categories = VocabularyCategory::whereHas('topic', function ($q) {
+            $q->where('name', 'Từ vựng chung');
+        })->orderBy('id')->get();
+
+        $slug = $request->query('category', 'general');
+        $category = VocabularyCategory::where('slug', $slug)->firstOrFail();
+
+        $query = Vocabulary::where('category_id', $category->id);
+
+        // Nếu là category "12 tháng" thì order theo đúng thứ tự tháng
+        if ($category->slug === '12-months') {
+            $monthOrder = [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December',
+            ];
+
+            $query->orderByRaw("FIELD(word, '" . implode("','", $monthOrder) . "')");
+        } else {
+            $query->orderBy('word');
+        }
+
+        $vocabularies = $query->get();
+
+        // Group theo ký tự đầu tiên
+        $vocabulariesGroupedByLetter = $vocabularies->groupBy(function ($vocab) {
+            return strtoupper(Str::substr($vocab->word, 0, 1));
+        });
+
+        return view('vocabulary.show', compact('vocabulariesGroupedByLetter', 'categories', 'category'));
     }
 }
