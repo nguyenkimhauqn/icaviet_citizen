@@ -11,6 +11,7 @@ use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\N400Controller;
+use App\Http\Controllers\QAndAController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\UserController;
 
@@ -111,6 +112,9 @@ Route::middleware(['auth'])->group(function () {
         return view('faq');
     });
     // [END] === * FAQ  * ===
+
+    // === * Q & A * ===
+    Route::get('/q-and-a', [QAndAController::class, 'index']);
 
     // === * PROFILE * ===
     Route::get('/user/profile/', [UserController::class, 'show'])->name('user.profile');
