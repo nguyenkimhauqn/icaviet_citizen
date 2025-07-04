@@ -82,7 +82,7 @@
     </main>
     <!-- Start Button -->
     <div class="test-footer end">
-        <a class="send-button" href="{{ route('start.mock-test', 'civics') }}">
+        <a class="send-button" href="{{ route('qa.show-form') }}">
             Gửi phản hồi
             <img src="{{ asset('icon/q-and-a/send.svg') }}" alt="Gửi">
         </a>

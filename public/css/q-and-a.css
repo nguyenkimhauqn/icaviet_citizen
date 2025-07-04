@@ -108,3 +108,104 @@
 .test-footer.end {
     justify-content: end;
 }
+
+.form-wrapper {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.form-header {
+    background: #0d3b82;
+    padding: 20px;
+    /* display: flex;
+    align-items: center; */
+    position: relative;
+    color: white;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 0;
+
+    font-family: Inter;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.close-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff33;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-form label {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #f8f7fb;
+    font-size: 14px;
+    resize: none;
+}
+
+.form-footer {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upload-btn img {
+    /* width: 20px; */
+    cursor: pointer;
+}
+
+.submit-btn {
+    background: #11357c;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 8px 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+
+    font-family: Inter;
+    font-weight: 700;
+    font-size: 15px;
+}

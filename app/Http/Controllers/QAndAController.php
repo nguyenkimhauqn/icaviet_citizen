@@ -19,4 +19,9 @@ class QAndAController extends Controller
 
         return view('q-and-a.index', compact('categories', 'type'));
     }
+
+    public function showForm(Request $request)
+    {
+        return view('q-and-a.form');
+    }
 }
