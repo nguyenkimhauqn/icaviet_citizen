@@ -106,7 +106,7 @@ input::placeholder {
 
 .vocab-tabs a.active {
     color: #000;
-    border-color: #2a4fff;
+    border-color: #133985;
 }
 
 .vocab-info {
@@ -178,6 +178,11 @@ input::placeholder {
     padding-right: 10px;
 }
 
+.vocab-list.unset {
+    height: auto;
+    overflow-y: unset;
+}
+
 .vocab-letter {
     font-size: 22px;
     font-weight: bold;
@@ -193,6 +198,10 @@ input::placeholder {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
+.vocab-card.border {
+    border-top: 8px solid #badfff !important;
+}
+
 .vocab-header {
     display: flex;
     justify-content: space-between;
@@ -202,6 +211,9 @@ input::placeholder {
     font-style: italic;
     color: #555;
     margin-top: 4px;
+    font-weight: 400;
+    font-style: Italic;
+    font-size: 18px;
 }
 
 .vocab-example {
@@ -215,4 +227,21 @@ input::placeholder {
     border: none;
     cursor: pointer;
     font-size: 18px;
+}
+
+.vocab-section-heading {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.synonymous {
+    font-family: SVN-Linux Libertine;
+    font-weight: 400;
+    font-style: Italic;
+    font-size: 24px;
+}
+
+.vocab-title {
+    font-weight: 400;
+    font-size: 24px;
 }

@@ -13,6 +13,7 @@ class VocabularySeeder extends Seeder
     {
         $topic = VocabularyTopic::firstOrCreate([
             'name' => 'Từ vựng chung',
+            'slug' => 'general'
         ]);
 
         $category = VocabularyCategory::firstOrCreate([

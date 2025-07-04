@@ -102,14 +102,13 @@
 
                     <!-- 7. Vocabulary -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('vocabulary.index') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-vocabulary.svg') }}" alt="icon-vocabulary">
                                 </div>
                                 <span class="title_en">Vocabulary</span>
                                 <span class="title_vn">Từ vựng</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>

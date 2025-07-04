@@ -37,8 +37,9 @@
                 </div>
 
                 <div class="vocab-category-buttons">
-                    <a href="#" class="vocab-btn">Từ vựng chung</a>
-                    <a href="#" class="vocab-btn">Từ vựng N-400</a>
+                    <a href="{{ route('vocabulary.show', ['slug' => 'general']) }}" class="vocab-btn">Từ vựng chung</a>
+                    <a href="{{ route('vocabulary.show', ['slug' => 'n400']) }}" class="vocab-btn">Từ vựng N-400</a>
+
                 </div>
             </div>
         </div>

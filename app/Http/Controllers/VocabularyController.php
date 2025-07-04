@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vocabulary;
 use App\Models\VocabularyCategory;
+use App\Models\VocabularyTopic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -15,21 +16,29 @@ class VocabularyController extends Controller
         return view('vocabulary.index');
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $slug = 'general')
     {
+        $topicSlug =  $slug;
+        $categorySlug = $request->query('category');
 
-        // Danh sách tất cả categories thuộc topic "Từ vựng chung"
-        $categories = VocabularyCategory::whereHas('topic', function ($q) {
-            $q->where('name', 'Từ vựng chung');
-        })->orderBy('id')->get();
+        // Lấy topic theo slug
+        $topic = VocabularyTopic::where('slug', $topicSlug)->firstOrFail();
 
-        $slug = $request->query('category', 'general');
-        $category = VocabularyCategory::where('slug', $slug)->firstOrFail();
+        // Lấy các categories theo topic
+        $categories = $topic->categories()->orderBy('id')->get();
 
+        // Nếu chưa có category cụ thể, lấy category đầu tiên theo topic
+        if (!$categorySlug && $categories->count()) {
+            $category = $categories->first();
+        } else {
+            $category = VocabularyCategory::where('slug', $categorySlug)->firstOrFail();
+        }
+
+        // Query vocabularies theo category
         $query = Vocabulary::where('category_id', $category->id);
 
-        // Nếu là category "12 tháng" thì order theo đúng thứ tự tháng
-        if ($category->slug === '12-months') {
+        // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
+        if ($topic->slug === 'general' && $category->slug === '12-months') {
             $monthOrder = [
                 'January',
                 'February',
@@ -44,7 +53,6 @@ class VocabularyController extends Controller
                 'November',
                 'December',
             ];
-
             $query->orderByRaw("FIELD(word, '" . implode("','", $monthOrder) . "')");
         } else {
             $query->orderBy('word');
@@ -52,11 +60,21 @@ class VocabularyController extends Controller
 
         $vocabularies = $query->get();
 
-        // Group theo ký tự đầu tiên
+        // Group theo chữ cái đầu
         $vocabulariesGroupedByLetter = $vocabularies->groupBy(function ($vocab) {
             return strtoupper(Str::substr($vocab->word, 0, 1));
         });
 
-        return view('vocabulary.show', compact('vocabulariesGroupedByLetter', 'categories', 'category'));
+        // 50-states chia 2 phần
+        $isSplitStates = $category->slug === '50-states';
+
+        return view('vocabulary.show', compact(
+            'vocabulariesGroupedByLetter',
+            'topicSlug',
+            'categories',
+            'category',
+            'topic',
+            'isSplitStates'
+        ));
     }
 }
