@@ -22,9 +22,15 @@ class ResultController extends Controller
         $resultsByAttempt = [];
 
         // Lấy tất cả các attempt_id của user
-        $attemptIds = UserAnswerQuestion::where('user_id', $userId)
-            ->select('attempt_id')
-            ->distinct()
+        // $attemptIds = UserAnswerQuestion::where('user_id', $userId)
+        //     ->select('attempt_id')
+        //     ->distinct()
+        //     ->pluck('attempt_id');
+
+        $attemptIds = UserAnswerQuestion::select('attempt_id')
+            ->where('user_id', $userId)
+            ->groupBy('attempt_id')
+            ->orderByRaw('MAX(created_at) DESC')
             ->pluck('attempt_id');
 
         foreach ($attemptIds as $attemptId) {
