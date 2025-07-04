@@ -63,7 +63,7 @@
                         </button>
 
                         <div x-show="open" x-transition class="qa-answer">
-                            {{ $item->answer ?? 'Đang cập nhật...' }}
+                            {!! $item->answer ?? 'Đang cập nhật...' !!}
                         </div>
                     </div>
                 @endforeach

@@ -21,7 +21,7 @@ class QaSeeder extends Seeder
                 [
                     'question' => 'Thi quốc tịch mà không biết tiếng Anh thì sao?',
                     'answer' => trim(<<<TEXT
-Một trong các yêu cầu thi quốc tịch là bạn phải hiểu tiếng Anh cơ bản và có kiến thức về lịch sử, chính phủ Mỹ. Trong một số trường hợp, nếu đủ tuổi và thời gian cư trú theo quy định, bạn có thể xin thi quốc tịch bằng tiếng Việt.
+Một trong các yêu cầu thi quốc tịch là bạn phải hiểu tiếng Anh cơ bản và có kiến thức về lịch sử, chính phủ Mỹ. Trong một số trường hợp, nếu đủ tuổi và thời gian cư trú theo <a href="#">quy định</a>, bạn có thể xin thi quốc tịch bằng tiếng Việt.
 
 Dù vậy, đã có nhiều cô chú không biết tiếng Anh nhưng vẫn vượt qua kỳ thi quốc tịch bằng tiếng Anh nhờ kiên trì luyện tập mỗi ngày.
 
@@ -62,14 +62,44 @@ TEXT)
                 ],
             ],
             'Sau khi thi quốc tịch' => [
-                ['question' => 'Sau khi thi quốc tịch, bao lâu có kết quả?', 'answer' => null],
-                ['question' => 'Thi quốc tịch lần đầu không đậu, bao lâu có thể thi lại?', 'answer' => null],
-                ['question' => 'Thi quốc tịch lần hai không đậu, có thể thi lại không?', 'answer' => null],
-                ['question' => 'Sau khi trở thành công dân Mỹ thì cần làm gì tiếp theo?', 'answer' => null],
+                ['question' => 'Sau khi thi quốc tịch, bao lâu có kết quả?', 'answer' => "Kết quả của các phần thi quốc tịch sẽ được viên chức thông báo ngay sau buổi phỏng vấn."],
+                ['question' => 'Thi quốc tịch lần đầu không đậu, bao lâu có thể thi lại?', 'answer' => "Mỗi hồ sơ xin nhập tịch được phép thi tối đa 2 lần. Nếu trượt lần đầu, bạn sẽ được thi lại phần chưa đạt trong vòng 60 - 90 ngày kể từ ngày phỏng vấn đầu tiên."],
+                ['question' => 'Thi quốc tịch lần hai không đậu, có thể thi lại không?', 'answer' => "Không. Nếu bạn thi trượt lần thứ hai, hồ sơ nhập tịch của bạn sẽ bị từ chối. Khi muốn thi lại, bạn phải nộp Form N-400 và đóng mức phí mới."],
+                [
+                    'question' => 'Sau khi trở thành công dân Mỹ thì cần làm gì tiếp theo?',
+                    'answer' => trim(<<<TEXT
+Sau khi thi đậu quốc tịch và tuyên thệ, tân công dân Mỹ cần:
+- Cập nhật tình trạng quốc tịch với Sở An sinh Xã hội (SSA) để đảm bảo bạn sẽ nhận đầy đủ các phúc lợi xã hội.
+- Cập nhật họ tên mới với Sở An sinh Xã hội và các giấy tờ tùy thân khác nếu có đổi tên khi nộp Form N-400.
+- Nộp đơn làm hộ chiếu Mỹ để thuận tiện cho việc ra vào nước Mỹ.
+- Đăng ký bầu cử.
+TEXT)
+                ],
             ],
             'Kiến thức thi quốc tịch' => [
-                ['question' => 'Cách tra cứu Thượng nghị sĩ (U.S. Senators), Dân biểu của Hạ viện (U.S. Representatives) và Thống đốc (Governors)?', 'answer' => null],
-                ['question' => 'Nếu ở thủ đô Washington, D.C. thì có Thượng nghị sĩ (U.S. Senators), Dân biểu của Hạ viện (U.S. Representatives) và Thống đốc (Governors) không?', 'answer' => null],
+                [
+                    'question' => 'Cách tra cứu Thượng nghị sĩ (U.S. Senators), Dân biểu của Hạ viện (U.S. Representatives) và Thống đốc (Governors)?',
+                    'answer' =>  trim(<<<TEXT
+- Mỗi tiểu bang có 2 Thượng nghị sĩ (U.S. Senators), bạn có thể tra cứu tại:
+<a href="https://www.senate.gov/senators/index.htm">https://www.senate.gov/senators/index.htm</a> 
+
+- Mỗi Dân biểu Hạ viện (U.S. Representative) đại diện cho một đơn vị bầu cử Quốc hội liên bang (Congressional District). Bạn có thể nhập ZIP Code và tra cứu tên Dân biểu tại:
+<a href="https://www.house.gov/representatives">https://www.house.gov/representatives </a>
+
+- Mỗi tiểu bang có 1 Thống đốc (Governor), bạn có thể tra cứu tại:
+<a href="https://www.nga.org/governors/ ">https://www.nga.org/governors/ </a>
+TEXT)
+                ],
+                [
+                    'question' => 'Nếu ở thủ đô Washington, D.C. thì có Thượng nghị sĩ (U.S. Senators), Dân biểu của Hạ viện (U.S. Representatives) và Thống đốc (Governors) không?',
+                    'answer' => trim(<<<TEXT
+- D.C. không có Thượng nghị sĩ (U.S. Senators). => Bạn có thể trả lời: “D.C. has no U.S. Senators.”
+
+- D.C. có 1 đại diện duy nhất tại Hạ viện Hoa Kỳ, gọi là “Delegate” (nghị sĩ không có quyền biểu quyết). => Bạn có thể nhập ZIP Code và tra cứu tên của Delegate tại: https://www.house.gov/representatives
+
+- D.C. không có Thống đốc (Governors). => Bạn có thể trả lời: “D.C. does not have a Governor.”
+TEXT)
+                ],
             ],
         ];
 
