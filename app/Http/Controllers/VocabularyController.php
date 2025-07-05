@@ -36,6 +36,7 @@ class VocabularyController extends Controller
         }
 
         // Query vocabularies theo category
+        // TODO: Chỉ query null
         $query = Vocabulary::where('category_id', $category->id);
 
         // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
