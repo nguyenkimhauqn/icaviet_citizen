@@ -53,6 +53,8 @@ class VocabularyController extends Controller
             });
         }
 
+        $vocabularies = $query->get();
+
         // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
         if ($topicSlug === 'general' && $category->slug === '12-months') {
             $monthOrder = [
@@ -69,12 +71,14 @@ class VocabularyController extends Controller
                 'november',
                 'december'
             ];
-            $query->orderByRaw("FIELD(LOWER(TRIM(word)), '" . implode("','", $monthOrder) . "')");
+
+            $vocabularies = $vocabularies->sortBy(function ($item) use ($monthOrder) {
+                return array_search(strtolower(trim($item->word)), $monthOrder);
+            })->values();
         } else {
             $query->orderBy('word');
         }
 
-        $vocabularies = $query->get();
 
         // Group theo chữ cái đầu
         $vocabulariesGroupedByLetter = $vocabularies->groupBy(function ($vocab) {
@@ -86,6 +90,7 @@ class VocabularyController extends Controller
 
         return view('vocabulary.show', compact(
             'vocabulariesGroupedByLetter',
+            'vocabularies',
             'topicSlug',
             'categories',
             'category',

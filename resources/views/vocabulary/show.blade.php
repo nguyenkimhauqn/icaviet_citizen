@@ -161,6 +161,38 @@
                                     </div>
                                 @endforeach
                             </div>
+                            {{-- 12 tháng --}}
+                        @elseif ($topicSlug === 'general' && $category->slug === '12-months')
+                            @foreach ($vocabularies as $vocab)
+                                <div class="vocab-card">
+                                    <div class="vocab-header">
+                                        <div class="vocab-title">
+                                            <strong>{{ $vocab->word }}:</strong>
+                                            <span>{{ $vocab->meaning }}</span>
+                                        </div>
+                                        <button class="speak-btn">
+                                            <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
+                                        </button>
+                                    </div>
+                                    @if ($vocab->synonymous)
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <p class="synonymous mb-0">{{ $vocab->synonymous }}</p>
+                                            <button class="speak-btn">
+                                                <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
+                                            </button>
+                                        </div>
+                                    @endif
+                                    @if ($vocab->hint)
+                                        <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i></div>
+                                    @endif
+                                    @if ($vocab->example)
+                                        <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
+                                    @endif
+                                    @if ($vocab->synonymous_translate)
+                                        <div class="vocab-hint">Dịch: <i>{{ $vocab->synonymous_translate }}</i></div>
+                                    @endif
+                                </div>
+                            @endforeach
                         @else
                             {{-- Mặc định hiển thị theo nhóm A–Z --}}
                             @foreach ($vocabulariesGroupedByLetter as $letter => $items)
