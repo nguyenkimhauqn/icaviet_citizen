@@ -116,6 +116,11 @@ Route::middleware(['auth'])->group(function () {
     // === * Q & A * ===
     Route::get('/q-and-a', [QAndAController::class, 'index'])->name('qa.index');
     Route::get('/a-and-a/form', [QAndAController::class, 'showForm'])->name('qa.show-form');
+    Route::post('/q-and-a/send', [QAndAController::class, 'send'])->name('qa.send');
+    Route::get('/q-and-a/thank-you', function () {
+        return view('q-and-a.thankyou');
+    })->name('qa.thankyou');
+
 
     // === * Vocabulary * ===
     Route::get('/vocabulary', [VocabularyController::class, 'index'])->name('vocabulary.index');

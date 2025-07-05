@@ -30,7 +30,7 @@
 
 
 
-            <form class="contact-form" method="POST" action="">
+            <form class="contact-form" method="POST" action="{{ route('qa.send') }}" enctype="multipart/form-data">
                 @csrf
 
                 <label>Họ và tên</label>

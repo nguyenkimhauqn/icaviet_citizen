@@ -24,10 +24,6 @@
 
     <main class="main-content">
         <div class="vocab-search-section">
-            <div class="vocab-search-image">
-                <img src="{{ asset('icon/vocabulary/hero.png') }}" alt="Vocabulary Banner">
-            </div>
-
             <div class="vocab-search-box">
                 <form method="GET" action="{{ route('vocabulary.show', ['slug' => $topicSlug]) }}"
                     style="width: 100%; height: 100%;">

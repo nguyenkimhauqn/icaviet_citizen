@@ -45,7 +45,7 @@
                         <span>
                             <span class="note-title" style="color: #BF0C2C; flex-shrink: 0;">Lưu ý:</span>
                             <span class="note-text"> Các thông tin có thể thay đổi. Vui lòng xem cập nhật mới nhất tại
-                                <a href="https://uscis.gov">uscis.gov</a>
+                                <a target="_blank" href="https://uscis.gov">uscis.gov</a>
                             </span>
                         </span>
                     </div>
@@ -60,7 +60,7 @@
                 @foreach ($category->items as $index => $item)
                     <div x-data="{ open: false }" class="qa-box">
                         <button @click="open = !open" class="qa-toggle">
-                            <span class="qa-question">{{ $loop->iteration }}. {{ $item->question }}</span>
+                            <span class="qa-question">{{ $item->question }}</span>
 
                             {{-- Icon khi đóng (arrow-down) --}}
                             <img x-show="!open" src="{{ asset('icon/q-and-a/arrow-down.svg') }}" alt="↓"
