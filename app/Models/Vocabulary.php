@@ -14,8 +14,10 @@ class Vocabulary extends Model
         'word',
         'meaning',
         'hint',
+        'synonymous',
         'example',
-        'audio'
+        'audio',
+        'user_id'
     ];
 
     public function category()

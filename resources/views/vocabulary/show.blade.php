@@ -81,7 +81,23 @@
                                 @endphp
 
                                 {{-- Phần 1: 13 tiểu bang đầu --}}
-                                <h3 class="vocab-section-heading">13 Tiểu bang đầu tiên</h3>
+                                <h3 class="vocab-section-heading" onclick="showLightbox(); return false;">13 Tiểu bang đầu
+                                    tiên</h3>
+
+                                <!-- Button trigger -->
+                                <a href="#" class="font-italic-sm d-flex gap-2" style="font-style: italic;"
+                                    onclick="showLightbox(); return false;">
+                                    <img src="{{ asset('icon/vocabulary/upload-img.svg') }}" alt="">
+                                    Hình ảnh 13 tiểu bang đầu tiên
+                                </a>
+
+                                <!-- Lightbox modal -->
+                                <div id="lightbox" class="lightbox-overlay" onclick="hideLightbox()">
+                                    <span class="lightbox-close" onclick="hideLightbox()">&times;</span>
+                                    <img src="{{ asset('icon/vocabulary/tieubang.jpg') }}" class="lightbox-image"
+                                        alt="13 tiểu bang đầu tiên" onclick="event.stopPropagation()" />
+                                </div>
+
                                 <div class="vocab-list">
                                     @foreach ($firstGroup as $vocab)
                                         <div class="vocab-card">
@@ -135,6 +151,20 @@
                                         @foreach ($items as $vocab)
                                             <div
                                                 class="vocab-card {{ $topicSlug == 'n400' && $category->slug == 'define' ? 'border' : '' }}">
+                                                @if (isset($vocab->user_id))
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <p class="additional-vocab-title mb-0">Từ vựng được thêm</p>
+                                                        <button class="btn edit-vocab-btn" data-word="{{ $vocab->word }}"
+                                                            data-meaning="{{ $vocab->meaning }}"
+                                                            data-synonymous="{{ $vocab->synonymous }}"
+                                                            data-hint="{{ $vocab->hint }}" data-id="{{ $vocab->id }}"
+                                                            data-synonymous_translate="{{ $vocab->synonymous_translate }}">
+                                                            <img src="{{ asset('icon/vocabulary/edit.svg') }}"
+                                                                alt="Edit">
+                                                        </button>
+                                                    </div>
+                                                @endif
+
                                                 <div class="vocab-header">
                                                     <div class="vocab-title">
                                                         <strong>{{ $vocab->word }}:</strong>
@@ -176,8 +206,41 @@
 
             </div>
         </div>
-
     </main>
+
+    <div class="test-footer justify-content-between">
+        @if ($topicSlug == 'n400' && $category->slug == 'define')
+            <div class="btn-group d-flex justify-content-between" style="width: 100%">
+                <button class="btn-round sm">
+                    <img src="{{ asset('icon/vocabulary/arrow-up.svg') }}" alt="">
+                </button>
+                <div class="d-flex align-items-center gap-2 font-sm" style="cursor: pointer;" onclick="openModal()">
+                    <span>Thêm tư vựng</span>
+                    <button class="btn-round sm square">
+                        +
+                    </button>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <div id="vocabModal" class="modal">
+        <form id="vocabForm" class="modal-content" method="POST" action="{{ route('vocabulary.store') }}">
+            @csrf
+            <input type="hidden" name="vocab_id" id="vocab_id" />
+            <h3 id="modalTitle">Thêm từ vựng mới</h3>
+
+            <input type="text" name="word" id="word" placeholder="Nhập từ vựng" required />
+            <input type="text" name="hint" id="hint" placeholder="Phát âm dễ nhớ" />
+            <input type="text" name="synonymous" id="synonymous" placeholder="Định nghĩa tiếng Anh" />
+            <input type="text" name="meaning" id="meaning" placeholder="Nghĩa tiếng Việt" />
+
+
+            <button type="submit" class="submit-btn">Lưu</button>
+        </form>
+    </div>
+
+
 @endsection
 
 @push('scripts')
@@ -218,6 +281,16 @@
 
 
 
+        function showLightbox() {
+            document.getElementById('lightbox').classList.add('show');
+        }
+
+        function hideLightbox() {
+            document.getElementById('lightbox').classList.remove('show');
+        }
+
+
+
         function scrollToLetter(letter) {
             const container = document.querySelector('.vocab-list');
             const target = document.getElementById('letter-' + letter);
@@ -234,6 +307,17 @@
             const clicked = Array.from(document.querySelectorAll('.vocab-sidebar a'))
                 .find(el => el.textContent.trim() === letter);
             if (clicked) clicked.classList.add('active');
+        }
+
+        function openModal() {
+            document.getElementById('vocabModal').style.display = 'block';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('vocabModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
         }
     </script>
 @endpush
@@ -289,6 +373,45 @@
                         }
                     }
                 });
+            });
+        });
+    </script>
+@endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.edit-vocab-btn').click(function() {
+                const id = $(this).data('id');
+                const word = $(this).data('word');
+                const hint = $(this).data('hint');
+                const synonymous = $(this).data('synonymous');
+                const meaning = $(this).data('meaning');
+                const translate = $(this).data('synonymous_translate');
+
+                // Đổi title + action form
+                $('#modalTitle').text('Chỉnh sửa từ vựng');
+                // $('#vocabForm').attr('action', '/vocabulary/' + id); // route('vocabulary.update', id)
+                // $('#vocabForm').append('<input type="hidden" name="_method" value="PUT">');
+
+                // Gán dữ liệu
+                $('#vocab_id').val(id);
+                $('#word').val(word);
+                $('#hint').val(hint);
+                $('#synonymous').val(synonymous);
+                $('#meaning').val(meaning);
+                $('#synonymous_translate').val(translate);
+
+                // Hiển thị modal
+                $('#vocabModal').fadeIn();
+            });
+
+            // Đóng modal khi click ngoài
+            $(document).mouseup(function(e) {
+                const modal = $("#vocabModal .modal-content");
+                if (!modal.is(e.target) && modal.has(e.target).length === 0) {
+                    $('#vocabModal').fadeOut();
+                }
             });
         });
     </script>

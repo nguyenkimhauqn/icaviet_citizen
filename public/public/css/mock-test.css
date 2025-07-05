@@ -206,7 +206,21 @@ body {
     border-radius: 50%;
     background: #d0d0d0;
 
+    outline: none;
+    border: none;
+
     /* margin: 0 auto; */
+}
+
+.btn-round.sm {
+    width: 45px;
+    height: 45px;
+}
+
+.btn-round.square {
+    width: 45px;
+    height: 45px;
+    border-radius: unset !important;
 }
 
 .btn-round.active {

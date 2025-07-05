@@ -120,6 +120,7 @@ Route::middleware(['auth'])->group(function () {
     // === * Vocabulary * ===
     Route::get('/vocabulary', [VocabularyController::class, 'index'])->name('vocabulary.index');
     Route::get('/vocabulary-detail/{slug?}', [VocabularyController::class, 'show'])->name('vocabulary.show');
+    Route::post('/vocabulary', [VocabularyController::class, 'store'])->name('vocabulary.store');
 
     // === * PROFILE * ===
     Route::get('/user/profile/', [UserController::class, 'show'])->name('user.profile');

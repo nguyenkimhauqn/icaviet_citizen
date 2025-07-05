@@ -6,6 +6,7 @@ use App\Models\Vocabulary;
 use App\Models\VocabularyCategory;
 use App\Models\VocabularyTopic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 
@@ -38,7 +39,7 @@ class VocabularyController extends Controller
         $query = Vocabulary::where('category_id', $category->id);
 
         // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
-        if ($topic->slug === 'general' && $category->slug === '12-months') {
+        if ($topic->slug === 'general') {
             $monthOrder = [
                 'January',
                 'February',
@@ -76,5 +77,49 @@ class VocabularyController extends Controller
             'topic',
             'isSplitStates'
         ));
+    }
+
+    public function store(Request $request)
+    {
+
+        $validated = $request->validate([
+            'vocab_id' => 'nullable|exists:vocabularies,id',
+            'word' => 'required|string|max:255',
+            'hint' => 'nullable|string',
+            'synonymous' => 'nullable|string',
+            'meaning' => 'nullable|string',
+        ]);
+
+        $category = VocabularyCategory::where('slug', 'define')->firstOrFail();
+
+
+
+        if (!empty($validated['vocab_id'])) {
+            // Cập nhật từ vựng
+            $vocab = Vocabulary::where('id', $validated['vocab_id'])
+                ->where('user_id', Auth::id())
+                ->firstOrFail();
+
+            $vocab->update([
+                'word' => $validated['word'],
+                'hint' => $validated['hint'],
+                'synonymous' => $validated['synonymous'],
+                'meaning' => $validated['meaning'],
+            ]);
+
+            return redirect()->back()->with('success', 'Cập nhật từ vựng thành công!');
+        }
+
+        // Thêm mới từ vựng
+        Vocabulary::create([
+            'word' => $validated['word'],
+            'hint' => $validated['hint'],
+            'synonymous' => $validated['synonymous'],
+            'meaning' => $validated['meaning'],
+            'category_id' => $category->id,
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Thêm từ vựng thành công!');
     }
 }
