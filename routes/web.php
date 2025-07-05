@@ -11,11 +11,8 @@ use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\N400Controller;
-<<<<<<< HEAD
 use App\Http\Controllers\ResultController;
-=======
 use App\Http\Controllers\StarController;
->>>>>>> 1091aa45ad88d9bfe50b71b33a664f56bbd3f2e2
 use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Storage;
@@ -73,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/writing/check-ajax', [WritingController::class, 'checkAjax'])->name('writing.check.ajax');
     // === * [END] - WRITING * ===
 
-    // doing 
+    // doing
     // === * READING * ===
     Route::get('/reading/starred/{index?}', [ReadingController::class, 'showStarred'])->name('reading.starred');
     Route::get('/reading/{index?}', [ReadingController::class, 'show'])->name('reading.show');
@@ -86,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/category/{id}/question', [N400Controller::class, 'show'])->name('n400.category.show');
         Route::post('/questions', [N400Controller::class, 'store'])->name('n400.store');
         Route::delete('/n400/{id}/delete', [N400Controller::class, 'destroy'])->name('n400.destroy');
-                // --- Bài dấu sao ---
+        // --- Bài dấu sao ---
         Route::get('/categories/starred', [CategoryController::class, 'starred'])->name('n400.categories.starred');
         Route::get('/category/{id}/starred', [N400Controller::class, 'showStarred'])->name('n400.category.starred');
 
