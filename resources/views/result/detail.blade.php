@@ -28,7 +28,7 @@
         </div>
 
         <a class="btn-top mt-3" href="{{ route('result.mock-test') }}">
-            <button class="btn btn-round active text-white">
+            <button class="btn btn-round sm active text-white">
                 <img src="{{ asset('public/icon/mockTests/arrow-left.svg') }}" alt="">
             </button>
             <span>Quay lại</span>

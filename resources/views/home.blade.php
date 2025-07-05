@@ -102,14 +102,13 @@
 
                     <!-- 7. Vocabulary -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('vocabulary.index') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-vocabulary.svg') }}" alt="icon-vocabulary">
                                 </div>
                                 <span class="title_en">Vocabulary</span>
                                 <span class="title_vn">Từ vựng</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
@@ -137,6 +136,19 @@
                                 </div>
                                 <span class="title_en">Starred Questions</span>
                                 <span class="title_vn">Câu hỏi gắn sao</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 10. Q & A -->
+                    <div class="col-4">
+                        <a href="{{ route('qa.index') }}">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('icon/home/icon-qa.svg') }}" alt="icon-star">
+                                </div>
+                                <span class="title_en">Q & A</span>
+                                <span class="title_vn">Hỏi & đáp</span>
                             </div>
                         </a>
                     </div>

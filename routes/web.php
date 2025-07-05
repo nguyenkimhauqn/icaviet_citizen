@@ -11,10 +11,11 @@ use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\N400Controller;
+use App\Http\Controllers\QAndAController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\StarController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\VocabularyController;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -121,6 +122,20 @@ Route::middleware(['auth'])->group(function () {
         return view('faq');
     });
     // [END] === * FAQ  * ===
+
+    // === * Q & A * ===
+    Route::get('/q-and-a', [QAndAController::class, 'index'])->name('qa.index');
+    Route::get('/a-and-a/form', [QAndAController::class, 'showForm'])->name('qa.show-form');
+    Route::post('/q-and-a/send', [QAndAController::class, 'send'])->name('qa.send');
+    Route::get('/q-and-a/thank-you', function () {
+        return view('q-and-a.thankyou');
+    })->name('qa.thankyou');
+
+
+    // === * Vocabulary * ===
+    Route::get('/vocabulary', [VocabularyController::class, 'index'])->name('vocabulary.index');
+    Route::get('/vocabulary-detail/{slug?}', [VocabularyController::class, 'show'])->name('vocabulary.show');
+    Route::post('/vocabulary', [VocabularyController::class, 'store'])->name('vocabulary.store');
 
     // === * PROFILE * ===
     Route::get('/user/profile/', [UserController::class, 'show'])->name('user.profile');
