@@ -29,7 +29,7 @@ TEXT)
                     'question' => '2. Các thông tin trên ứng dụng lấy từ đâu?',
                     'answer' => trim(<<<TEXT
 Các nội dung trong ứng dụng được lấy từ các nguồn chính thức của USCIS (Sở Di trú và Nhập tịch Mỹ). Tuy nhiên, do USCIS có thể thay đổi chính sách hoặc cập nhật thông tin, ứng dụng chưa thể cập nhật ngay.
-Nếu bạn phát hiện thông tin chưa chính xác hoặc cần bổ sung, vui lòng gửi email góp ý về: <a href="#">info@icavietcitizenship.com</a>. Chúng tôi luôn trân trọng phản hồi từ cộng đồng để cải thiện ứng dụng tốt hơn mỗi ngày.
+Nếu bạn phát hiện thông tin chưa chính xác hoặc cần bổ sung, vui lòng gửi email góp ý về: <a href="#">info@icaviet.com</a>. Chúng tôi luôn trân trọng phản hồi từ cộng đồng để cải thiện ứng dụng tốt hơn mỗi ngày.
 TEXT)
                 ],
                 [
@@ -64,40 +64,47 @@ TEXT)
                 [
                     'question' => '6. Phần thi thử (Mock Test) có giống với lúc thi thực tế không?',
                     'answer' => trim(<<<TEXT
-ứng dụng được thiết kế mô phỏng sát với thực tế, giúp bạn làm quen với dạng câu hỏi và cách thi. Tuy nhiên, trong buổi thi chính thức, bạn sẽ trả lời trực tiếp với viên chức USCIS nên ứng dụng sẽ không thể tái hiện 100% cách hỏi, ngữ điệu và tình huống thực tế.
+Ứng dụng được thiết kế mô phỏng sát với thực tế, giúp bạn làm quen với dạng câu hỏi và cách thi. Tuy nhiên, trong buổi thi chính thức, bạn sẽ trả lời trực tiếp với viên chức USCIS nên ứng dụng sẽ không thể tái hiện 100% cách hỏi, ngữ điệu và tình huống thực tế.
 TEXT)
                 ],
                 [
-                    'question' => '7. Làm thế nào để đổi ZIP Code?',
+                    'question' => '7. Tại sao phần thi N-400 không có kết quả chấm điểm?',
                     'answer' => trim(<<<TEXT
 Vì các câu hỏi trong phần này phụ thuộc vào Form N-400 của từng người, nên không có đáp án đúng - sai cố định.
 Tuy nhiên, các câu hỏi được trích từ nội dung thực tế của Form N-400 để bạn làm quen với cách hỏi và luyện nghe – phản xạ trước buổi phỏng vấn.
 TEXT)
                 ],
                 [
-                    'question' => '8. Tôi có thể liên hệ với ICAVIET qua đâu?',
+                    'question' => '8. Chia sẻ kinh nghiệm là gì?',
                     'answer' => trim(<<<TEXT
-Một trong các yêu cầu thi quốc tịch là bạn phải hiểu tiếng Anh cơ bản và có kiến thức về lịch sử, chính phủ Mỹ. Trong một số trường hợp, nếu đủ tuổi và thời gian cư trú theo <a href="#">quy định</a>, bạn có thể xin thi quốc tịch bằng tiếng Việt.
-
-Dù vậy, đã có nhiều cô chú không biết tiếng Anh nhưng vẫn vượt qua kỳ thi quốc tịch bằng tiếng Anh nhờ kiên trì luyện tập mỗi ngày.
-
-Ngoài ra, ứng dụng Luyện thi quốc tịch của ICAVIET được thiết kế mô phỏng gần với kỳ thi thật, có tiếng Việt hỗ trợ, phát âm dễ nhớ và nhiều chức năng khác giúp bạn tiến bộ từng bước.
+“Chia sẻ kinh nghiệm” là nơi người học có thể kết nối, đặt câu hỏi và chia sẻ kinh nghiệm ôn thi quốc tịch với nhau. Bạn có thể đăng câu hỏi, giao lưu với những người đang học giống mình, chia sẻ kinh nghiệm thi quốc tịch,..
+TEXT)
+                ],
+                [
+                    'question' => '9. Làm thế nào để đổi ZIP Code?',
+                    'answer' => trim(<<<TEXT
+Bạn có thể đổi ZIP Code bằng cách:
+- Ở trang chủ, nhấn vào biểu tượng ☰ ở góc phải màn hình
+- Nhấn vào mục “<strong>ZIP Code của bạn</strong>”
+- Nhập ZIP Code mới. Sau đó, ứng dụng sẽ hiển thị ra danh sách Dân biểu tương ứng theo ZIP Code của bạn
+- Bạn cũng có thể xem lại danh sách Dân biểu ở mục “<strong>Your Representatives</strong> - Dân biểu của bạn”
 TEXT)
                 ],
             ],
             'Liên hệ' => [
                 [
-                    'question' => '9. Tôi có thể liên hệ với ICAVIET qua đâu?',
+                    'question' => '10. Tôi có thể liên hệ với ICAVIET qua đâu?',
                     'answer' => trim(<<<TEXT
 Bạn có thể liên hệ với ICAVIET theo các cách sau:
 
-📧 Email: <a href="#">info@icavietcitizenship.com</a>
-📝 Gửi form liên hệ trực tiếp trên ứng dụng hoặc website để được hỗ trợ nhanh chóng.
+📝 Bấm vào nút “Gửi phản hồi” bên dưới
+📧 Gửi email đến: <a href="#">info@icaviet.com</a>
 Chúng tôi luôn sẵn sàng hỗ trợ bạn trong quá trình luyện thi quốc tịch Mỹ!
 TEXT)
                 ]
             ]
         ];
+
 
         foreach ($data as $categoryName => $items) {
             $category = QaCategory::firstOrCreate([

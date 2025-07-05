@@ -4,10 +4,15 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/vocabulary.css') }}">
-
     <style>
         .container {
             padding: 0;
+        }
+
+        html,
+        body {
+            overflow: hidden !important;
+            height: 100% !important;
         }
     </style>
 @endpush
@@ -25,8 +30,8 @@
                 <h1 class="header-title" id="vocabTitle">
                     TỪ VỰNG<br>
 
-                    <a href="{{ route('vocabulary.index') }}" class="vocab-link">Từ vựng</a> > <span
-                        class="header-subtitle">{{ $topicSlug == 'general' ? 'chung' : 'N-400' }}</span>
+                    <a href="{{ route('vocabulary.index') }}" class="vocab-link">Danh mục</a> > <span
+                        class="header-subtitle">{{ $topicSlug == 'general' ? 'Từ vựng chung' : 'Từ vựng N-400' }}</span>
                 </h1>
 
                 {{-- Form tìm kiếm (ẩn lúc đầu) --}}
@@ -109,7 +114,8 @@
                                     alt="13 tiểu bang đầu tiên" onclick="event.stopPropagation()" />
                             </div>
 
-                            <div class="vocab-list" style="overflow-y: none;">
+                            <div class="vocab-list"
+                                style="{{ $category->slug == '50-states' ? 'max-height: unset; overflow-y: unset;' : '' }}">
                                 @foreach ($firstGroup as $vocab)
                                     <div class="vocab-card">
                                         <div class="vocab-header">
@@ -133,7 +139,8 @@
 
                             {{-- Phần 2: các tiểu bang còn lại --}}
                             <h3 class="vocab-section-heading">Các tiểu bang còn lại</h3>
-                            <div class="vocab-list" style="overflow-y: none;">
+                            <div class="vocab-list"
+                                style="{{ $category->slug == '50-states' ? 'max-height: unset; overflow-y: unset;' : '' }}">
                                 @foreach ($secondGroup as $vocab)
                                     <div class="vocab-card">
                                         <div class="vocab-header">
@@ -445,4 +452,22 @@
             });
         });
     </script>
+@endpush
+
+@push('scripts')
+    @if ($category->slug === '50-states')
+        <script>
+            document.body.style.overflow = 'auto';
+            document.body.style.height = 'auto';
+            document.documentElement.style.overflow = 'auto';
+            document.documentElement.style.height = 'auto';
+        </script>
+    @else
+        <script>
+            document.body.style.overflow = 'hidden';
+            document.body.style.height = '100%';
+            document.documentElement.style.overflow = 'hidden';
+            document.documentElement.style.height = 'auto';
+        </script>
+    @endif
 @endpush

@@ -54,22 +54,22 @@ class VocabularyController extends Controller
         }
 
         // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
-        if ($topic->slug === 'general' || $topic->slug === '12-months') {
+        if ($topicSlug === 'general' && $category->slug === '12-months') {
             $monthOrder = [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December',
+                'january',
+                'february',
+                'march',
+                'april',
+                'may',
+                'june',
+                'july',
+                'august',
+                'september',
+                'october',
+                'november',
+                'december'
             ];
-            $query->orderByRaw("FIELD(word, '" . implode("','", $monthOrder) . "')");
+            $query->orderByRaw("FIELD(LOWER(TRIM(word)), '" . implode("','", $monthOrder) . "')");
         } else {
             $query->orderBy('word');
         }
