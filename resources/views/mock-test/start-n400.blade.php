@@ -47,10 +47,6 @@
                         <input class="questionText hidden" type="hidden" value="{{ $question->content }}"></input>
                     </div>
                     {{-- <span class="font-sm text-center">{!! $question->content !!}</span> --}}
-                    <span class="font-sm">
-                        Show cho chị dễ debug:
-                        <strong>{{ strip_tags($question->content) }}</strong>
-                    </span>
 
                     <textarea name="answer_text" class="instruction-text form-control mt-4" placeholder="Nhập ở đây"></textarea>
                 </div>
@@ -75,10 +71,6 @@
 
                     <span class="font-sm text-center hidden">{!! $question->content !!}</span>
 
-                    <span class="font-sm">
-                        Show cho chị dễ debug:
-                        <strong>{{ strip_tags($question->content) }}</strong>
-                    </span>
 
                     <div class="radio-options bg-light p-4 rounded text-start mt-4">
                         @foreach ($question->answers as $answer)
