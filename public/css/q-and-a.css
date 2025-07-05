@@ -90,7 +90,6 @@
     justify-content: center;
     margin: 0 auto;
     text-decoration: none;
-    width: 50%;
     box-shadow: 0 30px 60px 0 #4629f26e;
 }
 
@@ -99,6 +98,7 @@
     gap: 10px;
     margin-left: unset;
     margin-right: unset;
+    max-width: 220px;
 
     font-family: Inter;
     font-weight: 500;

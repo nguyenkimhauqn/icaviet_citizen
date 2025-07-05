@@ -140,6 +140,19 @@
                             </div>
                         </a>
                     </div>
+
+                    <!-- 10. Q & A -->
+                    <div class="col-4">
+                        <a href="{{ route('qa.index') }}">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('icon/home/icon-qa.svg') }}" alt="icon-star">
+                                </div>
+                                <span class="title_en">Q & A</span>
+                                <span class="title_vn">Hỏi & đáp</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
