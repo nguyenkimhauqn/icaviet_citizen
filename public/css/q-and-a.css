@@ -211,6 +211,12 @@
     font-size: 15px;
 }
 
+.upload-text {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+}
+
 @media screen and (max-width: 420px) {
     .send-button span {
         display: none;

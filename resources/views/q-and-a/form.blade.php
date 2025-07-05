@@ -20,15 +20,15 @@
         <div class="form-wrapper">
             <div class="form-header">
                 <div class="d-flex justify-content-between">
-                    <img src="{{ asset('icon/icon.svg') }}" alt="ICAVIET" class="logo">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('icon/icon.svg') }}" alt="ICAVIET" class="logo">
+                    </a>
                     <a href="{{ route('qa.index') }}" class="close-btn">
                         <img src="{{ asset('icon/q-and-a/close.svg') }}" alt="Close">
                     </a>
                 </div>
-                <p class="form-title">ICAVIET</p>
+                <p class="form-title">Gửi phản hồi</p>
             </div>
-
-
 
             <form class="contact-form" method="POST" action="{{ route('qa.send') }}" enctype="multipart/form-data">
                 @csrf
@@ -46,9 +46,10 @@
                 <textarea name="message" rows="4" required></textarea>
 
                 <div class="form-footer">
-                    <label class="upload-btn">
+                    <label class="upload-btn d-flex align-items-center gap-2">
                         <img src="{{ asset('icon/q-and-a/image.svg') }}" alt="Upload">
                         <input type="file" name="attachment" hidden>
+                        <span class="upload-text">Đính kèm hình ảnh</span>
                     </label>
 
                     <button type="submit" class="submit-btn">Gửi

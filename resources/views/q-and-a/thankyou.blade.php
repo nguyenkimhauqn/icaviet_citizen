@@ -18,7 +18,7 @@
 
             <p class="text-center text-muted mb-2 font-sm">Cảm ơn bạn đã gửi phản hồi!</p>
 
-            <div class="font-md mt-3">
+            <div class="font-md mt-3 text-center">
                 Chúng tôi sẽ xử lý phản hồi trong thời gian sớm nhất.
             </div>
         </div>

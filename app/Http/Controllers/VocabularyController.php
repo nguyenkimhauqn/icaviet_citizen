@@ -54,7 +54,7 @@ class VocabularyController extends Controller
         }
 
         // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
-        if ($topic->slug === 'general') {
+        if ($topic->slug === 'general' || $topic->slug === '12-months') {
             $monthOrder = [
                 'January',
                 'February',

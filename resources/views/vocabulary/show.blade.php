@@ -13,96 +13,170 @@
 @endpush
 
 @section('content')
-    <div class="header-inner">
-        <div class="header">
-            <a href="{{ route('home') }}"><img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" /></a>
-            <h1 class="header-title">
-                TỪ VỰNG<br>
-            </h1>
-        </div>
-    </div>
+    <div class="header-inner sticky-header">
+        <div class="header justify-content-between">
+            <div class="d-flex align-items-center gap-2">
 
-    <main class="main-content">
-        <div class="vocab-search-section">
-            <div class="vocab-search-box">
-                <form method="GET" action="{{ route('vocabulary.show', ['slug' => $topicSlug]) }}"
-                    style="width: 100%; height: 100%;">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" />
+                </a>
+
+                {{-- Tiêu đề --}}
+                <h1 class="header-title" id="vocabTitle">
+                    TỪ VỰNG<br>
+
+                    <a href="{{ route('vocabulary.index') }}" class="vocab-link">Từ vựng</a> > <span
+                        class="header-subtitle">{{ $topicSlug == 'general' ? 'chung' : 'N-400' }}</span>
+                </h1>
+
+                {{-- Form tìm kiếm (ẩn lúc đầu) --}}
+                {{-- <form method="GET" action="{{ route('vocabulary.show', ['slug' => $topicSlug]) }}" id="searchForm"
+                    class="d-none" style="width: 100%;">
                     <input type="hidden" name="category" value="{{ $category->slug }}">
-                    <div class="search-input-wrapper">
+                    <div class="search-input-wrapper" style="margin: 0;">
                         <input type="text" name="search" placeholder="Tìm kiếm từ vựng" value="{{ request('search') }}">
                         <button type="submit" class="search-btn">
                             <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
                         </button>
                     </div>
-                </form>
+                </form> --}}
+            </div>
 
-                <div class="vocab-page">
-                    <!-- Header tabs -->
-                    <div class="vocab-tabs">
-                        @foreach ($categories as $cat)
-                            <a href="{{ route('vocabulary.show', ['slug' => $topicSlug]) }}?category={{ $cat->slug }}"
-                                class="{{ $cat->id === $category->id ? 'active' : '' }}">
-                                {{ $cat->name }}
-                            </a>
-                        @endforeach
-                    </div>
+            {{-- Nút mở tìm kiếm --}}
+            {{-- <button type="button" class="search-btn" id="openSearchBtn" onclick="toggleSearch(true)">
+                <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
+            </button> --}}
+        </div>
+    </div>
 
-                    <!-- Info alert -->
-                    <div class="warning-container mb-2">
-                        <div class="mt-3 font-sm text-muted p-3 rounded shadow-sm"
-                            style="background: #f9f9fc; border-left: 4px solid #BF0C2C;">
-                            <div class="d-flex align-start gap-2 text-dark font-sm" style="color: #BF0C2C;">
-                                <img src="{{ asset('public/icon/q-and-a/warning.svg') }}" alt="Warning">
 
-                                <span class="note-text">Các từ vựng thường xuất hiện trong bài thi quốc tịch</span>
-                            </div>
+
+    <main class="main-content">
+        <!-- Header tabs -->
+        <div class="vocab-tabs">
+            @foreach ($categories as $cat)
+                <a href="{{ route('vocabulary.show', ['slug' => $topicSlug]) }}?category={{ $cat->slug }}"
+                    class="{{ $cat->id === $category->id ? 'active' : '' }}">
+                    {{ $cat->name }}
+                </a>
+            @endforeach
+        </div>
+
+
+
+        <div class="sticky-wrapper">
+            <div class="vocab-page">
+                <div class="vocab-wrapper">
+                    <!-- A-Z sidebar -->
+                    @if (in_array($category->slug, ['general']))
+                        <div class="vocab-sidebar">
+                            {{-- @foreach (range('A', 'Z') as $char)
+                                <a href="#"
+                                    onclick="scrollToLetter('{{ $char }}'); return false;">{{ $char }}</a>
+                            @endforeach --}}
+                            @foreach ($vocabulariesGroupedByLetter->keys() as $char)
+                                <a href="#"
+                                    onclick="scrollToLetter('{{ $char }}'); return false;">{{ $char }}</a>
+                            @endforeach
                         </div>
-                    </div>
+                    @endif
 
-                    <div class="vocab-wrapper">
-                        <!-- A-Z sidebar -->
-                        @if (in_array($category->slug, ['general', 'holidays']))
-                            <div class="vocab-sidebar">
-                                @foreach (range('A', 'Z') as $char)
-                                    <a href="#"
-                                        onclick="scrollToLetter('{{ $char }}'); return false;">{{ $char }}</a>
+                    <!-- Main content -->
+                    <div class="vocab-list">
+                        @if ($isSplitStates)
+                            {{-- Với category "50 bang": chia 2 phần --}}
+                            @php
+                                $allStates = $vocabulariesGroupedByLetter->collapse(); // flatten all vocabularies
+                                $firstGroup = $allStates->take(13);
+                                $secondGroup = $allStates->slice(13)->sortBy('word')->values();
+                            @endphp
+
+                            {{-- Phần 1: 13 tiểu bang đầu --}}
+                            <h3 class="vocab-section-heading" onclick="showLightbox(); return false;">13 Tiểu bang
+                                đầu tiên</h3>
+
+                            <!-- Button trigger -->
+                            <a href="#" class="font-italic-sm d-flex gap-2" style="font-style: italic;"
+                                onclick="showLightbox(); return false;">
+                                <img src="{{ asset('icon/vocabulary/upload-img.svg') }}" alt="">
+                                Hình ảnh 13 tiểu bang đầu tiên
+                            </a>
+
+                            <!-- Lightbox modal -->
+                            <div id="lightbox" class="lightbox-overlay" onclick="hideLightbox()">
+                                <span class="lightbox-close" onclick="hideLightbox()">&times;</span>
+                                <img src="{{ asset('icon/vocabulary/tieubang.jpg') }}" class="lightbox-image"
+                                    alt="13 tiểu bang đầu tiên" onclick="event.stopPropagation()" />
+                            </div>
+
+                            <div class="vocab-list" style="overflow-y: none;">
+                                @foreach ($firstGroup as $vocab)
+                                    <div class="vocab-card">
+                                        <div class="vocab-header">
+                                            <div>
+                                                <strong>{{ $vocab->word }}</strong>
+                                            </div>
+                                            <button class="speak-btn">
+                                                <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
+                                            </button>
+                                        </div>
+                                        @if ($vocab->hint)
+                                            <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i>
+                                            </div>
+                                        @endif
+                                        @if ($vocab->example)
+                                            <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
+                                        @endif
+                                    </div>
                                 @endforeach
                             </div>
-                        @endif
 
-                        <!-- Main content -->
-                        <div class="vocab-list">
-                            @if ($isSplitStates)
-                                {{-- Với category "50 bang": chia 2 phần --}}
-                                @php
-                                    $allStates = $vocabulariesGroupedByLetter->collapse(); // flatten all vocabularies
-                                    $firstGroup = $allStates->take(13);
-                                    $secondGroup = $allStates->slice(13);
-                                @endphp
+                            {{-- Phần 2: các tiểu bang còn lại --}}
+                            <h3 class="vocab-section-heading">Các tiểu bang còn lại</h3>
+                            <div class="vocab-list" style="overflow-y: none;">
+                                @foreach ($secondGroup as $vocab)
+                                    <div class="vocab-card">
+                                        <div class="vocab-header">
+                                            <div>
+                                                <strong>{{ $vocab->word }}</strong>
+                                            </div>
+                                            <button class="speak-btn">
+                                                <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
+                                            </button>
+                                        </div>
+                                        @if ($vocab->hint)
+                                            <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i>
+                                            </div>
+                                        @endif
+                                        @if ($vocab->example)
+                                            <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            {{-- Mặc định hiển thị theo nhóm A–Z --}}
+                            @foreach ($vocabulariesGroupedByLetter as $letter => $items)
+                                <div id="letter-{{ $letter }}">
+                                    <h2 class="vocab-letter" style="display: none;">{{ $letter }}</h2>
+                                    @foreach ($items as $vocab)
+                                        <div
+                                            class="vocab-card {{ $topicSlug == 'n400' && $category->slug == 'define' ? 'border' : '' }}">
+                                            @if (isset($vocab->user_id))
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <p class="additional-vocab-title mb-0">Từ vựng được thêm</p>
+                                                    <button class="btn edit-vocab-btn" data-word="{{ $vocab->word }}"
+                                                        data-meaning="{{ $vocab->meaning }}"
+                                                        data-synonymous="{{ $vocab->synonymous }}"
+                                                        data-hint="{{ $vocab->hint }}" data-id="{{ $vocab->id }}"
+                                                        data-synonymous_translate="{{ $vocab->synonymous_translate }}">
+                                                        <img src="{{ asset('icon/vocabulary/edit.svg') }}" alt="Edit">
+                                                    </button>
+                                                </div>
+                                            @endif
 
-                                {{-- Phần 1: 13 tiểu bang đầu --}}
-                                <h3 class="vocab-section-heading" onclick="showLightbox(); return false;">13 Tiểu bang đầu
-                                    tiên</h3>
-
-                                <!-- Button trigger -->
-                                <a href="#" class="font-italic-sm d-flex gap-2" style="font-style: italic;"
-                                    onclick="showLightbox(); return false;">
-                                    <img src="{{ asset('icon/vocabulary/upload-img.svg') }}" alt="">
-                                    Hình ảnh 13 tiểu bang đầu tiên
-                                </a>
-
-                                <!-- Lightbox modal -->
-                                <div id="lightbox" class="lightbox-overlay" onclick="hideLightbox()">
-                                    <span class="lightbox-close" onclick="hideLightbox()">&times;</span>
-                                    <img src="{{ asset('icon/vocabulary/tieubang.jpg') }}" class="lightbox-image"
-                                        alt="13 tiểu bang đầu tiên" onclick="event.stopPropagation()" />
-                                </div>
-
-                                <div class="vocab-list">
-                                    @foreach ($firstGroup as $vocab)
-                                        <div class="vocab-card">
                                             <div class="vocab-header">
-                                                <div>
+                                                <div class="vocab-title">
                                                     <strong>{{ $vocab->word }}:</strong>
                                                     <span>{{ $vocab->meaning }}</span>
                                                 </div>
@@ -110,108 +184,42 @@
                                                     <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
                                                 </button>
                                             </div>
-                                            @if ($vocab->hint)
-                                                <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i></div>
-                                            @endif
-                                            @if ($vocab->example)
-                                                <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
-                                            @endif
-                                        </div>
-                                    @endforeach
-                                </div>
-
-                                {{-- Phần 2: các tiểu bang còn lại --}}
-                                <h3 class="vocab-section-heading">Các tiểu bang còn lại</h3>
-                                <div class="vocab-list">
-                                    @foreach ($secondGroup as $vocab)
-                                        <div class="vocab-card">
-                                            <div class="vocab-header">
-                                                <div>
-                                                    <strong>{{ $vocab->word }}:</strong>
-                                                    <span>{{ $vocab->meaning }}</span>
-                                                </div>
-                                                <button class="speak-btn">
-                                                    <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
-                                                </button>
-                                            </div>
-                                            @if ($vocab->hint)
-                                                <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i></div>
-                                            @endif
-                                            @if ($vocab->example)
-                                                <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
-                                            @endif
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                {{-- Mặc định hiển thị theo nhóm A–Z --}}
-                                @foreach ($vocabulariesGroupedByLetter as $letter => $items)
-                                    <div id="letter-{{ $letter }}">
-                                        <h2 class="vocab-letter" style="display: none;">{{ $letter }}</h2>
-                                        @foreach ($items as $vocab)
-                                            <div
-                                                class="vocab-card {{ $topicSlug == 'n400' && $category->slug == 'define' ? 'border' : '' }}">
-                                                @if (isset($vocab->user_id))
-                                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                                        <p class="additional-vocab-title mb-0">Từ vựng được thêm</p>
-                                                        <button class="btn edit-vocab-btn" data-word="{{ $vocab->word }}"
-                                                            data-meaning="{{ $vocab->meaning }}"
-                                                            data-synonymous="{{ $vocab->synonymous }}"
-                                                            data-hint="{{ $vocab->hint }}" data-id="{{ $vocab->id }}"
-                                                            data-synonymous_translate="{{ $vocab->synonymous_translate }}">
-                                                            <img src="{{ asset('icon/vocabulary/edit.svg') }}"
-                                                                alt="Edit">
-                                                        </button>
-                                                    </div>
-                                                @endif
-
-                                                <div class="vocab-header">
-                                                    <div class="vocab-title">
-                                                        <strong>{{ $vocab->word }}:</strong>
-                                                        <span>{{ $vocab->meaning }}</span>
-                                                    </div>
+                                            @if ($vocab->synonymous)
+                                                <div class="d-flex justify-content-between mt-2">
+                                                    <p class="synonymous mb-0">{{ $vocab->synonymous }}</p>
                                                     <button class="speak-btn">
                                                         <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
                                                     </button>
                                                 </div>
-                                                @if ($vocab->synonymous)
-                                                    <div class="d-flex justify-content-between mt-2">
-                                                        <p class="synonymous mb-0">{{ $vocab->synonymous }}</p>
-                                                        <button class="speak-btn">
-                                                            <img src="{{ asset('icon/vocabulary/audio.svg') }}"
-                                                                alt="Audio">
-                                                        </button>
-                                                    </div>
-                                                @endif
-                                                @if ($vocab->hint)
-                                                    <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i>
-                                                    </div>
-                                                @endif
-                                                @if ($vocab->example)
-                                                    <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em>
-                                                    </div>
-                                                @endif
-                                                @if ($vocab->synonymous_translate)
-                                                    <div class="vocab-hint">Dịch:
-                                                        <i>{{ $vocab->synonymous_translate }}</i>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endforeach
-                            @endif
+                                            @endif
+                                            @if ($vocab->hint)
+                                                <div class="vocab-hint">Phát âm dễ nhớ: <i>{{ $vocab->hint }}</i>
+                                                </div>
+                                            @endif
+                                            @if ($vocab->example)
+                                                <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em>
+                                                </div>
+                                            @endif
+                                            @if ($vocab->synonymous_translate)
+                                                <div class="vocab-hint">Dịch:
+                                                    <i>{{ $vocab->synonymous_translate }}</i>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        @endif
 
-                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
 
-    <div class="test-footer justify-content-between">
-        @if ($topicSlug == 'n400' && $category->slug == 'define')
+    @if ($topicSlug == 'n400' && $category->slug == 'define')
+        <div class="test-footer justify-content-between mb-0">
+
             <div class="btn-group d-flex justify-content-between" style="width: 100%">
                 <button class="btn-round sm">
                     <img src="{{ asset('icon/vocabulary/arrow-up.svg') }}" alt="">
@@ -223,8 +231,9 @@
                     </button>
                 </div>
             </div>
-        @endif
-    </div>
+
+        </div>
+    @endif
 
     <div id="vocabModal" class="modal">
         <form id="vocabForm" class="modal-content" method="POST" action="{{ route('vocabulary.store') }}">
@@ -282,6 +291,25 @@
         });
 
 
+        function toggleSearch(show) {
+            const title = document.getElementById('vocabTitle');
+            const form = document.getElementById('searchForm');
+            const openBtn = document.getElementById('openSearchBtn');
+
+            if (show) {
+                title?.classList.add('d-none');
+                form?.classList.remove('d-none');
+                openBtn?.classList.add('d-none');
+
+                // Focus input nếu cần
+                const input = form.querySelector('input[name="search"]');
+                input?.focus();
+            } else {
+                title?.classList.remove('d-none');
+                form?.classList.add('d-none');
+                openBtn?.classList.remove('d-none');
+            }
+        }
 
         function showLightbox() {
             document.getElementById('lightbox').classList.add('show');

@@ -105,7 +105,7 @@ class VocabularySeeder extends Seeder
                 'word' => 'Checks and balances',
                 'meaning' => 'kiểm tra và cân bằng',
                 'hint' => 'chéc-(k) en bá-lềnh-xịt-(s)',
-                'example' => null,
+                'example' => '<strong>Checks and balances</strong> stop one branch of government from becoming too powerful.',
             ],
             [
                 'word' => 'Chief Justice',
@@ -116,13 +116,13 @@ class VocabularySeeder extends Seeder
             [
                 'word' => 'Civil rights',
                 'meaning' => 'dân quyền',
-                'hint' => 'sơ-vồ rai-(s)',
+                'hint' => 'si-vồ rai-(s)',
                 'example' => '<strong>Civil rights</strong> tried to end racial discrimination.',
             ],
             [
                 'word' => 'Civil War',
                 'meaning' => 'Nội chiến',
-                'hint' => 'sơ-vồ quo-(r)',
+                'hint' => 'si-vồ quo-(r)',
                 'example' => '<strong>Civil War</strong> is the U.S. war between the North and the South.',
             ],
             [
@@ -140,7 +140,7 @@ class VocabularySeeder extends Seeder
             [
                 'word' => 'Commander in Chief',
                 'meaning' => 'Tổng Chỉ huy, Tổng Tư lệnh',
-                'hint' => 'cờ-mán-đờ in chíp-ph',
+                'hint' => 'cờ-mán-đờ in chíp-(ph)',
                 'example' => 'The President is the <strong>Commander in Chief</strong> of the military.',
             ],
             [
@@ -164,7 +164,7 @@ class VocabularySeeder extends Seeder
             [
                 'word' => 'Declaration of Independence',
                 'meaning' => 'Tuyên ngôn Độc lập',
-                'hint' => 'đì-cle-ray-sần ợp in-đì-pen-đần-(s)',
+                'hint' => 'đe-cle-ray-sần ợp in-đì-pen-đần-(s)',
                 'example' => 'The <strong>Declaration of Independence</strong> announced our independence.',
             ],
             [
@@ -374,7 +374,7 @@ class VocabularySeeder extends Seeder
             [
                 'word' => 'Law',
                 'meaning' => 'luật',
-                'hint' => 'low',
+                'hint' => 'lo',
                 'example' => 'Everyone must follow the <strong>Law</strong>.',
             ],
             [
@@ -414,14 +414,14 @@ class VocabularySeeder extends Seeder
                 'example' => 'What <strong>Movement</strong> tried to end racial discrimination?',
             ],
             [
-                'word' => 'Name (danh từ)',
-                'meaning' => 'tên',
+                'word' => 'Name',
+                'meaning' => 'tên (danh từ)',
                 'hint' => 'nem',
                 'example' => 'What is the name of the President of the United States now?',
             ],
             [
-                'word' => 'Name (động từ)',
-                'meaning' => 'kể tên',
+                'word' => 'Name',
+                'meaning' => 'kể tên (động từ)',
                 'hint' => 'nem',
                 'example' => 'Name one right only for United States citizens.',
             ],
@@ -644,7 +644,7 @@ class VocabularySeeder extends Seeder
             [
                 'word' => 'Supreme Court',
                 'meaning' => 'Tòa án Tối cao',
-                'hint' => 'đờ sờ-p-rim cót-(t)',
+                'hint' => 'sờ-p-rim cót-(t)',
                 'example' => 'The <strong>Supreme Court</strong> is the highest court in the United States.',
             ],
             [
@@ -1469,8 +1469,8 @@ class VocabularySeeder extends Seeder
                 'example' => 'The United States fought in the Civil War in <strong>The 1800s</strong>.',
             ],
             [
-                'word' => 'The 1900s những năm 1900',
-                'meaning' => 'đờ nai-tin-(s)',
+                'word' => 'The 1900s',
+                'meaning' => 'những năm 1900',
                 'hint' => 'đờ nai-tin-(s)',
                 'example' => 'The United States fought in the Vietnam War in the 1900s.',
             ],

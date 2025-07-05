@@ -29,7 +29,7 @@
             </div>
 
             <div class="vocab-search-box">
-                <form method="GET" action="{{ route('vocabulary.show', ['slug' => 'general']) }}"
+                {{-- <form method="GET" action="{{ route('vocabulary.show', ['slug' => 'general']) }}"
                     style="width: 100%; height: 100%;">
                     <input type="hidden" name="category" value="general">
                     <div class="search-input-wrapper">
@@ -38,12 +38,24 @@
                             <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
                         </button>
                     </div>
-                </form>
+                </form> --}}
 
                 <div class="vocab-category-buttons">
                     <a href="{{ route('vocabulary.show', ['slug' => 'general']) }}" class="vocab-btn">Từ vựng chung</a>
                     <a href="{{ route('vocabulary.show', ['slug' => 'n400']) }}" class="vocab-btn">Từ vựng N-400</a>
 
+                </div>
+
+                <!-- Info alert -->
+                <div class="warning-container mb-2">
+                    <div class="mt-2 font-sm text-muted p-2 rounded shadow-sm"
+                        style="background: #f9f9fc; border-left: 4px solid #BF0C2C;">
+                        <div class="d-flex align-start gap-2 text-dark font-sm" style="color: #BF0C2C;">
+                            <img src="{{ asset('public/icon/q-and-a/warning.svg') }}" alt="Warning">
+
+                            <span class="note-text">Các từ vựng thường xuất hiện trong bài thi quốc tịch</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
