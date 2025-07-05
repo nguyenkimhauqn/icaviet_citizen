@@ -3,7 +3,7 @@
 @section('title', 'Hoàn thành N400')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/vocabulary.css') }}">
+<link rel="stylesheet" href="{{ asset('publiccss/vocabulary.css') }}">
 
 <style>
     .container {
@@ -28,7 +28,7 @@ style="width: 100%; height: 100%;">
 <div class="search-input-wrapper">
     <input type="text" name="search" placeholder="Tìm kiếm từ vựng" value="{{ request('search') }}">
     <button type="submit" class="search-btn">
-        <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
+        <img src="{{ asset('public/icon/vocabulary/search.svg') }}" alt="Search">
     </button>
 </div>
 </form> --}}
@@ -92,14 +92,14 @@ style="width: 100%; height: 100%;">
                             <!-- Button trigger -->
                             <a href="#" class="font-italic-sm d-flex gap-2" style="font-style: italic;"
                                 onclick="showLightbox(); return false;">
-                                <img src="{{ asset('icon/vocabulary/upload-img.svg') }}" alt="">
+                                <img src="{{ asset('public/icon/vocabulary/upload-img.svg') }}" alt="">
                                 Hình ảnh 13 tiểu bang đầu tiên
                             </a>
 
                             <!-- Lightbox modal -->
                             <div id="lightbox" class="lightbox-overlay" onclick="hideLightbox()">
                                 <span class="lightbox-close" onclick="hideLightbox()">&times;</span>
-                                <img src="{{ asset('icon/vocabulary/tieubang.jpg') }}" class="lightbox-image"
+                                <img src="{{ asset('public/icon/vocabulary/tieubang.jpg') }}" class="lightbox-image"
                                     alt="13 tiểu bang đầu tiên" onclick="event.stopPropagation()" />
                             </div>
 
@@ -112,7 +112,7 @@ style="width: 100%; height: 100%;">
                                             <span>{{ $vocab->meaning }}</span>
                                         </div>
                                         <button class="speak-btn">
-                                            <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
+                                            <img src="{{ asset('public/icon/vocabulary/audio.svg') }}" alt="Audio">
                                         </button>
                                     </div>
                                     @if ($vocab->hint)
@@ -137,7 +137,7 @@ style="width: 100%; height: 100%;">
                                             <span>{{ $vocab->meaning }}</span>
                                         </div>
                                         <button class="speak-btn">
-                                            <img src="{{ asset('icon/vocabulary/audio.svg') }}" alt="Audio">
+                                            <img src="{{ asset('public/icon/vocabulary/audio.svg') }}" alt="Audio">
                                         </button>
                                     </div>
                                     @if ($vocab->hint)
@@ -168,7 +168,7 @@ style="width: 100%; height: 100%;">
                                             data-hint="{{ $vocab->hint }}"
                                             data-id="{{ $vocab->id }}"
                                             data-synonymous_translate="{{ $vocab->synonymous_translate }}">
-                                            <img src="{{ asset('icon/vocabulary/edit.svg') }}"
+                                            <img src="{{ asset('public/icon/vocabulary/edit.svg') }}"
                                                 alt="Edit">
                                         </button>
                                     </div>
@@ -180,7 +180,7 @@ style="width: 100%; height: 100%;">
                                             <span>{{ $vocab->meaning }}</span>
                                         </div>
                                         <button class="speak-btn">
-                                            <img src="{{ asset('icon/vocabulary/audio.svg') }}"
+                                            <img src="{{ asset('public/icon/vocabulary/audio.svg') }}"
                                                 alt="Audio">
                                         </button>
                                     </div>
@@ -188,7 +188,7 @@ style="width: 100%; height: 100%;">
                                     <div class="d-flex justify-content-between mt-2">
                                         <p class="synonymous mb-0">{{ $vocab->synonymous }}</p>
                                         <button class="speak-btn">
-                                            <img src="{{ asset('icon/vocabulary/audio.svg') }}"
+                                            <img src="{{ asset('public/icon/vocabulary/audio.svg') }}"
                                                 alt="Audio">
                                         </button>
                                     </div>
@@ -227,7 +227,7 @@ style="width: 100%; height: 100%;">
     @if ($topicSlug == 'n400' && $category->slug == 'define')
     <div class="btn-group d-flex justify-content-between" style="width: 100%">
         <button class="btn-round sm">
-            <img src="{{ asset('icon/vocabulary/arrow-up.svg') }}" alt="">
+            <img src="{{ asset('public/icon/vocabulary/arrow-up.svg') }}" alt="">
         </button>
         <div class="d-flex align-items-center gap-2 font-sm" style="cursor: pointer;" onclick="openModal()">
             <span>Thêm tư vựng</span>

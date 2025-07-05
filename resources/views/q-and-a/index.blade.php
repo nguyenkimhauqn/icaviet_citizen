@@ -4,8 +4,8 @@
 
 @push('styles')
     {{-- TODO: public --}}
-    <link rel="stylesheet" href="{{ asset('css/mock-result.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/q-and-a.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/mock-result.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/q-and-a.css') }}">
 @endpush
 
 @section('content')
@@ -63,11 +63,11 @@
                             <span class="qa-question">{{ $item->question }}</span>
 
                             {{-- Icon khi đóng (arrow-down) --}}
-                            <img x-show="!open" src="{{ asset('icon/q-and-a/arrow-down.svg') }}" alt="↓"
+                            <img x-show="!open" src="{{ asset('public/icon/q-and-a/arrow-down.svg') }}" alt="↓"
                                 class="qa-icon">
 
                             {{-- Icon khi mở (arrow-up) --}}
-                            <img x-show="open" src="{{ asset('icon/q-and-a/arrow-up.svg') }}" alt="↑"
+                            <img x-show="open" src="{{ asset('public/icon/q-and-a/arrow-up.svg') }}" alt="↑"
                                 class="qa-icon">
                         </button>
 
@@ -84,7 +84,7 @@
     <div class="test-footer end">
         <a class="send-button" href="{{ route('qa.show-form') }}">
             <span>Gửi phản hồi</span>
-            <img src="{{ asset('icon/q-and-a/send.svg') }}" alt="Gửi">
+            <img src="{{ asset('public/icon/q-and-a/send.svg') }}" alt="Gửi">
         </a>
     </div>
 @endsection

@@ -3,7 +3,7 @@
 @section('title', 'Hoàn thành N400')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/vocabulary.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/vocabulary.css') }}">
 
     <style>
         .container {
@@ -25,7 +25,7 @@
     <main class="main-content">
         <div class="vocab-search-section">
             <div class="vocab-search-image">
-                <img src="{{ asset('icon/vocabulary/hero.png') }}" alt="Vocabulary Banner">
+                <img src="{{ asset('public/icon/vocabulary/hero.png') }}" alt="Vocabulary Banner">
             </div>
 
             <div class="vocab-search-box">
@@ -35,7 +35,7 @@
                     <div class="search-input-wrapper">
                         <input type="text" name="search" placeholder="Tìm kiếm từ vựng" value="{{ request('search') }}">
                         <button type="submit" class="search-btn">
-                            <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
+                            <img src="{{ asset('public/icon/vocabulary/search.svg') }}" alt="Search">
                         </button>
                     </div>
                 </form> --}}

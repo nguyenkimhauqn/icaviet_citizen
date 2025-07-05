@@ -4,8 +4,8 @@
 
 @push('styles')
     {{-- TODO: public --}}
-    <link rel="stylesheet" href="{{ asset('css/mock-result.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/q-and-a.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/mock-result.css') }}">
+    <link rel="stylesheet" href="{{ asset('publiccss/q-and-a.css') }}">
 
     <style>
         .container {
@@ -21,10 +21,10 @@
             <div class="form-header">
                 <div class="d-flex justify-content-between">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('icon/icon.svg') }}" alt="ICAVIET" class="logo">
+                        <img src="{{ asset('public/icon/icon.svg') }}" alt="ICAVIET" class="logo">
                     </a>
                     <a href="{{ route('qa.index') }}" class="close-btn">
-                        <img src="{{ asset('icon/q-and-a/close.svg') }}" alt="Close">
+                        <img src="{{ asset('public/icon/q-and-a/close.svg') }}" alt="Close">
                     </a>
                 </div>
                 <p class="form-title">Gửi phản hồi</p>
@@ -47,13 +47,13 @@
 
                 <div class="form-footer">
                     <label class="upload-btn d-flex align-items-center gap-2">
-                        <img src="{{ asset('icon/q-and-a/image.svg') }}" alt="Upload">
+                        <img src="{{ asset('public/icon/q-and-a/image.svg') }}" alt="Upload">
                         <input type="file" name="attachment" hidden>
                         <span class="upload-text">Đính kèm hình ảnh</span>
                     </label>
 
                     <button type="submit" class="submit-btn">Gửi
-                        <img src="{{ asset('icon/q-and-a/arrow-right.svg') }}" alt="">
+                        <img src="{{ asset('public/icon/q-and-a/arrow-right.svg') }}" alt="">
 
                     </button>
                 </div>
