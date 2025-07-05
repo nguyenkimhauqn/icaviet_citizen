@@ -17,11 +17,25 @@
         </div>
 
         {{-- Tiến độ --}}
-        <div class="process sp-bt d-flex justify-content-start">
+        <div class="process sp-bt d-flex">
+            {{-- nav menu gắn sao --}}
+            @if (!empty($mode) && $mode === 'showStarred')
+                <div class="mb-2 text-base">
+                    <a href="{{ route('star.category') }}">
+                        <img src="{{ url('public/icon/star/icon-menu-star.png') }}" alt="icon-menu">
+                    </a>
+                </div>
+            @endif
+
             <div class="mb-2 text-base">
                 <span class="">Câu hỏi </span> <span class="fw-bold"> {{ $index + 1 }} /
                     {{ $total }} </span>
             </div>
+
+            <span class="d-block toggle-star-btn {{ $isStarred ? 'stared' : '' }} " data-question-id={{ $question->id }}
+                data-active={{ $isStarred ? '1' : '0' }}> <img src="{{ url('public/icon/Icon _Starred.svg') }}"
+                    alt="icon_starred">
+            </span>
         </div>
 
         {{-- Câu hỏi chính (Audio + Viết lại) --}}
@@ -103,23 +117,52 @@
                 </div>
             </div>
 
-            <div class="wp-action d-flex">
-                {{-- Previous --}}
-                <a href="{{ route('writing.show', ['index' => ($index - 1 + $total) % $total]) }}"
+            {{-- <div class="wp-action d-flex">
+                <a href="{{ route($routeName, ['index' => ($index - 1 + $total) % $total]) }}"
                     class="btn action-btn btn-previous">
                     <i class="bi bi-chevron-left"></i>
                 </a>
 
-                {{-- Submit (Kiểm tra) --}}
                 <button type="submit" class="btn action-btn btn-submit">
                     <i class="bi bi-check-lg"></i>
                 </button>
 
-                {{-- Next --}}
-                <a href="{{ route('writing.show', ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
+                <a href="{{ route($routeName, ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
                     <i class="bi bi-chevron-right"></i>
                 </a>
-            </div>
+            </div> --}}
+            @if ($mode === 'showStarred')
+                <div class="wp-action d-flex">
+                    <a href="{{ route($routeName, ['index' => $index - 1]) }}" class="btn action-btn btn-previous">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+
+                    <button id="start-recording" class="btn-start action-btn btn-submit">
+                        <i id="icon-mic" class="bi bi-mic"></i>
+                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                    </button>
+
+                    <a href="{{ route($routeName, ['index' => $index + 1]) }}" class="btn action-btn btn-next">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            @else
+                <div class="wp-action d-flex">
+                    <a href="{{ route($routeName, ['index' => ($index - 1 + $total) % $total]) }}"
+                        class="btn action-btn btn-previous">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+
+                    <button id="start-recording" class="btn-start action-btn btn-submit">
+                        <i id="icon-mic" class="bi bi-mic"></i>
+                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                    </button>
+
+                    <a href="{{ route($routeName, ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            @endif
 
         </form>
 
@@ -231,40 +274,31 @@
             });
             // [END] - Ajax check đáp án
 
+            // === * Lưu câu hỏi đánh dấu sao * ===
 
-            // Xử lý Đúng/ sai đán án FORM
-            // Nếu kết quả trả về là đúng (từ session Laravel)
-            @if (session('result') === true)
-                // #1. Thêm class vào textarea
-                $('textarea[name="user_answer"]').addClass('correct-answer');
-                // #2. Thêm class vào nút "Next"
-                const $btnNext = $('.action-btn.btn-next');
-                $btnNext.addClass('btn-next-correct');
-                // #3. Đổi màu icon bên trong nút "Next" thành trắng
-                $btnNext.find('i').css('color', 'white');
-                // #4. Phát âm thanh đúng
-                const correctSound = new Audio('{{ asset('public/audio/civics/correct-answer.mp3') }}');
-                correctSound.play();
-            @elseif (session('result') === false && !empty(session('input_answer')))
-                // #1. add class sai
-                $('textarea[name="user_answer"]').addClass('wrong-answer');
-                // #2. Phát âm thanh sai
-                const wrongAudio = new Audio(
-                    '{{ asset('public/audio/civics/Wrong-answer.mp3') }}'
-                );
-                wrongAudio.play();
-                // #3. Hiển thị nút xoá:
-                $('#clear-answer-btn').show();
-                // #4. Hàm click xóa:
-                $('#clear-answer-btn').on('click', function() {
-                    const $textarea = $('textarea[name="user_answer"]');
+            //  --- Check isStarred ---
+            $('.toggle-star-btn').each(function() {
+                updateStarIcon($(this));
+            });
+            // --- [END] Check isStarred ---
 
-                    $textarea.val('').focus(); // Xóa content và focus lại
-                    $textarea.removeClass('wrong-answer'); // Xóa class sai
-                    $(this).hide(); // Ẩn nút sau khi xoá
+            // --- Toggle + AJAX ---
+            $('.toggle-star-btn').on('click', function() {
+                let btn = $(this);
+                let questionId = btn.data('question-id');
+                // alert(1);
+                $.post("{{ url('civics/star') }}/" + questionId, {
+                    _token: '{{ csrf_token() }}'
+                }, function(res) {
+                    // Cập nhật trạng thái class
+                    btn.toggleClass('stared', res.status === 'added');
+                    // Gọi hàm update hình ảnh
+                    updateStarIcon(btn);
                 });
-            @endif
-            // [END] - Đúng sai đáp án
+            });
+            // ---  [END] - Toggle + AJAX ---
+
+            // [END] == * Lưu câu hỏi đánh dấu sao * ===
         });
     </script>
 @endsection

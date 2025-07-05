@@ -69,7 +69,7 @@
                                 </div>
                                 <span class="title_en">Mock Test</span>
                                 <span class="title_vn">Thi thử</span>
-                                <span class="title_vn bage bage-primary"> </span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
@@ -131,14 +131,13 @@
 
                     <!-- 9. Starred Questions -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{route('star.category')}}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-star.png') }}" alt="icon-star">
                                 </div>
                                 <span class="title_en">Starred Questions</span>
                                 <span class="title_vn">Câu hỏi gắn sao</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>

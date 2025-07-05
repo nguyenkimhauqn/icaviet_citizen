@@ -254,32 +254,36 @@ class CivicsController extends Controller
         return view('civics.result', compact('quiz', 'mode', 'quizQuestions'));
     }
 
-    public function toggleStar(Request $request, Question $question)
-    {
-        $user = Auth::user();
-        $existing = StarredQuestion::where('user_id', $user->id)
-            ->where('question_id', $question->id)
-            ->first();
+    // public function toggleStar(Request $request, Question $question)
+    // {
+    //     $user = Auth::user();
+    //     $existing = StarredQuestion::where('user_id', $user->id)
+    //         ->where('question_id', $question->id)
+    //         ->first();
 
-        if ($existing) {
-            $existing->delete();
-            return response()->json(['status' => 'removed']);
-        } else {
-            StarredQuestion::create([
-                'user_id' => $user->id,
-                'question_id' => $question->id,
-            ]);
-            return response()->json(['status' => 'added']);
-        }
-    }
+    //     if ($existing) {
+    //         $existing->delete();
+    //         return response()->json(['status' => 'removed']);
+    //     } else {
+    //         StarredQuestion::create([
+    //             'user_id' => $user->id,
+    //             'question_id' => $question->id,
+    //         ]);
+    //         return response()->json(['status' => 'added']);
+    //     }
+    // }
 
     public function showStarred(Request $request)
     {
-        $heading  = "KIỂM TRA GẮN DẤU SAO";
+        $heading  = 'CÂU HỎI GẮN SAO <br> <span class="sub-title"> Civics Test (Bài thi công dân) </span>';
         $user = Auth::user();
-        $starredQuestions = $user->starredQuestions()->with(['answers', 'answers.hints'])->get();
-        // dd($starredQuestions);
+        // Lấy danh sách câu hỏi đã gắn sao có topic_id = 1
+        $starredQuestions = $user->starredQuestions()
+            ->with(['answers', 'answers.hints'])
+            ->where('topic_id', 1)
+            ->get();
 
+        // Tiếp tục xử lý
         $page = $request->query('page', 1);
         $total = $starredQuestions->count();
         $question = $starredQuestions->slice($page - 1, 1)->first();

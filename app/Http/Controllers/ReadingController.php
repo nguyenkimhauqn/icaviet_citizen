@@ -2,23 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Question;
+use App\Models\StarredQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\MockObject\ReturnValueNotConfiguredException;
 
 class ReadingController extends Controller
 {
     public function show($index = 0)
     {
+        $routeName = 'reading.show';
+
+        $user = Auth::user();
         $questions = Question::where('topic_id', 3)->orderBy('id')->get();
         $total = $questions->count();
         $index = max(0, min($index, $total - 1));
         $question = $questions[$index];
 
+        // KIỂM TRA CÂU HỎI SAO:
+        $isStarred = StarredQuestion::where('user_id', $user->id)
+            ->where('question_id', $question->id)
+            ->exists();
         session(['reading_answer' => $question->content]);
+        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName'));
+    }
 
-        return view('reading.show', compact('question', 'index', 'total'));
+    public function showStarred($index = 0)
+    {
+        $routeName = 'reading.starred';
+        $mode = 'showStarred';
+        $user = Auth::user();
+        // Edit query by star
+        $starredIds = StarredQuestion::where('user_id', $user->id)->pluck('question_id');
+        $questions = Question::where('topic_id', 3)
+            ->whereIn('id', $starredIds)
+            ->orderBy('id')
+            ->get();
+        $total = $questions->count();
+        // $index = max(0, min($index, $total - 1));
+        // dump($total, $index);
+        // dd("test");
+        if ($total == $index  ) {
+            return view('star.result');
+        }
+        $question = $questions[$index];
+        // KIỂM TRA CÂU HỎI SAO:
+        $isStarred = StarredQuestion::where('user_id', $user->id)
+            ->where('question_id', $question->id)
+            ->exists();
+        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName','mode'));
     }
 
     public function index()

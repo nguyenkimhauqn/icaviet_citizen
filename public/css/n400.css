@@ -441,3 +441,7 @@ input::placeholder {
 #modalQuestionForm {
     width: 100%;
 }
+
+.toggle-star-btn img {
+    width: 50px !important
+}

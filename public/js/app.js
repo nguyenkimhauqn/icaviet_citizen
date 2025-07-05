@@ -1,103 +1,21 @@
-// Text to speech by Hau Nguyen
 
-// Text to speech by Hau Nguyen
-// function speakText(text) {
-//     const speak = () => {
-//         const utterance = new SpeechSynthesisUtterance(text);
-//         utterance.lang = "en-US";
-//         utterance.rate = 0.7;
+// updateStarIcon by HauNguyen
+const baseUrl = window.Laravel.baseUrl;
 
-//         // Gán giọng đọc ưu tiên
-//         const voices = speechSynthesis.getVoices();
-//         const preferred = ["Google US English", "Samantha", "Zira", "Karen"];
-//         const matched = voices.find((v) => preferred.includes(v.name));
-//         utterance.voice = matched || fallback || null;
+function updateStarIcon($btn) {
+    // alert(1);
+    const $img = $btn.find('img');
 
-//         speechSynthesis.speak(utterance);
+    if ($btn.hasClass('stared')) {
+        $img.attr('src', baseUrl + '/public/icon/icon_starred_active.svg');
+    } else {
+        $img.attr('src', baseUrl + '/public/icon/Icon _Starred.svg');
+    }
+}
+// [END] - updateStarIcon by HauNguyen
 
-//         if (speechSynthesis.getVoices().length === 0) {
-//             speechSynthesis.onvoiceschanged = () => {
-//                 speak();
-//                 speechSynthesis.onvoiceschanged = null;
-//             };
-//         } else {
-//             speak();
-//         }
-//     };
-// }
-// function speakText(text) {
-//     let hasSpoken = false;
 
-//     const speak = (text) => {
-//         if (hasSpoken) return;
-//         hasSpoken = true;
-
-//         const utterance = new SpeechSynthesisUtterance(text);
-//         utterance.lang = "en-US";
-//         utterance.rate = 0.7;
-
-//         const voices = speechSynthesis.getVoices();
-//         const preferredVoices = [
-//             "Google US English",
-//             "Samantha",
-//             "Microsoft Zira",
-//             "Karen",
-//         ];
-//         const matched = voices.find((v) => preferredVoices.includes(v.name));
-//         const fallback = voices.find(
-//             (v) => v.lang === "en-US" && v.name.toLowerCase().includes("female")
-//         );
-//         const anyUS = voices.find((v) => v.lang === "en-US");
-
-//         utterance.voice = matched || fallback || anyUS || null;
-//         speechSynthesis.speak(utterance);
-//     };
-
-//     const voices = speechSynthesis.getVoices();
-//     if (voices.length === 0) {
-//         speechSynthesis.onvoiceschanged = () => {
-//             speak(text);
-//             speechSynthesis.onvoiceschanged = null;
-//         };
-//     } else {
-//         speak(text);
-//     }
-// }
-
-// Tốt trên Iphone
-// function speakText(text) {
-//     let hasSpoken = false;
-
-//     const speak = (text) => {
-//         if (hasSpoken) return;
-//         hasSpoken = true;
-
-//         const utterance = new SpeechSynthesisUtterance(text);
-//         utterance.lang = 'en-US';
-//         utterance.rate = 0.7;
-
-//         const voices = speechSynthesis.getVoices();
-//         const preferredVoices = ['Google US English', 'Samantha', 'Microsoft Zira', 'Karen'];
-//         const matched = voices.find(v => preferredVoices.includes(v.name));
-//         const fallback = voices.find(v => v.lang === 'en-US' && v.name.toLowerCase().includes('female'));
-//         const anyUS = voices.find(v => v.lang === 'en-US');
-
-//         utterance.voice = matched || fallback || anyUS || null;
-//         speechSynthesis.speak(utterance);
-//     };
-
-//     const voices = speechSynthesis.getVoices();
-//     if (voices.length === 0) {
-//         speechSynthesis.onvoiceschanged = () => {
-//             speak(text);
-//             speechSynthesis.onvoiceschanged = null;
-//         };
-//     } else {
-//         speak(text);
-//     }
-// }
-// [END] - Tex to speech
-
+// TEXT TO SPEECH by HauNguyen
 function speakText(text) {
     const speak = () => {
         const utterance = new SpeechSynthesisUtterance(text);
@@ -122,3 +40,5 @@ function speakText(text) {
         speak(); // Gọi luôn nếu đã có voice
     }
 }
+// [END] - TEXT TO SPEECH
+

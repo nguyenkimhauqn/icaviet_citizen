@@ -248,7 +248,7 @@ class CivicsController extends Controller
 
     public function showStarred(Request $request)
     {
-        $heading  = "KIỂM TRA GẮN DẤU SAO";
+        $heading  = 'KIỂM TRA GẮN DẤU SAO <br> <span class="sub-title"> Civics Test (Bài thi công dân) </span>';
         $user = Auth::user();
         $starredQuestions = $user->starredQuestions()->with(['answers', 'answers.hints'])->get();
         // dd($starredQuestions);

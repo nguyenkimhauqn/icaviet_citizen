@@ -11,6 +11,7 @@ use App\Http\Controllers\WhisperController;
 use App\Http\Controllers\GoogleSpeechController;
 use App\Http\Controllers\MockTestController;
 use App\Http\Controllers\N400Controller;
+use App\Http\Controllers\StarController;
 use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Storage;
@@ -51,30 +52,39 @@ Route::middleware(['auth'])->group(function () {
     Route::post('civics/finish-quiz', [CivicsController::class, 'finishQuiz'])->name('civics.finishQuiz');
     Route::get('/civics/result/{quiz}', [CivicsController::class, 'showResult'])->name('civics.quizResult');
     // --- Bài dấu sao ---
-    Route::post('/civics/star/{question}', [CivicsController::class, 'toggleStar'])->name('civics.toggleStar');
     Route::get('/civics/starred', [CivicsController::class, 'showStarred'])->name('civics.starred');
     // === * [END] - CIVICS * ===
 
+    // === * STAR * ===
+    Route::get('/star', [StarController::class, 'category'])->name('star.category');
+    Route::post('/civics/star/{question}', [StarController::class, 'toggleStar'])->name('civics.toggleStar');
+
+    // === * [END] - STAR * ===
+
     // === * WRITING * ===
+    // --- Bài dấu sao ---
+    Route::get('/writing/starred/{index?}', [WritingController::class, 'showStarred'])->name('writing.starred');
     Route::get('/writing/{index?}', [WritingController::class, 'show'])->name('writing.show');
     // Route::post('/writing/check', [WritingController::class, 'check'])->name('writing.check');
     Route::post('/writing/check-ajax', [WritingController::class, 'checkAjax'])->name('writing.check.ajax');
-
     // === * [END] - WRITING * ===
 
+    // doing 
     // === * READING * ===
+    Route::get('/reading/starred/{index?}', [ReadingController::class, 'showStarred'])->name('reading.starred');
     Route::get('/reading/{index?}', [ReadingController::class, 'show'])->name('reading.show');
     // === * [END] - READING * ===
 
     // === * N400 * ===
     Route::prefix('n400')->group(function () {
         Route::get('/categories', [CategoryController::class, 'index'])->name('n400.categories.index');
-
         // Route::get('/category/{id}/question/{index?}', [CategoryController::class, 'show'])->name('n400.category.show');
         Route::get('/category/{id}/question', [N400Controller::class, 'show'])->name('n400.category.show');
         Route::post('/questions', [N400Controller::class, 'store'])->name('n400.store');
         Route::delete('/n400/{id}/delete', [N400Controller::class, 'destroy'])->name('n400.destroy');
-
+                // --- Bài dấu sao ---
+        Route::get('/categories/starred', [CategoryController::class, 'starred'])->name('n400.categories.starred');
+        Route::get('/category/{id}/starred', [N400Controller::class, 'showStarred'])->name('n400.category.starred');
 
         Route::get('/category/{id}/prev', [CategoryController::class, 'prevCategory'])->name('n400.category.prev');
         Route::get('/category/{id}/next', [CategoryController::class, 'nextCategory'])->name('n400.category.next');
