@@ -16,11 +16,22 @@
         </div>
 
         {{-- Tiến độ --}}
-        <div class="process sp-bt d-flex justify-content-start">
+        <div class="process sp-bt d-flex">
+            {{-- nav menu gắn sao --}}
+            @if (!empty($mode) && $mode === 'showStarred')
+                <div class="mb-2 text-base">
+                    <a href="{{ route('star.category') }}">
+                        <img src="{{ url('public/icon/star/icon-menu-star.png') }}" alt="icon-menu">
+                    </a>
+                </div>
+            @endif
             <div class="mb-2 text-base">
                 <span class="">Câu hỏi </span> <span class="fw-bold"> {{ $index + 1 }} /
                     {{ $total }} </span>
             </div>
+            <span class="d-block toggle-star-btn {{ $isStarred ? 'stared' : '' }} " data-question-id={{ $question->id }}
+                data-active={{ $isStarred ? '1' : '0' }}> <img src="{{ url('public/icon/Icon _Starred.svg') }}"
+                    alt="icon_starred"> </span>
         </div>
 
         {{-- Câu hỏi chính (Audio + Câu hỏi) --}}
@@ -97,24 +108,54 @@
             </div>
 
             {{-- Các nút hành động --}}
-            <div class="wp-action d-flex">
-                {{-- Previous --}}
-                <a href="{{ route('reading.show', ['index' => ($index - 1 + $total) % $total]) }}"
+            {{-- <div class="wp-action d-flex">
+                <a href="{{ route($routeName, ['index' => ($index - 1 + $total) % $total]) }}"
                     class="btn action-btn btn-previous">
                     <i class="bi bi-chevron-left"></i>
                 </a>
 
-                {{-- Submit (Kiểm tra) --}}
                 <button id="start-recording" class="btn-start action-btn btn-submit">
                     <i id="icon-mic" class="bi bi-mic"></i>
                     <i id="icon-stop" class="bi bi-square d-none"></i>
                 </button>
 
-                {{-- Next --}}
-                <a href="{{ route('reading.show', ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
+                <a href="{{ route($routeName, ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
                     <i class="bi bi-chevron-right"></i>
                 </a>
-            </div>
+            </div> --}}
+            @if ($mode === 'showStarred')
+                <div class="wp-action d-flex">
+                    <a href="{{ route($routeName, ['index' => $index - 1 ]) }}"
+                        class="btn action-btn btn-previous">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+
+                    <button id="start-recording" class="btn-start action-btn btn-submit">
+                        <i id="icon-mic" class="bi bi-mic"></i>
+                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                    </button>
+
+                    <a href="{{ route($routeName, ['index' => $index + 1 ]) }}" class="btn action-btn btn-next">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            @else
+                <div class="wp-action d-flex">
+                    <a href="{{ route($routeName, ['index' => ($index - 1 + $total) % $total]) }}"
+                        class="btn action-btn btn-previous">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+
+                    <button id="start-recording" class="btn-start action-btn btn-submit">
+                        <i id="icon-mic" class="bi bi-mic"></i>
+                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                    </button>
+
+                    <a href="{{ route($routeName, ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            @endif
 
         </div>
     </div>
@@ -277,6 +318,32 @@
 
                 img.attr('src', currentSrc === switchOff ? switchOn : switchOff);
             });
+
+            // === * Lưu câu hỏi đánh dấu sao * ===
+
+            //  --- Check isStarred ---
+            $('.toggle-star-btn').each(function() {
+                updateStarIcon($(this));
+            });
+            // --- [END] Check isStarred ---
+
+            // --- Toggle + AJAX ---
+            $('.toggle-star-btn').on('click', function() {
+                let btn = $(this);
+                let questionId = btn.data('question-id');
+                // alert(1);
+                $.post("{{ url('civics/star') }}/" + questionId, {
+                    _token: '{{ csrf_token() }}'
+                }, function(res) {
+                    // Cập nhật trạng thái class
+                    btn.toggleClass('stared', res.status === 'added');
+                    // Gọi hàm update hình ảnh
+                    updateStarIcon(btn);
+                });
+            });
+            // ---  [END] - Toggle + AJAX ---
+
+            // [END] == * Lưu câu hỏi đánh dấu sao * ===
         });
     </script>
 @endsection

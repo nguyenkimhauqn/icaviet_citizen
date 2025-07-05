@@ -22,6 +22,20 @@ class CategoryController extends Controller
         return view('n400.category', compact('categories'));
     }
 
+    public function starred()
+    {
+        $enabled = session()->get('enabled_category');
+
+        $categories = Category::withCount('questions')
+            ->when($enabled != 7, function ($query) {
+                $query->where('id', '!=', 7);
+            })
+            ->get();
+        
+        return view('n400.category_starred', compact('categories'));
+    }
+
+
     public function show($id, $index = 0)
     {
         $category = Category::with(['questions' => function ($query) {

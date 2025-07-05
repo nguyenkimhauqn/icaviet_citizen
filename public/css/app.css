@@ -92,3 +92,6 @@ input::placeholder {
     background-color: #1247BB !important;
     border-color: #1247BB !important;
 }
+.toggle-star-btn img {
+    width: 50px;
+}

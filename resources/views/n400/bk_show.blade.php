@@ -161,7 +161,7 @@
                         @foreach ($question->answers as $answer)
                             <div class="mb-2">
                                 <div class="d-flex flex-column" style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
                                         <div class="d-flex gap-2 justify-content-center align-items-center">
                                             <input class="form-check-input toggle-additional" type="radio"
                                                 name="answer_id" id="answer{{ $answer->id }}"
@@ -200,7 +200,7 @@
 
                             <div class="position-relative additional-field-container" style="display: none;">
                                 <img class="icon-textarea-additional" data-answer-id="{{ $answer->id }}"
-                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio"
+                                    src="{{ asset('public/icon/n400/sound.svg') }}" alt="Audio" <<<<<<< HEAD
                                     style="position: absolute; top: 12px; left: 10px; width: 25px; cursor: pointer;">
 
                                 @php
@@ -213,6 +213,9 @@
                                         $rows = 2;
                                     }
                                 @endphp
+                                =======
+                                style="position: absolute; top: 12px; left: 10px; width: 20px; cursor: pointer;">
+                                >>>>>>> 0c6e47dbbcc015760241d45c69061cb08f804e82
 
                                 <textarea type="text" name="additional_field_{{ $answer->id }}"
                                     class="form-control mt-2 ps-5 additional-field questionText"
@@ -263,22 +266,8 @@
                 <div class="translate-box mt-3 text-start">
                     <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
                     @if ($question->default_answers_translation)
-                        @if (Str::contains($question->default_answers_translation, [
-                                '<p>',
-                                '<div>',
-                                '<span>',
-                                '<strong>',
-                                '<em>',
-                                '<ul>',
-                                '<ol>',
-                                '<br>',
-                            ]))
-                            {!! $question->default_answers_translation !!}
-                        @else
-                            - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
-                        @endif
+                        - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
                     @endif
-
 
                     @foreach ($question->answers as $answer)
                         @if ($answer->explanation)
@@ -367,30 +356,35 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // === * Lưu câu hỏi đánh dấu sao * ===
-
+            // === * [05] Lưu câu hỏi đánh dấu sao * ===
             //  --- Check isStarred ---
-            $('.toggle-star-btn').each(function() {
-                updateStarIcon($(this));
-            });
-            // --- [END] Check isStarred ---
+            const starBtn = $('.toggle-star-btn');
+            if (parseInt(starBtn.data('active')) === 1) {
+                starBtn.css('background', 'gold');
+            } else {
+                starBtn.css('background', '');
+            }
+            //  --- [END] Check isStarred ---
 
-            // --- Toggle + AJAX ---
             $('.toggle-star-btn').on('click', function() {
+                // alert(1);
                 let btn = $(this);
                 let questionId = btn.data('question-id');
                 // alert(1);
                 $.post("{{ url('civics/star') }}/" + questionId, {
                     _token: '{{ csrf_token() }}'
                 }, function(res) {
-                    // Cập nhật trạng thái class
-                    btn.toggleClass('stared', res.status === 'added');
-                    // Gọi hàm update hình ảnh
-                    updateStarIcon(btn);
+                    // Xu ly phan hoi
+                    // alert(res.status)
+                    console.log("ok");
+
+                    if (res.status === 'added') {
+                        btn.css('background-color', 'gold');
+                    } else {
+                        btn.css('background-color', '');
+                    }
                 });
             });
-            // ---  [END] - Toggle + AJAX ---
-
             // [END] == * Lưu câu hỏi đánh dấu sao * ===
 
             // Binding category_id vào hidden input khi mở modal

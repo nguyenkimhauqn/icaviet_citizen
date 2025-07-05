@@ -442,6 +442,7 @@ input::placeholder {
     width: 100%;
 }
 
+<<<<<<< HEAD
 ul.dash-list {
     list-style-type: none;
     padding-left: 1em;
@@ -449,4 +450,8 @@ ul.dash-list {
 ul.dash-list li::before {
     content: "-";
     margin-right: 0.5em;
+=======
+.toggle-star-btn img {
+    width: 50px !important
+>>>>>>> 1091aa45ad88d9bfe50b71b33a664f56bbd3f2e2
 }

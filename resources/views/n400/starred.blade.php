@@ -1,4 +1,6 @@
+{{-- @extends('layouts.base-test') --}}
 @extends('layouts.base-test')
+
 
 @section('title', 'N-400')
 
@@ -85,8 +87,7 @@
 
     <main class="main-content">
         <div class="add-question-container mt-4">
-            <a href="{{ route('n400.categories.index') }}"><img src="{{ asset('public/icon/n400/menu.svg') }}"
-                    alt="Menu"></a>
+            <a href="{{ route('star.category') }}"><img src="{{ asset('public/icon/n400/menu.svg') }}" alt="Menu"></a>
             <div class="d-flex">
                 <div class="add-btn" data-bs-toggle="modal" data-bs-target="#addQuestionModal"
                     data-category-id="{{ $category->id }}">
@@ -95,7 +96,7 @@
                 </div>
                 {{-- <img src="{{ asset('public/icon/n400/star.svg') }}" alt="Thêm câu hỏi"> --}}
                 <span class="toggle-star-btn d-block {{ $isStarred ? 'stared' : '' }} "
-                    data-question-id={{ $question->id }} data-active={{ $isStarred ? '1' : '0' }}> <img
+                    data-question-id={{ $question->id }} data-active={{ $isStarred ? '1' : '0' }}> <img style="width: 50px"
                         src="{{ url('public/icon/Icon _Starred.svg') }}" alt="icon_starred">
                 </span>
             </div>
@@ -115,7 +116,8 @@
         @endif
 
         @if ($question && $question->type == 'text')
-            <form method="GET" action="{{ route('n400.category.show', ['id' => $category->id, 'page' => $page + 1]) }}"
+            <form method="GET"
+                action="{{ route('n400.category.starred', ['id' => $category->id, 'page' => $page + 1]) }}"
                 id="questionForm">
                 <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
@@ -146,7 +148,8 @@
         @endif
 
         @if ($question && ($question->type === null || $question->type === 'multiple_choice'))
-            <form method="GET" action="{{ route('n400.category.show', ['id' => $category->id, 'page' => $page + 1]) }}"
+            <form method="GET"
+                action="{{ route('n400.category.starred', ['id' => $category->id, 'page' => $page + 1]) }}"
                 id="questionForm">
                 <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
@@ -161,7 +164,7 @@
                         @foreach ($question->answers as $answer)
                             <div class="mb-2">
                                 <div class="d-flex flex-column" style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex">
                                         <div class="d-flex gap-2 justify-content-center align-items-center">
                                             <input class="form-check-input toggle-additional" type="radio"
                                                 name="answer_id" id="answer{{ $answer->id }}"
@@ -263,22 +266,8 @@
                 <div class="translate-box mt-3 text-start">
                     <p class="font-very-sm-italic">Dịch: {{ $question->translation }}</p>
                     @if ($question->default_answers_translation)
-                        @if (Str::contains($question->default_answers_translation, [
-                                '<p>',
-                                '<div>',
-                                '<span>',
-                                '<strong>',
-                                '<em>',
-                                '<ul>',
-                                '<ol>',
-                                '<br>',
-                            ]))
-                            {!! $question->default_answers_translation !!}
-                        @else
-                            - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
-                        @endif
+                        - <span class="font-very-sm-italic">{{ $question->default_answers_translation }}</span>
                     @endif
-
 
                     @foreach ($question->answers as $answer)
                         @if ($answer->explanation)
@@ -504,56 +493,6 @@
                     $('#nextBtn').toggleClass('active', $(this).val().trim().length > 0);
                 });
 
-                // $('#nextBtn').on('click', function(e) {
-                //     const $textInput = $('textarea[name="answer_text"]');
-                //     const rawValue = $textInput.val().trim();
-
-                //     // Nếu không nhập gì thì đi tiếp trong category hiện tại
-                //     if (!rawValue) {
-                //         const nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
-                //         const nextPage = {{ $page + 1 }};
-                //         const params = new URLSearchParams();
-                //         params.set('page', nextPage);
-                //         params.set('answer_text', rawValue);
-                //         window.location.href = nextUrl + '?' + params.toString();
-                //         return;
-                //     }
-
-                //     const numericValue = Number(rawValue);
-                //     const isNumber = !isNaN(numericValue);
-
-                //     const skipToCategory = {{ $question->skip_to_category ?? 'null' }};
-                //     const skipToQuestion = {{ $question->skip_to_question ?? 'null' }};
-
-                //     let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
-                //     let nextPage = {{ $page + 1 }};
-                //     let currentPage = {{ $page }};
-
-                //     // Chỉ skip nếu nhập đúng là số 0
-                //     if (isNumber && numericValue === 0) {
-                //         if (skipToCategory && skipToCategory !== 0) {
-                //             nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
-                //                 '__ID__', skipToCategory);
-                //             nextPage = 1;
-                //         }
-
-                //         if (skipToQuestion && skipToQuestion !== 0) {
-                //             nextPage = skipToQuestion;
-                //         }
-                //     }
-
-                //     if (skipToCategory && skipToCategory !== 0) {
-                //         nextUrl = `{{ route('n400.category.show', ['id' => '__ID__']) }}`.replace(
-                //             '__ID__', skipToCategory);
-                //         nextPage = 1;
-                //     }
-
-                //     const params = new URLSearchParams();
-                //     params.set('page', nextPage);
-                //     params.set('answer_text', rawValue);
-                //     window.location.href = nextUrl + '?' + params.toString();
-                // });
-
                 $('#nextBtn').on('click', function(e) {
                     const $textInput = $('textarea[name="answer_text"]');
                     const rawValue = $textInput.val().trim();
@@ -561,12 +500,12 @@
                     const currentPage = {{ $page }};
                     const currentCategoryId = {{ $category->id }};
 
-                    let nextUrl = `{{ route('n400.category.show', ['id' => $category->id]) }}`;
+                    let nextUrl = `{{ route('n400.category.starred', ['id' => $category->id]) }}`;
                     const params = new URLSearchParams();
 
                     // Kiểm tra điều kiện đặc biệt (by pass tạm thời)
                     if (currentCategoryId === 9 && currentPage === 6) {
-                        nextUrl = `{{ route('n400.category.show', ['id' => 10]) }}`;
+                        nextUrl = `{{ route('n400.category.starred', ['id' => 10]) }}`;
                         params.set('page', 1);
                     } else {
                         params.set('page', currentPage); // Gửi về đúng page hiện tại
@@ -640,7 +579,7 @@
 
                 const selectedAnswer = $('input[name="answer_id"]:checked').val();
                 const nextUrl =
-                    `{{ route('n400.category.show', ['id' => $category->id]) }}?page={{ $page }}&answer_id=${selectedAnswer}`;
+                    `{{ route('n400.category.starred', ['id' => $category->id]) }}?page={{ $page }}&answer_id=${selectedAnswer}`;
                 window.location.href = nextUrl;
             });
 

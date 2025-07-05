@@ -15,13 +15,21 @@
                 <h3 class="heading-module text-2xl font-bold text-gray-800"> {!! $heading ?? '' !!} </h3>
             </div>
         </div>
-
         {{-- Tiến độ --}}
-        <div class="process sp-bt d-flex justify-content-center">
-            <div class="mb-2 text-base">
+        <div class="process sp-bt d-flex">
+            {{-- nav menu gắn sao --}}
+            @if (!empty($mode) && $mode === 'showStarred')
+                <div class="mb-2 text-base">
+                    <a href="{{ route('star.category') }}">
+                        <img src="{{ url('public/icon/star/icon-menu-star.png') }}" alt="icon-menu">
+                    </a>
+                </div>
+            @endif
+            <div class="mb-2 text-base lex-grow-1 text-center">
                 <span class="">Câu hỏi </span> <span class="fw-bold"> {{ $page }} /
                     {{ $total }} </span>
             </div>
+            <div style="width: 32px;"> </div>
         </div>
 
         {{-- Câu hỏi chính --}}
@@ -226,6 +234,7 @@
 
             // AJAX kiểm tra đáp án
             $('.answer-option').on('click', function(e) {
+                // alert(1);
                 e.preventDefault();
                 const button = $(this);
                 const answerId = button.val();
@@ -384,14 +393,12 @@
             // === * Lưu câu hỏi đánh dấu sao * ===
 
             //  --- Check isStarred ---
-            const starBtn = $('.toggle-star-btn');
-            if (parseInt(starBtn.data('active')) === 1) {
-                starBtn.css('background', 'gold');
-            } else {
-                starBtn.css('background', '');
-            }
+            $('.toggle-star-btn').each(function() {
+                updateStarIcon($(this));
+            });
+            // --- [END] Check isStarred ---
 
-            //  --- [END] Check isStarred ---
+            // --- Toggle + AJAX ---
             $('.toggle-star-btn').on('click', function() {
                 let btn = $(this);
                 let questionId = btn.data('question-id');
@@ -399,15 +406,14 @@
                 $.post("{{ url('civics/star') }}/" + questionId, {
                     _token: '{{ csrf_token() }}'
                 }, function(res) {
-                    // Xu ly phan hoi
-                    // alert(res.status)
-                    if (res.status === 'added') {
-                        btn.css('background-color', 'gold');
-                    } else {
-                        btn.css('background-color', '');
-                    }
+                    // Cập nhật trạng thái class
+                    btn.toggleClass('stared', res.status === 'added');
+                    // Gọi hàm update hình ảnh
+                    updateStarIcon(btn);
                 });
             });
+            // ---  [END] - Toggle + AJAX ---
+
             // [END] == * Lưu câu hỏi đánh dấu sao * ===
 
             // Kiểm tra đã chọn đáp án trước khi đi tiếp
@@ -417,6 +423,7 @@
                 if (!hasSelected) {
                     e.preventDefault(); // chặn chuyển trang
                     alert('Vui lòng chọn một đáp án trước khi tiếp tục!');
+                    return false; // dừng hẳn, ngăn bubbling
                 }
             });
             // [END] - Kiểm tra đã chọn đáp án trước khi đi tiếp

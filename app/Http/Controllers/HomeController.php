@@ -24,8 +24,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        // Xóa session bài quiz nếu tồn tại
+    {   ;
+        // Xóa session bài quiz nếu tồn tại 
         Session::forget('civics.quiz');
         return view('home');
     }

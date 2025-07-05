@@ -71,7 +71,7 @@
             </div>
 
             <!-- Nút CTA -->
-            <div class="action-buttons text-center">
+            {{-- <div class="action-buttons text-center">
                 @php
                     $retryRoute = $mode === 'show' ? route('civics.form') : route('civics.starred');
                 @endphp
@@ -82,6 +82,31 @@
                 <a class="back-home mt-4 d-inline-block" href="{{ url('/') }}"
                     class="text-primary text-center d-block">Về trang
                     chủ</a>
+            </div> --}}
+
+            <!-- Nút CTA -->
+            @php
+                $retryRoute = $mode === 'show' ? route('civics.form') : route('star.category');
+            @endphp
+            
+            <div class="action-buttons text-center">
+                @if ($mode === 'show')
+                    <a href="{{ $retryRoute }}" class="btn btn-primary mb-2 d-inline-block">
+                        Tiếp tục luyện tập
+                    </a>
+
+                    <a class="back-home mt-4 d-inline-block" href="{{ url('/') }}"
+                        class="text-primary text-center d-block">Về trang
+                        chủ</a>
+                @else
+                    <a href="{{ $retryRoute }}" class="btn btn-primary mb-2 d-inline-block">
+                        Tiếp tục làm phần khác
+                    </a>
+
+                    <a class="back-home mt-4 d-inline-block" href="{{ url('/') }}"
+                        class="text-primary text-center d-block">Về trang
+                        chủ</a>
+                @endif
             </div>
         </div>
 
