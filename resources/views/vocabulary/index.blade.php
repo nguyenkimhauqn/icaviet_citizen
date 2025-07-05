@@ -3,7 +3,7 @@
 @section('title', 'Hoàn thành N400')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('publiccss/vocabulary.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/vocabulary.css') }}">
 
     <style>
         .container {
