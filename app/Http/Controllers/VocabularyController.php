@@ -35,9 +35,23 @@ class VocabularyController extends Controller
             $category = VocabularyCategory::where('slug', $categorySlug)->firstOrFail();
         }
 
+
+        $search = $request->query('search');
         // Query vocabularies theo category
-        // TODO: Chỉ query null
-        $query = Vocabulary::where('category_id', $category->id);
+        $query = Vocabulary::where('category_id', $category->id)
+            ->where(function ($q) {
+                $q->whereNull('user_id')
+                    ->orWhere('user_id', auth()->id());
+            });
+        // Filter từ vựng
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('word', 'LIKE', "%{$search}%")
+                    ->orWhere('meaning', 'LIKE', "%{$search}%")
+                    ->orWhere('synonymous', 'LIKE', "%{$search}%")
+                    ->orWhere('synonymous_translate', 'LIKE', "%{$search}%");
+            });
+        }
 
         // Trường hợp đặc biệt: nếu là topic "general" và category là "12 tháng"
         if ($topic->slug === 'general') {

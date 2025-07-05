@@ -29,12 +29,16 @@
             </div>
 
             <div class="vocab-search-box">
-                <div class="search-input-wrapper">
-                    <input type="text" placeholder="Tìm kiếm từ vựng" />
-                    <a class="search-btn">
-                        <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
-                    </a>
-                </div>
+                <form method="GET" action="{{ route('vocabulary.show', ['slug' => $topicSlug]) }}"
+                    style="width: 100%; height: 100%;">
+                    <input type="hidden" name="category" value="{{ $category->slug }}">
+                    <div class="search-input-wrapper">
+                        <input type="text" name="search" placeholder="Tìm kiếm từ vựng" value="{{ request('search') }}">
+                        <button type="submit" class="search-btn">
+                            <img src="{{ asset('icon/vocabulary/search.svg') }}" alt="Search">
+                        </button>
+                    </div>
+                </form>
 
                 <div class="vocab-page">
                     <!-- Header tabs -->
@@ -188,10 +192,12 @@
                                                     </div>
                                                 @endif
                                                 @if ($vocab->example)
-                                                    <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em></div>
+                                                    <div class="vocab-example">Ví dụ: <em>{!! $vocab->example !!}</em>
+                                                    </div>
                                                 @endif
                                                 @if ($vocab->synonymous_translate)
-                                                    <div class="vocab-hint">Dịch: <i>{{ $vocab->synonymous_translate }}</i>
+                                                    <div class="vocab-hint">Dịch:
+                                                        <i>{{ $vocab->synonymous_translate }}</i>
                                                     </div>
                                                 @endif
                                             </div>
