@@ -52,7 +52,7 @@
                         <strong>{{ strip_tags($question->content) }}</strong>
                     </span>
 
-                    <textarea name="answer_text" class="instruction-text form-control mt-4" placeholder="'Nhập ở đây"></textarea>
+                    <textarea name="answer_text" class="instruction-text form-control mt-4" placeholder="Nhập ở đây"></textarea>
                 </div>
 
             </form>

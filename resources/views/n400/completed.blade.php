@@ -7,7 +7,7 @@
         <div class="header">
             <a href="{{ route('home') }}"><img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" /></a>
             <h1 class="header-title">
-                THI THỬ<br>
+                KẾT QUẢ<br>
                 {{-- <span class="header-subtitle">{{ $currentTest->title }}</span>
 
                 @if ($currentTest->vietnamese_title)
