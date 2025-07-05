@@ -25,7 +25,7 @@
 
     <main class="main-content">
         <div class="btn-group">
-            <a class="{{ $type === 'normal_question' ? 'btn-outlined' : 'btn-none' }}"
+            <a class="{{ $type === 'normal_question' ? 'btn-outlined' : 'btn-none' }}" style="margin-right: 15px;"
                 href="{{ route('qa.index', ['type' => 'normal_question']) }}">
                 Câu hỏi thi quốc tịch
             </a>
@@ -83,7 +83,7 @@
     <!-- Start Button -->
     <div class="test-footer end">
         <a class="send-button" href="{{ route('qa.show-form') }}">
-            Gửi phản hồi
+            <span>Gửi phản hồi</span>
             <img src="{{ asset('icon/q-and-a/send.svg') }}" alt="Gửi">
         </a>
     </div>

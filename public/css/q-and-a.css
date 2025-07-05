@@ -197,8 +197,9 @@
     background: #11357c;
     color: white;
     border: none;
-    border-radius: 999px;
+    border-radius: 100px;
     padding: 8px 16px;
+    max-width: 175px;
 
     display: flex;
     align-items: center;
@@ -208,4 +209,10 @@
     font-family: Inter;
     font-weight: 700;
     font-size: 15px;
+}
+
+@media screen and (max-width: 420px) {
+    .send-button span {
+        display: none;
+    }
 }
