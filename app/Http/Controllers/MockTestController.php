@@ -674,32 +674,42 @@ class MockTestController extends Controller
 
             // Đặc biệt xử lý riêng cho reading & writing
             if (in_array($slug, ['reading', 'writing'])) {
-                // Lấy câu trả lời cuối cùng theo thời gian
-                $userAnswer = UserAnswerQuestion::where('attempt_id', $attemptId)
+                $userAnswers = UserAnswerQuestion::where('attempt_id', $attemptId)
                     ->whereIn('question_id', $questionIds)
                     ->with(['question.answers'])
-                    ->orderByDesc('answered_at')
-                    ->first();
+                    ->orderBy('answered_at') // Có thể đổi sang DESC nếu muốn mới nhất trước
+                    ->get();
 
-                if ($userAnswer && $userAnswer->question) {
+                $correctAnswers = 0;
+                $details = [];
+
+                foreach ($userAnswers as $userAnswer) {
                     $question = $userAnswer->question;
+                    if (!$question) continue;
+
                     $correctAnswer = $question->answers->firstWhere('is_correct', true);
 
                     $details[] = [
                         'question' => $question->content,
                         'vietnamese_question' => $question->translation,
                         'type' => $question->type,
-                        'user_answer' => $userAnswer->content ?? $userAnswer->answer?->content ?? $userAnswer->answer_text ?? $userAnswer->answer?->answer_text,
-                        'correct_answer' => $correctAnswer?->content,
-                        'vietnamese_correct_answer' => $correctAnswer?->explanation,
-                        'pronunciation_suggest_answer' => $correctAnswer?->pronunciation,
+                        'user_answer' => $userAnswer->content
+                            ?? $userAnswer->answer?->content
+                            ?? $userAnswer->answer_text
+                            ?? $userAnswer->answer?->answer_text
+                            ?? 'Không có câu trả lời',
+                        'correct_answer' => $correctAnswer?->content ?? 'Chưa xác định',
+                        'vietnamese_correct_answer' => $correctAnswer?->explanation ?? '',
+                        'pronunciation_suggest_answer' => $correctAnswer?->pronunciation ?? '',
                         'is_correct' => $userAnswer->is_correct,
                     ];
 
-                    $correctAnswers = $userAnswer->is_correct ? 1 : 0;
+                    if ($userAnswer->is_correct) {
+                        $correctAnswers++;
+                    }
                 }
 
-                $totalQuestions = session()->get("{$slug}_retry_result", 3); // Default là 3 nếu chưa có
+                $totalQuestions = (int) session()->get("{$slug}_retry_result", $userAnswers->count());
             } else {
                 foreach ($questions as $question) {
                     $userAnswer = $userAnswers->get($question->id);
