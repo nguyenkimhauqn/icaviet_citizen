@@ -273,6 +273,23 @@ class MockTestController extends Controller
 
         // Logic skip cho n400
         if ($slug === 'n400') {
+
+            // Nếu người dùng trả lời "I am currently employed" -> thì tiếp tục câu tiếp theo -> nhưng bỏ qua câu tiếp theo nữa
+            // Ví dụ ?page=23 => tiếp tục ?page=24 => ?page=26 (bỏ qua 25)
+            if ($currentPage === 23 && $answerId) {
+                $answer = Answer::find($answerId);
+                $answerText = trim(strtolower($answer->content ?? ''));
+
+                if ($answerText === 'i am currently employed') {
+                    // Đánh dấu để skip page 25 khi hoàn tất page 24
+                    session(['skip_page_25' => true]);
+                } else {
+                    // Nếu trả lời khác, xóa session skip nếu có
+                    session()->forget('skip_page_25');
+                }
+            }
+
+
             // Nếu có skip logic từ đáp án
             if ($answerId) {
                 $answer = Answer::find($answerId);
@@ -288,7 +305,13 @@ class MockTestController extends Controller
                 }
             }
 
-            // Mặc định: sang câu tiếp theo
+            // Mặc định chuyển sang câu tiếp theo (có kiểm tra cờ skip page 25)
+            $nextPage = $currentPage + 1;
+            if ($nextPage === 25 && session('skip_page_25')) {
+                $nextPage = 26;
+                session()->forget('skip_page_25');
+            }
+
             $questionIds = QuestionSet::where('set_number', $setNumber)->pluck('question_id');
             $total = $questionIds->count();
 
@@ -304,7 +327,7 @@ class MockTestController extends Controller
 
             return redirect()->route('start.mock-test', [
                 'slug' => $slug,
-                'page' => $currentPage + 1,
+                'page' => $nextPage,
                 'set_number' => $setNumber
             ]);
         }
@@ -728,6 +751,9 @@ class MockTestController extends Controller
             $request->session()->forget("shown_questions_{$slug}");
         }
 
+        session()->forget([
+            'skip_page_25',
+        ]);
         $request->session()->forget('mock_test_attempt_id');
 
         return view('mock-test.result', compact('results'));
