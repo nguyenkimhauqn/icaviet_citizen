@@ -30,10 +30,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            CitizenshipQuestionsFullSeeder::class,
-        ]);
-
-        $this->call([
             CivicTest1Seeder::class,
 
         ]);

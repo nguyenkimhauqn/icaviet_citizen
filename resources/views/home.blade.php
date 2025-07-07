@@ -69,7 +69,6 @@
                                 </div>
                                 <span class="title_en">Mock Test</span>
                                 <span class="title_vn">Thi thử</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
@@ -129,7 +128,7 @@
 
                     <!-- 9. Starred Questions -->
                     <div class="col-4">
-                        <a href="{{route('star.category')}}">
+                        <a href="{{ route('star.category') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-star.png') }}" alt="icon-star">
@@ -149,6 +148,32 @@
                                 </div>
                                 <span class="title_en">Q & A</span>
                                 <span class="title_vn">Hỏi & đáp</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 11. Chia sẻ kinh nghiệm -->
+                    <div class="col-4">
+                        <a href="">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-chia-se-kinh-nghiem.svg') }}" alt="icon-star">
+                                </div>
+                                <span class="title_en">Chia sẻ kinh nghiệm</span>
+                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 12. Dân biểu -->
+                    <div class="col-4">
+                        <a href="{{route('representative.form')}}">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <img src="{{ asset('public/icon/home/icon-dai-dien.svg') }}" alt="icon-star">
+                                </div>
+                                <span class="title_en">Your Representatives</span>
+                                <span class="title_vn bage bage-primary">Dân biểu của bạn</span>
                             </div>
                         </a>
                     </div>

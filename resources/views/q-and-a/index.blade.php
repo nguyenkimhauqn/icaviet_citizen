@@ -31,7 +31,7 @@
             </a>
             <a class="{{ $type === 'app_question' ? 'btn-outlined' : 'btn-none' }}"
                 href="{{ route('qa.index', ['type' => 'app_question']) }}">
-                Câu hỏi về app
+                Câu hỏi về ứng dụng
             </a>
         </div>
 

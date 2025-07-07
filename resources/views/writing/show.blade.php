@@ -138,8 +138,8 @@
                     </a>
 
                     <button id="start-recording" class="btn-start action-btn btn-submit">
-                        <i id="icon-mic" class="bi bi-mic"></i>
-                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                        <i class="bi bi-check-lg"></i>
+
                     </button>
 
                     <a href="{{ route($routeName, ['index' => $index + 1]) }}" class="btn action-btn btn-next">
@@ -154,8 +154,7 @@
                     </a>
 
                     <button id="start-recording" class="btn-start action-btn btn-submit">
-                        <i id="icon-mic" class="bi bi-mic"></i>
-                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                        <i class="bi bi-check-lg"></i>
                     </button>
 
                     <a href="{{ route($routeName, ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">

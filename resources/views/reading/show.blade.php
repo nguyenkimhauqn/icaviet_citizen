@@ -125,8 +125,7 @@
             </div> --}}
             @if ($mode === 'showStarred')
                 <div class="wp-action d-flex">
-                    <a href="{{ route($routeName, ['index' => $index - 1 ]) }}"
-                        class="btn action-btn btn-previous">
+                    <a href="{{ route($routeName, ['index' => $index - 1]) }}" class="btn action-btn btn-previous">
                         <i class="bi bi-chevron-left"></i>
                     </a>
 
@@ -135,7 +134,7 @@
                         <i id="icon-stop" class="bi bi-square d-none"></i>
                     </button>
 
-                    <a href="{{ route($routeName, ['index' => $index + 1 ]) }}" class="btn action-btn btn-next">
+                    <a href="{{ route($routeName, ['index' => $index + 1]) }}" class="btn action-btn btn-next">
                         <i class="bi bi-chevron-right"></i>
                     </a>
                 </div>
@@ -156,7 +155,6 @@
                     </a>
                 </div>
             @endif
-
         </div>
     </div>
 @endsection
