@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- css --}}
-    <link rel="stylesheet" href="{{ asset('/public/css/result.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/result.css') }}">
 
     <div class="container py-5">
         <div class="test-result-container">
@@ -35,4 +35,3 @@
 
     </div>
 @endsection
-
