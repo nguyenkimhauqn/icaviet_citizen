@@ -36,7 +36,9 @@ class WritingController extends Controller
             'index' => $index,
             'total' => $total,
             'isStarred' => $isStarred,
-            'routeName' => 'writing.show'
+            'routeName' => 'writing.show',
+            'mode' => 'show',
+
         ]);
     }
 

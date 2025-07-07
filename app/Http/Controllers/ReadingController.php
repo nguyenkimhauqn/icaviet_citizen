@@ -15,6 +15,7 @@ class ReadingController extends Controller
     public function show($index = 0)
     {
         $routeName = 'reading.show';
+        $mode = 'show';
 
         $user = Auth::user();
         $questions = Question::where('topic_id', 3)->orderBy('id')->get();
@@ -27,7 +28,7 @@ class ReadingController extends Controller
             ->where('question_id', $question->id)
             ->exists();
         session(['reading_answer' => $question->content]);
-        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName'));
+        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName','mode'));
     }
 
     public function showStarred($index = 0)
@@ -45,7 +46,7 @@ class ReadingController extends Controller
         // $index = max(0, min($index, $total - 1));
         // dump($total, $index);
         // dd("test");
-        if ($total == $index  ) {
+        if ($total == $index) {
             return view('star.result');
         }
         $question = $questions[$index];
@@ -53,7 +54,7 @@ class ReadingController extends Controller
         $isStarred = StarredQuestion::where('user_id', $user->id)
             ->where('question_id', $question->id)
             ->exists();
-        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName','mode'));
+        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName', 'mode'));
     }
 
     public function index()

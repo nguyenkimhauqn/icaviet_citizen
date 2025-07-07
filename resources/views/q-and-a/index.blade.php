@@ -4,8 +4,8 @@
 
 @push('styles')
     {{-- TODO: public --}}
-    <link rel="stylesheet" href="{{ asset('publiccss/mock-result.css') }}">
-    <link rel="stylesheet" href="{{ asset('publiccss/q-and-a.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/mock-result.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/q-and-a.css') }}">
 @endpush
 
 @section('content')
@@ -31,7 +31,7 @@
             </a>
             <a class="{{ $type === 'app_question' ? 'btn-outlined' : 'btn-none' }}"
                 href="{{ route('qa.index', ['type' => 'app_question']) }}">
-                Câu hỏi về app
+                Câu hỏi về ứng dụng
             </a>
         </div>
 

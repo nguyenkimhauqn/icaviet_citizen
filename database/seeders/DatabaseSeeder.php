@@ -22,22 +22,13 @@ class DatabaseSeeder extends Seeder
 
 
         // 0. Thêm topics
-        // $this->call([
-        //     TopicSeeder::class,
-        // ]);
-        // $this->call([
-        //     TopicSlugSeeder::class,
-        // ]);
-
         $this->call([
-            CitizenshipQuestionsFullSeeder::class,
+            TopicSeeder::class,
+        ]);
+        $this->call([
+            TopicSlugSeeder::class,
         ]);
 
-
-
-        // 1.1 data thi công dân test 1
-        // $this->call([
-        //     CivicTest1Seeder::class,
         // 1.1 data thi công dân test 1c
         $this->call([
             CivicTest1Seeder::class,
@@ -51,7 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReadingTestSeeder::class);
 
         // 4. data N400
-        // $this->call(CategorySeeder::class);
+        $this->call(CategorySeeder::class);
 
         // 4.1. data N400
         $this->call(N400QuestionSeeder::class);

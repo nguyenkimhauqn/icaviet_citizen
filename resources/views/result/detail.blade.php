@@ -4,7 +4,7 @@
 
 @push('styles')
     {{-- TODO: public --}}
-    <link rel="stylesheet" href="{{ asset('publiccss/mock-result.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/mock-result.css') }}">
 @endpush
 
 @section('content')
