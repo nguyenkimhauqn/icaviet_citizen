@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
             TopicSlugSeeder::class,
         ]);
 
-        // 1.1 data thi công dân test 1c
         $this->call([
             CivicTest1Seeder::class,
 
