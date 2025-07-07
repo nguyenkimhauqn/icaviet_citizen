@@ -1184,6 +1184,7 @@ class N400QuestionSeeder extends Seeder
             'explanation' => 'Tôi hiện đang đi học',
             'is_correct' => true,
             'skip_to_question' => 7,
+            'skip_to_question_mockTest' => 25,
             'has_audio' => true,
         ]);
 

@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 
 class MockTestController extends Controller
 {
+
     public function show()
     {
         $mockTest = Topic::orderBy('num_order', 'asc')->take(4)->get();
@@ -23,6 +24,11 @@ class MockTestController extends Controller
 
     public function start(Request $request, $slug)
     {
+        $page = (int) $request->query('page', 1);
+        if ($page == 1) {
+            $request->session()->forget("shown_questions_{$slug}");
+        }
+
         $testType = Topic::where('slug', $slug)->firstOrFail();
 
         if (!$request->session()->has('mock_test_attempt_id')) {
@@ -32,7 +38,7 @@ class MockTestController extends Controller
             $attemptId = $request->session()->get('mock_test_attempt_id');
         }
 
-        $page = (int) $request->query('page', 1);
+
         if ($page < 1) $page = 1;
 
         $setNumber = (int) $request->query('set_number', 1); // Default đề số 1 nếu không truyền
@@ -94,16 +100,64 @@ class MockTestController extends Controller
         } else {
             //$question = $testType->questions()->with('answers')->skip($page - 1)->take(1)->first();
 
-            if (in_array($slug, ['reading', 'writing'])) {
-                $question = $testType->questions()->inRandomOrder()->with('answers')->first();
-            } else {
-                $question = $testType->questions()->with('answers')->skip($page - 1)->take(1)->first();
-            }
+            // if (in_array($slug, ['reading', 'writing'])) {
+            //     $question = $testType->questions()->inRandomOrder()->with('answers')->first();
+            // } else {
+            //     $question = $testType->questions()->with('answers')->skip($page - 1)->take(1)->first();
+            // }
 
 
-            if ($question) {
-                $question->setRelation('answers', $question->answers->shuffle());
+            // if ($question) {
+            //     $question->setRelation('answers', $question->answers->shuffle());
+            // }
+
+            // $total = match ($slug) {
+            //     'civics' => 10,
+            //     'reading', 'writing' => 1,
+            //     default => $testType->questions()->count(),
+            // };
+
+            // $answeredCount = UserAnswerQuestion::where('attempt_id', $attemptId)
+            //     ->whereHas('question.topic', function ($q) use ($slug) {
+            //         $q->where('slug', $slug);
+            //     })
+            //     ->count();
+
+            // if ($slug === 'civics') {
+            //     $correctAnswersCount = UserAnswerQuestion::where('attempt_id', $attemptId)
+            //         ->where('is_correct', true)
+            //         ->whereHas('question.topic', function ($q) use ($slug) {
+            //             $q->where('slug', $slug);
+            //         })
+            //         ->count();
+
+            //     if ($correctAnswersCount >= 6) {
+            //         return redirect()->route('mock-test.prepare', 'reading');
+            //     }
+
+            //     if ($answeredCount >= 10) {
+            //         return redirect()->route('mock-test.prepare', 'reading');
+            //     }
+            // }
+
+            $shownSessionKey = "shown_questions_$slug";
+            $shownIds = session()->get($shownSessionKey, []);
+
+            $questionBuilder = $testType->questions()
+                ->whereNotIn('id', $shownIds)
+                ->inRandomOrder()
+                ->with('answers');
+
+            $question = $questionBuilder->first();
+
+            if (!$question) {
+                return redirect()->route('mock-test.result');
             }
+
+            $shownIds[] = $question->id;
+            session()->put($shownSessionKey, $shownIds);
+
+            $question->setRelation('answers', $question->answers->shuffle());
 
             $total = match ($slug) {
                 'civics' => 10,
@@ -125,11 +179,7 @@ class MockTestController extends Controller
                     })
                     ->count();
 
-                if ($correctAnswersCount >= 6) {
-                    return redirect()->route('mock-test.prepare', 'reading');
-                }
-
-                if ($answeredCount >= 10) {
+                if ($correctAnswersCount >= 6 || $answeredCount >= 10) {
                     return redirect()->route('mock-test.prepare', 'reading');
                 }
             }
@@ -319,6 +369,13 @@ class MockTestController extends Controller
             }
         }
 
+        if (isset($object->skip_to_question_mockTest)) {
+            return redirect()->route('start.mock-test', [
+                'slug' => $slug,
+                'page' => $object->skip_to_question_mockTest,
+                'set_number' => $setNumber
+            ]);
+        }
 
         // Nếu chỉ skip trong set hiện tại
         if (isset($object->skip_to_question) && $object->skip_to_question > 0) {
@@ -344,7 +401,6 @@ class MockTestController extends Controller
                 }
             }
         }
-
 
         // Nếu không có skip rõ ràng thì sang câu tiếp theo
         return redirect()->route('start.mock-test', [
@@ -667,6 +723,9 @@ class MockTestController extends Controller
                 'is_complete' => $totalQuestions > 0,
                 'details' => $details,
             ];
+
+            // Reset Random
+            $request->session()->forget("shown_questions_{$slug}");
         }
 
         $request->session()->forget('mock_test_attempt_id');
