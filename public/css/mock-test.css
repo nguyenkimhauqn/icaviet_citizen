@@ -42,6 +42,8 @@ body {
     background-color: #f5f4fa;
     padding: 10px 20px;
     border-bottom: 1px solid #c8e2f9;
+    position: sticky;
+    top: 0;
 }
 
 .header-title {

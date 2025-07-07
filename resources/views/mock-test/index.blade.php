@@ -5,13 +5,15 @@
 @section('content')
 
     <!-- Header -->
-    <div class="header">
-        <a href="{{ route('home') }}">
-            <img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" />
-        </a>
-        <h1 class="header-title" style="margin-bottom: 0px;">
-            THI THỬ
-        </h1>
+    <div class="header-inner">
+        <div class="header">
+            <a href="{{ route('home') }}">
+                <img src="{{ asset('public/icon/mockTests/home.svg') }}" alt="Home" />
+            </a>
+            <h1 class="header-title" style="margin-bottom: 0px;">
+                THI THỬ
+            </h1>
+        </div>
     </div>
 
 
