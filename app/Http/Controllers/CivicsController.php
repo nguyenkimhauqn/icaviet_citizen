@@ -302,6 +302,10 @@ class CivicsController extends Controller
             ]);
         }
 
+        // Lấy representative for đáp án đúng
+        $user = Auth::user()->load('representative');
+        $rep = $user->representative;
+
         return view('civics.question', [
             'question' => $question,
             'answers' => $question->answers,
@@ -313,6 +317,7 @@ class CivicsController extends Controller
             'isStarred' => true,
             'mode' => 'showStarred',
             'heading' => $heading,
+            'representativeData' => $rep
         ]);
     }
 }
