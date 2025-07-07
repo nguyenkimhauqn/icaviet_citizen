@@ -22,6 +22,7 @@ class QaAppSeeder extends Seeder
                     'question' => '1. Ứng dụng luyện thi quốc tịch Mỹ có thu phí hay không?',
                     'answer' => trim(<<<TEXT
 Không. Đây là một ứng dụng <strong>phi lợi nhuận, không thu phí, không quảng cáo, và không yêu cầu trả tiền dưới bất kỳ hình thức nào. </strong>
+
 Đây là một dự án vì cộng đồng với mong muốn giúp đỡ người Việt, đặc biệt là những người không rành tiếng Anh, có thể tự luyện thi quốc tịch Mỹ một cách dễ hiểu, đơn giản và hiệu quả.
 TEXT)
                 ],
@@ -29,6 +30,7 @@ TEXT)
                     'question' => '2. Các thông tin trên ứng dụng lấy từ đâu?',
                     'answer' => trim(<<<TEXT
 Các nội dung trong ứng dụng được lấy từ các nguồn chính thức của USCIS (Sở Di trú và Nhập tịch Mỹ). Tuy nhiên, do USCIS có thể thay đổi chính sách hoặc cập nhật thông tin, ứng dụng chưa thể cập nhật ngay.
+
 Nếu bạn phát hiện thông tin chưa chính xác hoặc cần bổ sung, vui lòng gửi email góp ý về: <a href="#">info@icaviet.com</a>. Chúng tôi luôn trân trọng phản hồi từ cộng đồng để cải thiện ứng dụng tốt hơn mỗi ngày.
 TEXT)
                 ],
@@ -52,6 +54,7 @@ TEXT)
                     'question' => '4. Phát âm dễ nhớ là gì?',
                     'answer' => trim(<<<TEXT
 Phát âm dễ nhớ là phần phiên âm tiếng Việt giúp người không biết tiếng Anh có thể đọc theo một cách gần đúng.
+
 Tuy không chính xác 100%, nhưng sẽ hữu ích để bạn làm quen với cách phát âm ban đầu. Bạn vẫn nên nghe thêm audio và luyện nói theo phát âm của người bản xứ để cải thiện phát âm tự nhiên hơn.
 TEXT)
                 ],
@@ -71,6 +74,7 @@ TEXT)
                     'question' => '7. Tại sao phần thi N-400 không có kết quả chấm điểm?',
                     'answer' => trim(<<<TEXT
 Vì các câu hỏi trong phần này phụ thuộc vào Form N-400 của từng người, nên không có đáp án đúng - sai cố định.
+
 Tuy nhiên, các câu hỏi được trích từ nội dung thực tế của Form N-400 để bạn làm quen với cách hỏi và luyện nghe – phản xạ trước buổi phỏng vấn.
 TEXT)
                 ],
@@ -84,6 +88,7 @@ TEXT)
                     'question' => '9. Làm thế nào để đổi ZIP Code?',
                     'answer' => trim(<<<TEXT
 Bạn có thể đổi ZIP Code bằng cách:
+
 - Ở trang chủ, nhấn vào biểu tượng ☰ ở góc phải màn hình
 - Nhấn vào mục “<strong>ZIP Code của bạn</strong>”
 - Nhập ZIP Code mới. Sau đó, ứng dụng sẽ hiển thị ra danh sách Dân biểu tương ứng theo ZIP Code của bạn

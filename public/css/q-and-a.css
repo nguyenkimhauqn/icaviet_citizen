@@ -217,8 +217,8 @@
     font-weight: 400;
 }
 
-@media screen and (max-width: 420px) {
+/* @media screen and (max-width: 500px) {
     .send-button span {
         display: none;
     }
-}
+} */
