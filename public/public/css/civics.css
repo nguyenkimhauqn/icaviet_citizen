@@ -19,9 +19,13 @@ body {
     transition: background-color 0.2s ease-in-out;
 }
 
-/* .answer-option:hover {
-    background-color: #e2e8f0;
-} */
+.wp-header {
+    border-bottom: none !important;
+}
+
+.process  {
+    border-bottom: solid 2px #C8E2F9;
+}
 
 .answer-wrong {
     background-color: #BF0C2C;
@@ -69,6 +73,7 @@ body {
 .sp-bt {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .box-btn {
@@ -205,4 +210,10 @@ body {
 
 .answer-tips .tag .tag-key {
     font-weight: 800 !important;
+}
+
+.sub-title {
+    color: #828282 !important;
+    font-size: smaller;
+    font-weight: 500;
 }

@@ -441,3 +441,16 @@ input::placeholder {
 #modalQuestionForm {
     width: 100%;
 }
+
+ul.dash-list {
+    list-style-type: none;
+    padding-left: 1em;
+}
+ul.dash-list li::before {
+    content: "-";
+    margin-right: 0.5em;
+}
+
+.toggle-star-btn img {
+    width: 50px !important;
+}
