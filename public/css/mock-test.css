@@ -44,6 +44,7 @@ body {
     border-bottom: 1px solid #c8e2f9;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 
 .header-title {
