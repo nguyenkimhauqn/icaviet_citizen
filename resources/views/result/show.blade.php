@@ -8,7 +8,9 @@
 @endpush
 
 @section('content')
-
+    @php
+        dd("ok");
+    @endphp
     <!-- Header -->
     <div class="header-inner">
         <div class="header">

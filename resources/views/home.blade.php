@@ -114,14 +114,13 @@
 
                     <!-- 8. Study Materials -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{route('study_materials.index')}}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-study.png') }}" alt="icon-study">
                                 </div>
                                 <span class="title_en">Study Materials</span>
                                 <span class="title_vn">Tài liệu học tập</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>
