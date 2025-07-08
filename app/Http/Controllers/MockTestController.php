@@ -38,12 +38,31 @@ class MockTestController extends Controller
             $attemptId = $request->session()->get('mock_test_attempt_id');
         }
 
+        $totalSets = QuestionSet::distinct('set_number')->count(); // Tổng số bộ đề
+        $shownSetKey = "mock_test_round_$slug";
+        $currentRound = session()->get($shownSetKey, 0);
+
+        // Nếu người dùng truyền `set_number` từ query, dùng cái đó (ưu tiên hơn), ngược lại dùng round robin
+        $setNumber = (int) $request->query('set_number', 0);
+
 
         if ($page < 1) $page = 1;
-
-        $setNumber = (int) $request->query('set_number', 1); // Default đề số 1 nếu không truyền
-
         if ($slug === 'n400') {
+            if ($setNumber < 1) {
+                // Tính toán theo round robin
+                $setNumber = ($currentRound % $totalSets) + 1;
+                // Cập nhật round cho lần sau
+                session()->put($shownSetKey, $currentRound + 1);
+
+                // Redirect để đính `set_number` vào URL
+                return redirect()->route('start.mock-test', [
+                    'slug' => $slug,
+                    'page' => $page,
+                    'set_number' => $setNumber,
+                ]);
+            }
+
+
             $questionIds = QuestionSet::where('set_number', $setNumber)->pluck('question_id');
 
             $question = Question::with('answers')
@@ -192,7 +211,7 @@ class MockTestController extends Controller
             'n400' => 'mock-test.start-n400',
         };
 
-        return view($view, compact('testType', 'question', 'page', 'total', 'attemptId'));
+        return view($view, compact('testType', 'question', 'page', 'total', 'attemptId', 'setNumber'));
     }
 
     public function submitAnswer(Request $request, $slug)
@@ -211,7 +230,8 @@ class MockTestController extends Controller
         $additionalField = $request->additional_field;
         $attemptId = session()->get('mock_test_attempt_id');
         $currentPage = (int) $request->query('page', 1);
-        $setNumber = (int) $request->query('set_number', 1);
+        // $setNumber = (int) $request->query('set_number', 1);
+        $setNumber = (int) $request->set_number;
 
         if (!$attemptId) {
             return redirect()->route('start.mock-test', $slug)->with('error', 'Bài thi chưa được khởi tạo.');
@@ -276,12 +296,12 @@ class MockTestController extends Controller
 
             // Nếu người dùng trả lời "I am currently employed" -> thì tiếp tục câu tiếp theo -> nhưng bỏ qua câu tiếp theo nữa
             // Ví dụ ?page=23 => tiếp tục ?page=24 => ?page=26 (bỏ qua 25)
-            if ($currentPage === 23 && $answerId) {
+            if ($currentPage === 24 && $answerId) {
                 $answer = Answer::find($answerId);
                 $answerText = trim(strtolower($answer->content ?? ''));
 
                 if ($answerText === 'i am currently employed') {
-                    // Đánh dấu để skip page 25 khi hoàn tất page 24
+                    // Đánh dấu để skip page 25 khi hoàn tất page 24\
                     session(['skip_page_25' => true]);
                 } else {
                     // Nếu trả lời khác, xóa session skip nếu có
@@ -307,8 +327,8 @@ class MockTestController extends Controller
 
             // Mặc định chuyển sang câu tiếp theo (có kiểm tra cờ skip page 25)
             $nextPage = $currentPage + 1;
-            if ($nextPage === 25 && session('skip_page_25')) {
-                $nextPage = 26;
+            if ($nextPage === 26 && session('skip_page_25')) {
+                $nextPage = 27;
                 session()->forget('skip_page_25');
             }
 
@@ -347,7 +367,11 @@ class MockTestController extends Controller
                 : redirect()->route('mock-test.result');
         }
 
-        return redirect()->route('start.mock-test', [$slug, 'page' => $currentPage + 1]);
+        return redirect()->route('start.mock-test', [
+            'slug' => $slug,
+            'page' => $currentPage + 1,
+            'set_number' => $setNumber
+        ]);
     }
 
     protected function handleSkip(string $slug, $object, int $setNumber)
@@ -391,6 +415,8 @@ class MockTestController extends Controller
                 }
             }
         }
+
+        // dd($object->skip_to_question_mockTest);
 
         if (isset($object->skip_to_question_mockTest)) {
             return redirect()->route('start.mock-test', [

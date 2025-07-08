@@ -24,7 +24,8 @@
 
     <main class="main-content">
         @if ($question && $question->type == 'text')
-            <form method="POST" action="{{ route('submit.answer', [$testType->slug, 'page' => $page]) }}"
+            <form method="POST"
+                action="{{ route('submit.answer', [$testType->slug, 'page' => $page, 'set_number' => $setNumber]) }}"
                 id="questionForm">
                 @csrf
                 {{-- <input type="hidden" name="question_id" value="{{ $question->id }}">
@@ -62,6 +63,8 @@
                 <input type="hidden" name="question_id" value="{{ $question->id }}">
                 <input type="hidden" name="answer_id" id="answer_id">
                 <input type="hidden" name="additional_field" id="additional_field" value="">
+                <input type="hidden" name="set_number" value="{{ $setNumber }}">
+
 
                 <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
