@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
     // === * READING * ===
     Route::get('/reading/starred/{index?}', [ReadingController::class, 'showStarred'])->name('reading.starred');
     Route::get('/reading/{index?}', [ReadingController::class, 'show'])->name('reading.show');
+    Route::get('/reading-stop/{index?}', [ReadingController::class, 'show'])->name('reading.show');
     // === * [END] - READING * ===
 
     // === * N400 * ===

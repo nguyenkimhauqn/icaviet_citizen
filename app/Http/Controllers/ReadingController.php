@@ -28,7 +28,26 @@ class ReadingController extends Controller
             ->where('question_id', $question->id)
             ->exists();
         session(['reading_answer' => $question->content]);
-        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName','mode'));
+        return view('reading.show', compact('question', 'index', 'total', 'isStarred', 'routeName', 'mode'));
+    }
+
+    public function showStop($index = 0)
+    {
+        $routeName = 'reading.show';
+        $mode = 'show';
+
+        $user = Auth::user();
+        $questions = Question::where('topic_id', 3)->orderBy('id')->get();
+        $total = $questions->count();
+        $index = max(0, min($index, $total - 1));
+        $question = $questions[$index];
+
+        // KIỂM TRA CÂU HỎI SAO:
+        $isStarred = StarredQuestion::where('user_id', $user->id)
+            ->where('question_id', $question->id)
+            ->exists();
+        session(['reading_answer' => $question->content]);
+        return view('reading.show-2', compact('question', 'index', 'total', 'isStarred', 'routeName', 'mode'));
     }
 
     public function showStarred($index = 0)
