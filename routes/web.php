@@ -14,6 +14,7 @@ use App\Http\Controllers\N400Controller;
 use App\Http\Controllers\QAndAController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\StarController;
+use App\Http\Controllers\StudyMaterialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VocabularyController;
 use Illuminate\Support\Facades\Storage;
@@ -148,7 +149,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/testapi3', [RepresentativeController::class, 'getRepresentative3'])->name('representative.test3');
     Route::get('/representative', [RepresentativeController::class, 'form'])->name('representative.form');
     Route::post('/representative', [RepresentativeController::class, 'getRepresentative'])->name('getRepresentative');
+    // === [END] * Representaive * ===
 
+    // Tài liệu học tập
+    Route::prefix('study-materials')->group(function () {
+        Route::get('/', [StudyMaterialController::class, 'index'])->name('study_materials.index');
+        Route::get('/{type}', [StudyMaterialController::class, 'show'])->name('study_materials.show');
+    });
+    // [END] - Tài liệu học tập
     // TEST READING
     Route::get('/recorder', [ReadingController::class, 'index'])->name('recorder.index');
     Route::post('/recorder/upload', [ReadingController::class, 'upload'])->name('recorder.upload');
