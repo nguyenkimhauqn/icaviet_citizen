@@ -80,6 +80,8 @@
                 const recordingSrc = '{{ asset('public/icon/mockTests/micro-recording.svg') }}';
 
                 $icon.attr('src', recordingSrc);
+                $btn.css('background-color', '#BF0C2C');
+
 
                 listen(
                     function(text) {
@@ -93,9 +95,12 @@
                     },
                     function() {
                         $icon.attr('src', originalSrc);
+                        $btn.css('background-color', '#1247BB');
                     },
                     function() {
                         $icon.attr('src', originalSrc);
+                        $btn.css('background-color', '#1247BB');
+
                     }
                 );
             });
