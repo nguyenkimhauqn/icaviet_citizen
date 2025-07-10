@@ -17,6 +17,8 @@ use App\Http\Controllers\StarController;
 use App\Http\Controllers\StudyMaterialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VocabularyController;
+use App\Http\Controllers\UserQuestionController;
+use App\Http\Controllers\UserQuestionCommentController;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -157,6 +159,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{type}', [StudyMaterialController::class, 'show'])->name('study_materials.show');
     });
     // [END] - Tài liệu học tập
+
+    // Chia sẻ kinh nghiệm
+    Route::get('/sharing', [UserQuestionController::class, 'index'])->name('sharing.index');
+    Route::get('/sharing/create', [UserQuestionController::class, 'create'])->name('sharing.create');
+    Route::post('/sharing', [UserQuestionController::class, 'store'])->name('sharing.store');
+    Route::get('/sharing/{slug}', [UserQuestionController::class, 'show'])->name('sharing.show');
+    // Bình luận bài viết
+    Route::post('/sharing/{id}/comment', [UserQuestionCommentController::class, 'store'])->name('sharing.comment.store');
+    
     // TEST READING
     Route::get('/recorder', [ReadingController::class, 'index'])->name('recorder.index');
     Route::post('/recorder/upload', [ReadingController::class, 'upload'])->name('recorder.upload');

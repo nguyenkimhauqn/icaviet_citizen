@@ -153,13 +153,12 @@
 
                     <!-- 11. Chia sẻ kinh nghiệm -->
                     <div class="col-4">
-                        <a href="">
+                        <a href="{{ route('sharing.index') }}">
                             <div class="feature-card">
                                 <div class="feature-icon">
                                     <img src="{{ asset('public/icon/home/icon-chia-se-kinh-nghiem.svg') }}" alt="icon-star">
                                 </div>
                                 <span class="title_en">Chia sẻ kinh nghiệm</span>
-                                <span class="title_vn bage bage-primary">(Đang cập nhật)</span>
                             </div>
                         </a>
                     </div>

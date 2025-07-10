@@ -130,8 +130,10 @@
                     </a>
 
                     <button id="start-recording" class="btn-start action-btn btn-submit">
-                        <i id="icon-mic" class="bi bi-mic"></i>
-                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                        <span id="icon-mic"> <img src="{{ url('public/icon/reading/icon-mic.svg') }}" alt="defaul">
+                        </span>
+                        <span id="icon-stop" class="d-none"> <img
+                                src="{{ url('public/icon/reading/icon-mic-running.svg') }}" alt="running"> </span>
                     </button>
 
                     <a href="{{ route($routeName, ['index' => $index + 1]) }}" class="btn action-btn btn-next">
@@ -146,8 +148,10 @@
                     </a>
 
                     <button id="start-recording" class="btn-start action-btn btn-submit">
-                        <i id="icon-mic" class="bi bi-mic"></i>
-                        <i id="icon-stop" class="bi bi-square d-none"></i>
+                        <span id="icon-mic"> <img src="{{ url('public/icon/reading/icon-mic.svg') }}" alt="defaul">
+                        </span>
+                        <span id="icon-stop" class="d-none"> <img
+                                src="{{ url('public/icon/reading/icon-mic-running.svg') }}" alt=""> </span>
                     </button>
 
                     <a href="{{ route($routeName, ['index' => ($index + 1) % $total]) }}" class="btn action-btn btn-next">
@@ -237,7 +241,13 @@
             $startBtn.on('click', function() {
                 $resultBox.removeClass('answer-correct answer-wrong'); // Xóa trạng thái đúng/ sai
                 $resultBox.addClass('isActive'); // Gắn trạng thái đang nghe
-                $resultContent.text('⏳ Đang nghe...');
+                $resultContent.text('⏳ Hệ thống đang nghe và sẽ tự dừng khi xong'); // Hiển thị text nghe
+                // Đổi màu BG:
+                $startBtn.css({
+                    'background-color': '#BF0C2C',
+                    'color': '#fff',
+                    'border': 'none'
+                });
 
                 recognition.start(); // Bắt đầu thu âm
 
@@ -294,6 +304,13 @@
                     $resultContent.text('❌ Không nghe rõ âm thanh, vui lòng thử lại');
                 }
 
+                // Reset màu button:
+                $startBtn.css({
+                    'background-color': '', // hoặc '#0066CC' hay màu ban đầu của bạn
+                    'color': '',
+                    'border': ''
+                });
+                
                 // Ẩn icon stop & sóng âm nếu chưa có kết quả
                 iconStop.classList.add('d-none');
                 iconMic.classList.remove('d-none');

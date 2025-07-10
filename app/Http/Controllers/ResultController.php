@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use App\Models\QuestionSet;
+use App\Models\Quiz;
 use App\Models\Topic;
 use App\Models\UserAnswerQuestion;
 use Illuminate\Http\Request;
@@ -12,7 +13,29 @@ class ResultController extends Controller
 {
     public function index(Request $request)
     {
-        return view('result.index');
+        $user = auth()->user();
+
+        // Lấy tất cả quiz đã hoàn thành của user
+        $quizzes = Quiz::where('user_id', $user->id)
+            ->where('is_completed', true)
+            ->get();
+
+        if ($quizzes->isEmpty()) {
+            return view('result.index')->with('message', 'Bạn chưa hoàn thành bài kiểm tra nào.');
+        }
+
+        // Tính tổng
+        $totalQuestions = $quizzes->sum('total_questions');
+        $totalCorrect = $quizzes->sum('correct_answers');
+        $totalIncorrect = $totalQuestions - $totalCorrect;
+        $accuracy = $totalQuestions > 0 ? round(($totalCorrect / $totalQuestions) * 100) : 0;
+
+        return view('result.index', compact(
+            'totalQuestions',
+            'totalCorrect',
+            'totalIncorrect',
+            'accuracy'
+        ));
     }
 
     // public function show(Request $request)

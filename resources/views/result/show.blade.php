@@ -8,9 +8,6 @@
 @endpush
 
 @section('content')
-    @php
-        dd("ok");
-    @endphp
     <!-- Header -->
     <div class="header-inner">
         <div class="header">
@@ -25,8 +22,8 @@
 
     <div class="main-content">
         <div class="btn-group">
-            <button class="btn-none">Kết quả luyện tập</button>
-            <button class="btn-outlined">Kết quả thi thử</button>
+            <a href="{{ route('result.index') }}" class="btn-none">Kết quả luyện tập</a>
+            <a href="{{ route('result.mock-test') }}" class="btn-outlined">Kết quả thi thử</a>
         </div>
 
         <div class="accordion custom-accordion" id="resultsAccordion">

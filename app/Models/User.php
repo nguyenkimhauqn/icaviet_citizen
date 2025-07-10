@@ -51,4 +51,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Representative::class);
     }
+    
+    // Chia sẻ kinh nghiệm
+
+    public function questions()
+    {
+        return $this->hasMany(UserQuestion::class);
+    }
+
+    public function questionComments()
+    {
+        return $this->hasMany(UserQuestionComment::class);
+    }
 }
