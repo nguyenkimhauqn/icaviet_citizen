@@ -177,7 +177,10 @@ class ResultController extends Controller
 
             foreach ($testTypes as $testType) {
                 $slug = $testType->slug;
-                $setNumber = request()->query('set_number', 1);
+                $setNumber = UserAnswerQuestion::where('attempt_id', $attemptId)
+                    ->where('user_id', $userId)
+                    ->whereHas('question.topic', fn($q) => $q->where('slug', 'n400'))
+                    ->value('set_number') ?? 1;
 
                 if ($slug === 'n400') {
                     $questionIds = QuestionSet::where('set_number', $setNumber)
@@ -317,7 +320,10 @@ class ResultController extends Controller
     public function showDetail(Request $request, $attemptId)
     {
         $userId = auth()->id();
-        $setNumber = $request->query('set_number', 1);
+        $setNumber = UserAnswerQuestion::where('attempt_id', $attemptId)
+            ->where('user_id', $userId)
+            ->whereHas('question.topic', fn($q) => $q->where('slug', 'n400'))
+            ->value('set_number') ?? 1;
 
         // Lấy topic N-400
         $testType = Topic::where('slug', 'n400')->firstOrFail();

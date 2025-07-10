@@ -150,6 +150,7 @@ class N400QuestionSeeder extends Seeder
                 ]
             ]),
         ]);
+        QuestionSet::create(['set_number' => 2,            'question_id' => $q9->id,]);
 
 
         // 10
@@ -254,7 +255,7 @@ class N400QuestionSeeder extends Seeder
             'type' => 'multiple_choice',
             'default_answers' => 'Green card for over 5 years',
             'tips' => json_encode([
-                'Basis' => 'cơ sở nộp đơn'
+                'Basis' => 'cơ sở nộp đơn (nộp đơn theo diện nào)'
             ]),
         ]);
         QuestionSet::create(['set_number' => 1,            'question_id' => $q16->id,]);
@@ -521,6 +522,7 @@ class N400QuestionSeeder extends Seeder
             'default_answers' => 'January 1, 1990',
             'tips' => '{"When": "khi nào", "Your birthday": "sinh nhật của bạn"}',
         ]);
+        QuestionSet::create(['set_number' => 1,            'question_id' => $q40->id,]);
         QuestionSet::create(['set_number' => 2,            'question_id' => $q40->id,]);
 
         $question9 = $q41 = Question::create([
@@ -613,6 +615,7 @@ class N400QuestionSeeder extends Seeder
             'default_answers' => 'Yes',
             'tips' => '{"Update": "cập nhật", "Social Security": "An sinh Xã hội"}',
         ]);
+        QuestionSet::create(['set_number' => 3,            'question_id' => $q50->id,]);
 
 
         Answer::create([
@@ -871,7 +874,8 @@ class N400QuestionSeeder extends Seeder
             'tips' => '{"Spouse": "vợ/chồng", "U.S. armed forces": "quân đội Mỹ"}',
         ]);
 
-        QuestionSet::create(['set_number' => 1, 'question_id' => $question2->id,]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q75->id,]);
+        QuestionSet::create(['set_number' => 3,            'question_id' => $q75->id,]);
 
 
         Answer::create([
@@ -896,7 +900,8 @@ class N400QuestionSeeder extends Seeder
             'default_answers' => '',
             'tips' => '{"How many times": "mấy lần", "Married": "kết hôn"}',
         ]);
-        QuestionSet::create(['set_number' => 1, 'question_id' => $question3->id,]);
+        QuestionSet::create(['set_number' => 1, 'question_id' => $q78->id,]);
+        QuestionSet::create(['set_number' => 3, 'question_id' => $q78->id,]);
 
         // ----- END: PART 6 ----
 
@@ -911,6 +916,7 @@ class N400QuestionSeeder extends Seeder
         ]);
         QuestionSet::create(['set_number' => 1,            'question_id' => $q79->id,]);
 
+
         $question2 = $q80 = Question::create([
             'category_id' => 7,
             'content' => 'What is your current <strong>spouse’s date of birth</strong>?',
@@ -919,6 +925,7 @@ class N400QuestionSeeder extends Seeder
             'default_answers' => 'January 02, 1990',
             'tips' => '{"Spouse": "vợ/chồng", "Date of birth": "ngày sinh"}',
         ]);
+        QuestionSet::create(['set_number' => 2,            'question_id' => $q80->id,]);
 
 
         $question3 = $q81 = Question::create([
@@ -1184,7 +1191,7 @@ class N400QuestionSeeder extends Seeder
             'explanation' => 'Tôi hiện đang đi học',
             'is_correct' => true,
             'skip_to_question' => 7,
-            'skip_to_question_mockTest' => 25,
+            'skip_to_question_mockTest' => 26,
             'has_audio' => true,
         ]);
 

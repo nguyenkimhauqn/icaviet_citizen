@@ -5,7 +5,7 @@
 
     <div class="container mt-4">
         {{-- Header --}}
-        <div class="wp-header d-flex align-items-center mb-4">
+        <div class="wp-header box-stick d-flex align-items-center mb-4">
             <div class="btn-home mr-2">
                 <a href="{{ route('home') }}" class="" title="Quay về trang chủ" style="width: 42px; height: 42px;">
                     <img style="width: 50px; height: 50px;" src="{{ url('public/icon/Icon-back-home.svg') }}" alt="">
@@ -199,7 +199,6 @@
             });
             // Phát âm câu trả lời theo audio sẵn
             // $('.play-audio-answer').on('click', function() {
-            //     alert(1);
             //     let audioSrc = $(this).data('audio');
             //     let audio = new Audio(audioSrc);
             //     if (audio.paused) {
@@ -222,14 +221,15 @@
             });
 
             // Phát tự động câu hỏi khi vào trang
-            const autoPlayBtn = $('.play-audio-btn').first(); // 1 cau
-            if (autoPlayBtn.length) {
-                const audioSrc = autoPlayBtn.data('audio');
-                const autoAudio = new Audio(audioSrc);
-                autoAudio.play().catch(function(e) {
-                    console.warn('Autoplay bị chặn bởi trình duyệt:', e);
-                });
-            }
+
+            // const autoPlayBtn = $('.play-audio-btn').first(); // 1 cau
+            // if (autoPlayBtn.length) {
+            //     const audioSrc = autoPlayBtn.data('audio');
+            //     const autoAudio = new Audio(audioSrc);
+            //     autoAudio.play().catch(function(e) {
+            //         console.warn('Autoplay bị chặn bởi trình duyệt:', e);
+            //     });
+            // }
             // [END] - Phát âm thanh
 
             // AJAX kiểm tra đáp án
