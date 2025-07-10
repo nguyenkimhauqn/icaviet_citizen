@@ -50,9 +50,12 @@ class MockTestController extends Controller
         if ($slug === 'n400') {
             if ($setNumber < 1) {
                 // Tính toán theo round robin
-                $setNumber = ($currentRound % $totalSets) + 1;
+                $setNumber = ($currentRound % 2) + 1;
                 // Cập nhật round cho lần sau
                 session()->put($shownSetKey, $currentRound + 1);
+
+                // Ghi nhớ set_number vào session để sau dùng khi show kết quả
+                $request->session()->put("mock_test_set_number_{$slug}", $setNumber);
 
                 // Redirect để đính `set_number` vào URL
                 return redirect()->route('start.mock-test', [
@@ -232,6 +235,7 @@ class MockTestController extends Controller
         $currentPage = (int) $request->query('page', 1);
         // $setNumber = (int) $request->query('set_number', 1);
         $setNumber = (int) $request->set_number;
+        $request->session()->put("mock_test_set_number_{$slug}", $setNumber);
 
         if (!$attemptId) {
             return redirect()->route('start.mock-test', $slug)->with('error', 'Bài thi chưa được khởi tạo.');
@@ -256,6 +260,7 @@ class MockTestController extends Controller
             ->where('question_id', $questionId)
             ->first();
 
+        // dd($setNumber);
         if ($userAnswer) {
             $userAnswer->update([
                 'answer_id' => $answerId,
@@ -263,6 +268,7 @@ class MockTestController extends Controller
                 'additional_answer' => empty($additionalField) ? null : $additionalField,
                 'is_correct' => $isCorrect,
                 'answered_at' => now(),
+                'set_number' => $setNumber,
             ]);
         } else {
             UserAnswerQuestion::create([
@@ -274,6 +280,7 @@ class MockTestController extends Controller
                 'additional_answer' => empty($additionalField) ? null : $additionalField,
                 'is_correct' => $isCorrect,
                 'answered_at' => now(),
+                'set_number' => $setNumber,
             ]);
         }
 
@@ -667,7 +674,8 @@ class MockTestController extends Controller
 
         foreach ($testTypes as $testType) {
             $slug = $testType->slug;
-            $setNumber = $request->query('set_number', 1);
+            $setNumber = $request->query('set_number') ?? session("mock_test_set_number_{$slug}", 1);
+
 
             if ($slug === 'n400') {
                 $questionIds = QuestionSet::where('set_number', $setNumber)

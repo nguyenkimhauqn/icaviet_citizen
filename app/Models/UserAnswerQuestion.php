@@ -20,6 +20,7 @@ class UserAnswerQuestion extends Model
         'additional_answer',
         'is_correct',
         'answered_at',
+        'set_number'
     ];
 
     public function user()

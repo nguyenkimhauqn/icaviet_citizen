@@ -41,6 +41,7 @@
                 </div> --}}
 
                 <input type="hidden" name="question_id" value="{{ $question->id }}">
+                <input type="hidden" name="set_number" value="{{ $setNumber }}">
 
                 <div class="quiz-container" style="margin-top: 20px;">
                     <div class="audio">
