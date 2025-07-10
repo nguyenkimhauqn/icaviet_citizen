@@ -47,7 +47,40 @@
                         <input type="hidden" name="answer_id" id="answer_id">
                         @foreach ($question->answers as $answer)
                             <div class="option" data-answer="{{ $answer->id }}">
-                                <p class="font-sm">{{ $answer->content }}</p>
+                                {{-- <p class="font-sm">{{ $answer->content }}</p> --}}
+                                @php
+                                    $dynamicContent = $answer->content;
+
+                                    if ($question->has_guideline && $answer->is_correct && isset($representativeData)) {
+                                        switch ($question->id) {
+                                            case 20:
+                                                $senators = $representativeData->senators;
+                                                if (is_array($senators) && count($senators) > 0) {
+                                                    $dynamicContent =
+                                                        $senators[0]['first_name'] . ' ' . $senators[0]['last_name'];
+                                                }
+                                                break;
+                                            case 23:
+                                                $rep = $representativeData->representative;
+                                                if (is_array($rep)) {
+                                                    $dynamicContent = $rep['first_name'] . ' ' . $rep['last_name'];
+                                                }
+                                                break;
+                                            case 43:
+                                                $gov = $representativeData->governor;
+                                                if (is_array($gov)) {
+                                                    $dynamicContent = $gov['first_name'] . ' ' . $gov['last_name'];
+                                                }
+                                                break;
+                                            case 44:
+                                                $dynamicContent = $representativeData->capital ?? $answer->content;
+                                                break;
+                                        }
+                                    }
+                                @endphp
+
+                                <p class="font-sm">{{ $dynamicContent }}</p>
+
                             </div>
                         @endforeach
                     </div>

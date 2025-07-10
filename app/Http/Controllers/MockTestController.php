@@ -193,7 +193,11 @@ class MockTestController extends Controller
                 })
                 ->count();
 
+            $representativeData = null;
             if ($slug === 'civics') {
+                $user = Auth::user()->load('representative');
+                $representativeData = $user->representative;
+
                 $correctAnswersCount = UserAnswerQuestion::where('attempt_id', $attemptId)
                     ->where('is_correct', true)
                     ->whereHas('question.topic', function ($q) use ($slug) {
@@ -214,7 +218,8 @@ class MockTestController extends Controller
             'n400' => 'mock-test.start-n400',
         };
 
-        return view($view, compact('testType', 'question', 'page', 'total', 'attemptId', 'setNumber'));
+
+        return view($view, compact('testType', 'question', 'page', 'total', 'attemptId', 'setNumber', 'representativeData'));
     }
 
     public function submitAnswer(Request $request, $slug)
