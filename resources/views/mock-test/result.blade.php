@@ -79,7 +79,50 @@
 
                                             <div class="d-flex align-items-center gap-2 font-sm">
                                                 <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
-                                                <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
+                                                {{-- <p class="text-success m-0">{{ $detail['correct_answer'] }}</p> --}}
+                                                @php
+                                                    $dynamicContent = $detail['correct_answer'];
+
+                                                    if (
+                                                        $result['slug'] === 'civics' &&
+                                                        $detail['is_correct'] &&
+                                                        $detail['has_guideline'] &&
+                                                        isset($representativeData)
+                                                    ) {
+                                                        switch ($detail['question_id']) {
+                                                            case 20:
+                                                                $senators = $representativeData->senators;
+                                                                if (is_array($senators) && count($senators) > 0) {
+                                                                    $dynamicContent =
+                                                                        $senators[0]['first_name'] .
+                                                                        ' ' .
+                                                                        $senators[0]['last_name'];
+                                                                }
+                                                                break;
+                                                            case 23:
+                                                                $rep = $representativeData->representative;
+                                                                if (is_array($rep)) {
+                                                                    $dynamicContent =
+                                                                        $rep['first_name'] . ' ' . $rep['last_name'];
+                                                                }
+                                                                break;
+                                                            case 43:
+                                                                $gov = $representativeData->governor;
+                                                                if (is_array($gov)) {
+                                                                    $dynamicContent =
+                                                                        $gov['first_name'] . ' ' . $gov['last_name'];
+                                                                }
+                                                                break;
+                                                            case 44:
+                                                                $dynamicContent =
+                                                                    $representativeData->capital ??
+                                                                    $detail['correct_answer'];
+                                                                break;
+                                                        }
+                                                    }
+                                                @endphp
+
+                                                <p class="text-success m-0">{{ $dynamicContent }}</p>
                                             </div>
                                             @if ($detail['vietnamese_correct_answer'])
                                                 <p class="font-very-sm-italic">Dịch:

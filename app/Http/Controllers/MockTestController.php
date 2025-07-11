@@ -672,6 +672,8 @@ class MockTestController extends Controller
         $testTypes = Topic::take(4)->orderBy('num_order')->get();
         $results = [];
         $attemptId = $request->session()->get("mock_test_attempt_id");
+        $user = Auth::user()->load('representative');
+        $representativeData = $user->representative;
 
         if (!$attemptId) {
             return redirect()->route('mock-test.list');
@@ -805,6 +807,6 @@ class MockTestController extends Controller
         ]);
         $request->session()->forget('mock_test_attempt_id');
 
-        return view('mock-test.result', compact('results'));
+        return view('mock-test.result', compact('results', 'representativeData'));
     }
 }
