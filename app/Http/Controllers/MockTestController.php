@@ -44,7 +44,7 @@ class MockTestController extends Controller
 
         // Nếu người dùng truyền `set_number` từ query, dùng cái đó (ưu tiên hơn), ngược lại dùng round robin
         $setNumber = (int) $request->query('set_number', 0);
-
+        $representativeData = null;
 
         if ($page < 1) $page = 1;
         if ($slug === 'n400') {
@@ -193,7 +193,7 @@ class MockTestController extends Controller
                 })
                 ->count();
 
-            $representativeData = null;
+
             if ($slug === 'civics') {
                 $user = Auth::user()->load('representative');
                 $representativeData = $user->representative;
