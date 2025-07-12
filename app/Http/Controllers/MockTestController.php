@@ -849,7 +849,7 @@ class MockTestController extends Controller
                 'title' => $testType->name,
                 'vietnamese_title' => $testType->vietnamese_name,
                 'slug' => $slug,
-                'icon' => "icon/mockTests/{$slug}.svg",
+                'icon' => "public/icon/mockTests/{$slug}.svg",
                 'correct' => $correctAnswers,
                 'total' => $totalQuestions,
                 'is_passed' => $isPassed,
