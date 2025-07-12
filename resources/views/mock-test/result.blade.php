@@ -15,26 +15,7 @@
                         aria-expanded="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $index }}">
                         <div class="d-flex align-items-center justify-content-between w-100">
                             <div class="d-flex align-items-center">
-                                @php
-                                    switch ($result['slug']) {
-                                        case 'civics':
-                                            $icon = 'public/icon/mockTests/civics.svg';
-                                            break;
-                                        case 'reading':
-                                            $icon = 'public/icon/mockTests/reading.svg';
-                                            break;
-                                        case 'writing':
-                                            $icon = 'public/icon/mockTests/writing.svg';
-                                            break;
-                                        case 'n400':
-                                            $icon = 'public/icon/mockTests/n400.svg';
-                                            break;
-                                        default:
-                                            $icon = 'public/icon/mockTests/default.svg';
-                                    }
-                                @endphp
-
-                                <img src="{{ asset($icon) }}" style="width: 32px;" alt="{{ $result['title'] }}">
+                                <img src="{{ asset($result['icon']) }}" style="width: 32px;" alt="{{ $result['title'] }}">
                                 <div class="ms-3">
                                     <div class="test-title">{!! $result['title'] !!}</div>
                                     @if ($result['slug'] !== 'n400')
@@ -70,102 +51,69 @@
                                     </div>
 
                                     <div class="answer-box">
-                                        @php
-                                            $dynamicAnswer = $detail['correct_answer'];
-                                            if (
-                                                isset($detail['question_id']) &&
-                                                in_array($detail['question_id'], [20, 23, 43, 44]) &&
-                                                isset($representativeData)
-                                            ) {
-                                                switch ($detail['question_id']) {
-                                                    case 20:
-                                                        $senators = $representativeData->senators ?? [];
-                                                        if (is_array($senators) && count($senators) > 0) {
-                                                            $dynamicAnswer =
-                                                                $senators[0]['first_name'] .
-                                                                ' ' .
-                                                                $senators[0]['last_name'];
-                                                        }
-                                                        break;
-                                                    case 23:
-                                                        $rep = $representativeData->representative ?? null;
-                                                        if (is_array($rep)) {
-                                                            $dynamicAnswer =
-                                                                $rep['first_name'] . ' ' . $rep['last_name'];
-                                                        }
-                                                        break;
-                                                    case 43:
-                                                        $gov = $representativeData->governor ?? null;
-                                                        if (is_array($gov)) {
-                                                            $dynamicAnswer =
-                                                                $gov['first_name'] . ' ' . $gov['last_name'];
-                                                        }
-                                                        break;
-                                                    case 44:
-                                                        $dynamicAnswer =
-                                                            $representativeData->capital ?? $detail['correct_answer'];
-                                                        break;
-                                                }
-                                            }
-                                        @endphp
+                                        @if ($result['slug'] === 'civics')
+                                            @if ($detail['is_correct'])
+                                                <div class="d-flex align-items-center gap-2 font-sm">
+                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
+                                                        alt="Success">
+                                                    <p class="text-success m-0">{{ $detail['user_answer'] }}</p>
+                                                </div>
+                                                @if ($detail['vietnamese_correct_answer'])
+                                                    <p class="font-very-sm-italic mt-1">Dịch:
+                                                        {{ $detail['vietnamese_correct_answer'] }}
+                                                    </p>
+                                                @endif
+                                                @if ($detail['pronunciation_suggest_answer'])
+                                                    <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
+                                                        {{ $detail['pronunciation_suggest_answer'] }}
+                                                    </p>
+                                                @endif
+                                            @else
+                                                <div class="d-flex align-items-center gap-2 mb-2 font-sm">
+                                                    <img src="{{ asset('public/icon/mockTests/error.svg') }}"
+                                                        alt="Error">
+                                                    <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
+                                                </div>
 
-                                        @if ($result['slug'] !== 'civics')
-                                            <p class="font-sm">Câu trả lời của bạn:
-                                                <strong>{{ $detail['user_answer'] }}</strong>
-                                            </p>
-                                        @elseif ($detail['is_correct'])
-                                            <div class="d-flex align-items-center gap-2 font-sm">
-                                                <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
-                                                <p class="text-success m-0">
-                                                    {{ $dynamicAnswer }}
-                                                    {{-- @if ($detail['question_id'] == 20)
-                                                        <br><a href="https://senate.gov" target="_blank">Tra cứu tại
-                                                            senate.gov</a>
-                                                    @elseif ($detail['question_id'] == 23)
-                                                        <br><a href="https://house.gov" target="_blank">Tra cứu tại
-                                                            house.gov</a>
-                                                    @elseif ($detail['question_id'] == 43)
-                                                        <br><a href="https://usa.gov/state-governor" target="_blank">Tra cứu
-                                                            tại usa.gov/state-governor</a>
-                                                    @endif
-                                                </p> --}}
-                                            </div>
+                                                <div class="d-flex align-items-center gap-2 font-sm">
+                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
+                                                        alt="Success">
+                                                    <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
+                                                </div>
+                                                @if ($detail['vietnamese_correct_answer'])
+                                                    <p class="font-very-sm-italic">Dịch:
+                                                        {{ $detail['vietnamese_correct_answer'] }}
+                                                    </p>
+                                                @endif
+                                                @if ($detail['pronunciation_suggest_answer'])
+                                                    <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
+                                                        {{ $detail['pronunciation_suggest_answer'] }}
+                                                    </p>
+                                                @endif
+                                            @endif
                                         @else
-                                            <div class="d-flex align-items-center gap-2 mb-2 font-sm">
-                                                <img src="{{ asset('public/icon/mockTests/error.svg') }}" alt="Error">
-                                                <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
-                                            </div>
+                                            @if ($detail['is_correct'])
+                                                <div class="d-flex align-items-center gap-2 font-sm">
+                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
+                                                        alt="Success">
+                                                    <p class="text-success m-0">{{ $detail['user_answer'] }}</p>
+                                                </div>
+                                            @else
+                                                <div class="d-flex align-items-center gap-2 mb-2 font-sm">
+                                                    <img src="{{ asset('public/icon/mockTests/error.svg') }}"
+                                                        alt="Error">
+                                                    <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
+                                                </div>
 
-                                            <div class="d-flex align-items-center gap-2 font-sm">
-                                                <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
-                                                <p class="text-success m-0">
-                                                    {{ $dynamicAnswer }}
-                                                    @if ($detail['question_id'] == 20)
-                                                        <br><a href="https://senate.gov" target="_blank">Tra cứu tại
-                                                            senate.gov</a>
-                                                    @elseif ($detail['question_id'] == 23)
-                                                        <br><a href="https://house.gov" target="_blank">Tra cứu tại
-                                                            house.gov</a>
-                                                    @elseif ($detail['question_id'] == 43)
-                                                        <br><a href="https://usa.gov/state-governor" target="_blank">Tra
-                                                            cứu
-                                                            tại usa.gov/state-governor</a>
-                                                    @endif
-                                                </p>
-                                            </div>
-                                        @endif
-
-                                        @if ($detail['vietnamese_correct_answer'])
-                                            <p class="font-very-sm-italic">Dịch:
-                                                {{ $detail['vietnamese_correct_answer'] }}
-                                            </p>
-                                        @endif
-                                        @if ($detail['pronunciation_suggest_answer'])
-                                            <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
-                                                {{ $detail['pronunciation_suggest_answer'] }}
-                                            </p>
+                                                <div class="d-flex align-items-center gap-2 font-sm">
+                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
+                                                        alt="Success">
+                                                    <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
+                                                </div>
+                                            @endif
                                         @endif
                                     </div>
+
                                 </div>
                             @endforeach
                         @else
