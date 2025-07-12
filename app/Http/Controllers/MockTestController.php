@@ -700,6 +700,42 @@ class MockTestController extends Controller
             return redirect()->route('mock-test.list');
         }
 
+        //     $testTypes = Topic::take(4)->orderBy('num_order')->get();
+        //     $results = [];
+        //     $attemptId = $request->session()->get("mock_test_attempt_id");
+
+        //     if (!$attemptId) {
+        //         return redirect()->route('mock-test.list');
+        //     }
+
+        //     foreach ($testTypes as $testType) {
+        //         $slug = $testType->slug;
+        //         $setNumber = $request->query('set_number', 1);
+
+        //         if ($slug === 'n400') {
+        //             $questionIds = QuestionSet::where('set_number', $setNumber)
+        //                 ->orderBy('id')
+        //                 ->pluck('question_id');
+
+        //             $questions = Question::whereIn('id', $questionIds)
+        //                 ->with('answers')
+        //                 ->get();
+        //         } else {
+        //             $questions = $testType->questions()->with('answers')->get();
+        //             $questionIds = $questions->pluck('id');
+        //         }
+
+        //         $userAnswers = UserAnswerQuestion::where('attempt_id', $attemptId)
+        //             ->whereIn('question_id', $questionIds)
+        //             ->with('answer')
+        //             ->get()
+        //             ->keyBy('question_id');
+
+        //         $correctAnswers = $userAnswers->where('is_correct', true)->count();
+        //     // $request->session()->forget('mock_test_attempt_id');
+
+        //     return view('mock-test.result', compact('results'));
+
         foreach ($testTypes as $testType) {
             $slug = $testType->slug;
             $setNumber = $request->query('set_number') ?? session("mock_test_set_number_{$slug}", 1);
