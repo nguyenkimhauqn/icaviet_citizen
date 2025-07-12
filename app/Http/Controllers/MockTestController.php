@@ -172,6 +172,27 @@ class MockTestController extends Controller
 
             $question = $questionBuilder->first();
 
+            // *** Test câu hỏi ***
+            // $priorityQuestionIds = [20, 23, 43];
+            // $priorityRemainingIds = array_diff($priorityQuestionIds, $shownIds);
+
+            // if (!empty($priorityRemainingIds)) {
+            //     // Ưu tiên lấy các câu có id 20, 23, 43 chưa được hiển thị
+            //     $question = $testType->questions()
+            //         ->whereIn('id', $priorityRemainingIds)
+            //         ->with('answers')
+            //         ->orderByRaw("FIELD(id, " . implode(',', $priorityRemainingIds) . ")") // giữ thứ tự ưu tiên
+            //         ->first();
+            // } else {
+            //     // Sau khi 3 câu đó đã hiển thị hết, chọn random các câu còn lại
+            //     $question = $testType->questions()
+            //         ->whereNotIn('id', $shownIds)
+            //         ->with('answers')
+            //         ->inRandomOrder()
+            //         ->first();
+            // }
+            // *** END:  Test câu hỏi ***
+
             if (!$question) {
                 return redirect()->route('mock-test.result');
             }
@@ -732,6 +753,7 @@ class MockTestController extends Controller
 
                     $details[] = [
                         'question' => $question->content,
+                        'question_id' => $question->id,
                         'vietnamese_question' => $question->translation,
                         'type' => $question->type,
                         'user_answer' => $userAnswer->content
@@ -760,6 +782,7 @@ class MockTestController extends Controller
 
                     $details[] = [
                         'question' => $question->content,
+                        'question_id' => $question->id,
                         'vietnamese_question' => $question->translation,
                         'type' => $question->type,
                         'user_answer' => $userAnswer->content ?? $userAnswer->answer?->content ?? $userAnswer->answer_text ?? $userAnswer->answer?->answer_text,
