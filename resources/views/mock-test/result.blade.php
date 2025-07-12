@@ -109,7 +109,11 @@
                                             }
                                         @endphp
 
-                                        @if ($detail['is_correct'])
+                                        @if ($result['slug'] !== 'civics')
+                                            <p class="font-sm">Câu trả lời của bạn:
+                                                <strong>{{ $detail['user_answer'] }}</strong>
+                                            </p>
+                                        @elseif ($detail['is_correct'])
                                             <div class="d-flex align-items-center gap-2 font-sm">
                                                 <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
                                                 <p class="text-success m-0">
@@ -143,7 +147,8 @@
                                                         <br><a href="https://house.gov" target="_blank">Tra cứu tại
                                                             house.gov</a>
                                                     @elseif ($detail['question_id'] == 43)
-                                                        <br><a href="https://usa.gov/state-governor" target="_blank">Tra cứu
+                                                        <br><a href="https://usa.gov/state-governor" target="_blank">Tra
+                                                            cứu
                                                             tại usa.gov/state-governor</a>
                                                     @endif
                                                 </p>

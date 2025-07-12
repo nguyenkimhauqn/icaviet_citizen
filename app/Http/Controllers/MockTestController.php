@@ -828,7 +828,7 @@ class MockTestController extends Controller
         session()->forget([
             'skip_page_25',
         ]);
-        $request->session()->forget('mock_test_attempt_id');
+        // $request->session()->forget('mock_test_attempt_id');
 
         return view('mock-test.result', compact('results', 'representativeData'));
     }
