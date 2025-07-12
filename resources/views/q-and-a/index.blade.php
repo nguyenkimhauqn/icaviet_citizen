@@ -81,12 +81,12 @@
 
     </main>
     <!-- Start Button -->
-    <div class="test-footer end">
+    {{-- <div class="test-footer end">
         <a class="send-button" href="{{ route('qa.show-form') }}">
             <span>Gửi phản hồi</span>
             <img src="{{ asset('public/icon/q-and-a/send.svg') }}" alt="Gửi">
         </a>
-    </div>
+    </div> --}}
 @endsection
 
 @push('scripts')
