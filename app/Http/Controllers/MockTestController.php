@@ -749,7 +749,7 @@ class MockTestController extends Controller
                     $question = $userAnswer->question;
                     if (!$question) continue;
 
-                    $correctAnswer = $question->answers->firstWhere('is_correct', true);
+                    // $correctAnswer = $question->answers->firstWhere('is_correct', true);
 
                     $details[] = [
                         'question' => $question->content,
@@ -761,7 +761,7 @@ class MockTestController extends Controller
                             ?? $userAnswer->answer_text
                             ?? $userAnswer->answer?->answer_text
                             ?? 'Không có câu trả lời',
-                        'correct_answer' => $correctAnswer?->content ?? 'Chưa xác định',
+                        'correct_answer' => TextHelper::removeStrongTags($question?->content),
                         'vietnamese_correct_answer' => $correctAnswer?->explanation ?? '',
                         'pronunciation_suggest_answer' => $correctAnswer?->pronunciation ?? '',
                         'is_correct' => $userAnswer->is_correct,
@@ -828,7 +828,7 @@ class MockTestController extends Controller
         session()->forget([
             'skip_page_25',
         ]);
-        // $request->session()->forget('mock_test_attempt_id');
+        $request->session()->forget('mock_test_attempt_id');
 
         return view('mock-test.result', compact('results', 'representativeData'));
     }

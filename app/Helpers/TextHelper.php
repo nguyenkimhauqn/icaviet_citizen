@@ -17,4 +17,9 @@ class TextHelper
 
         return strtolower(trim($text));
     }
+
+    public static function removeStrongTags($text)
+    {
+        return str_replace(['<strong>', '</strong>'], '', $text);
+    }
 }

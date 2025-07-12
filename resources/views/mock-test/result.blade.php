@@ -51,65 +51,44 @@
                                     </div>
 
                                     <div class="answer-box">
-                                        @if ($result['slug'] === 'civics')
-                                            @if ($detail['is_correct'])
-                                                <div class="d-flex align-items-center gap-2 font-sm">
-                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
-                                                        alt="Success">
-                                                    <p class="text-success m-0">{{ $detail['user_answer'] }}</p>
-                                                </div>
-                                                @if ($detail['vietnamese_correct_answer'])
-                                                    <p class="font-very-sm-italic mt-1">Dịch:
-                                                        {{ $detail['vietnamese_correct_answer'] }}
-                                                    </p>
-                                                @endif
-                                                @if ($detail['pronunciation_suggest_answer'])
-                                                    <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
-                                                        {{ $detail['pronunciation_suggest_answer'] }}
-                                                    </p>
-                                                @endif
-                                            @else
-                                                <div class="d-flex align-items-center gap-2 mb-2 font-sm">
-                                                    <img src="{{ asset('public/icon/mockTests/error.svg') }}"
-                                                        alt="Error">
-                                                    <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
-                                                </div>
-
-                                                <div class="d-flex align-items-center gap-2 font-sm">
-                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
-                                                        alt="Success">
-                                                    <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
-                                                </div>
-                                                @if ($detail['vietnamese_correct_answer'])
-                                                    <p class="font-very-sm-italic">Dịch:
-                                                        {{ $detail['vietnamese_correct_answer'] }}
-                                                    </p>
-                                                @endif
-                                                @if ($detail['pronunciation_suggest_answer'])
-                                                    <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
-                                                        {{ $detail['pronunciation_suggest_answer'] }}
-                                                    </p>
-                                                @endif
+                                        @if ($result['slug'] === 'n400')
+                                            <p class="font-sm">Câu trả lời của bạn:
+                                                <strong>{{ $detail['user_answer'] }}</strong>
+                                            </p>
+                                        @elseif ($detail['is_correct'])
+                                            <div class="d-flex align-items-center gap-2 font-sm">
+                                                <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
+                                                <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
+                                            </div>
+                                            @if ($detail['vietnamese_correct_answer'])
+                                                <p class="font-very-sm-italic mt-1">Dịch:
+                                                    {{ $detail['vietnamese_correct_answer'] }}
+                                                </p>
+                                            @endif
+                                            @if ($detail['pronunciation_suggest_answer'])
+                                                <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
+                                                    {{ $detail['pronunciation_suggest_answer'] }}
+                                                </p>
                                             @endif
                                         @else
-                                            @if ($detail['is_correct'])
-                                                <div class="d-flex align-items-center gap-2 font-sm">
-                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
-                                                        alt="Success">
-                                                    <p class="text-success m-0">{{ $detail['user_answer'] }}</p>
-                                                </div>
-                                            @else
-                                                <div class="d-flex align-items-center gap-2 mb-2 font-sm">
-                                                    <img src="{{ asset('public/icon/mockTests/error.svg') }}"
-                                                        alt="Error">
-                                                    <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
-                                                </div>
+                                            <div class="d-flex align-items-center gap-2 mb-2 font-sm">
+                                                <img src="{{ asset('public/icon/mockTests/error.svg') }}" alt="Error">
+                                                <p class="text-danger m-0">{{ $detail['user_answer'] }}</p>
+                                            </div>
 
-                                                <div class="d-flex align-items-center gap-2 font-sm">
-                                                    <img src="{{ asset('public/icon/mockTests/success.svg') }}"
-                                                        alt="Success">
-                                                    <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
-                                                </div>
+                                            <div class="d-flex align-items-center gap-2 font-sm">
+                                                <img src="{{ asset('public/icon/mockTests/success.svg') }}" alt="Success">
+                                                <p class="text-success m-0">{{ $detail['correct_answer'] }}</p>
+                                            </div>
+                                            @if ($detail['vietnamese_correct_answer'])
+                                                <p class="font-very-sm-italic">Dịch:
+                                                    {{ $detail['vietnamese_correct_answer'] }}
+                                                </p>
+                                            @endif
+                                            @if ($detail['pronunciation_suggest_answer'])
+                                                <p class="font-sm"><strong>Phát âm dễ nhớ: </strong>
+                                                    {{ $detail['pronunciation_suggest_answer'] }}
+                                                </p>
                                             @endif
                                         @endif
                                     </div>
